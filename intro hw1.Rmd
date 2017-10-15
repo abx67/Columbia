@@ -1,0 +1,151 @@
+---
+title: 'Homework #1'
+author: "Fan Yang (fy2232)"
+date: "September 26, 2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Part 1: Loading and Cleaning the Data in R
+i.
+
+```{r}
+setwd("D:/Subject Materials/Columbia/STAT COMP & INTRO TO DATA SCI/HW")
+housing <- read.csv('properties.csv')
+```
+
+ii.
+
+```{r}
+ncol(housing)
+nrow(housing)
+```
+
+iii.
+```{r}
+apply(is.na(housing), 2, sum)
+```
+
+This command gives a table of the NA values in each column.
+
+iv.
+```{r}
+vec <- which(housing$assessed_value!=0)
+housing <- housing[vec,]
+```
+
+v.
+```{r}
+16319-nrow(housing)
+```
+
+vi.
+
+```{r}
+logValue <- c()
+logValue <- log(housing$assessed_value)
+housing <- cbind(housing, logValue)
+min(logValue)
+median(logValue)
+mean(logValue)
+max(logValue)
+```
+
+vii.
+
+```{r}
+logUnits <- log(housing$res_units)
+housing <- cbind(housing, logUnits)
+```
+
+viii.
+
+```{r}
+housing <- cbind(housing, after2000 = housing$year_built>=2000)
+```
+
+Part 2: EDA
+
+i.
+
+```{r}
+plot(housing$logUnits,housing$logValue,xlab="logUnits",ylab="logValue",cex=0.5)
+```
+
+ii.
+
+```{r}
+plot(housing$logUnits,housing$logValue,
+     col = factor(housing$after2000),
+     xlab="logUnits",ylab="logValue",cex=0.5)
+cov(housing$logUnits,housing$logValue,use="pairwise.complete.obs")
+```
+
+The variation between the two variables is 1.504415. 
+In the plot we can see that the red points are almost above the black points at the same x.
+Which tells us that the value of housing built after 2000 is greater than that before 2000.
+And with the units in the property increase, the value also increase.
+
+iii.
+  (i)the whole data,
+```{r}
+cor(housing$logUnits,housing$logValue,use="pairwise.complete.obs")
+```
+  (ii) just Manhattan
+```{r}
+cor(housing$logUnits[housing$boro_name=='Manhattan'],
+    housing$logValue[housing$boro_name=='Manhattan'],
+    use="pairwise.complete.obs")
+```
+  (iii) just Brooklyn
+```{r}
+cor(housing$logUnits[housing$boro_name=='Brooklyn'],
+    housing$logValue[housing$boro_name=='Brooklyn'],
+    use="pairwise.complete.obs")
+```
+  (iv) for properties built after 2000
+```{r}
+cor(housing$logUnits[housing$after2000],
+    housing$logValue[housing$after2000],
+    use="pairwise.complete.obs")
+```
+  (v) for properties built before 2000
+```{r}
+cor(housing$logUnits[housing$year_built<2000],
+    housing$logValue[housing$year_built<2000],
+    use="pairwise.complete.obs")
+```  
+
+iv.
+```{r}
+plot(range(housing$logUnits, na.rm = TRUE),
+     range(housing$logValue, na.rm = TRUE),
+     xlab= "logUnits", ylab = "logValue",type='n')
+
+lines(housing$logUnits[housing$boro_name=='Manhattan'],
+      housing$logValue[housing$boro_name=='Manhattan'],
+      type='p',col="blue",cex=0.5)
+lines(housing$logUnits[housing$boro_name=='Brooklyn'],
+      housing$logValue[housing$boro_name=='Brooklyn'],
+      type='p',col="red",cex=0.5)
+legend("topleft",c("Manhattan","Brooklyn"),col=c("blue","red"),pch=1)
+```
+
+v.
+```{r}
+med.value <- median(housing$assessed_value[housing$boro_name=='Manhattan'], na.rm = TRUE)
+```
+
+vi.
+```{r}
+boxplot(housing$logValue ~ housing$boro_name, 
+        ylab = "logValue", xlab = "boroughs")
+```
+
+vi.
+```{r}
+tapply(housing$assessed_value,housing$boro_name,median)
+```
+
+  

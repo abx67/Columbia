@@ -1,0 +1,83 @@
+---
+title: 'Homework #2'
+author: "Fan Yang (fy2232)"
+date: "November 14, 2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+i.
+```{r}
+schedual <- readLines("NetsSchedule.html", warn = FALSE)
+length(schedual)
+sum(nchar(schedual))
+max(nchar(schedual))
+```
+a. There are 828 lines.
+b. Total number of characters is 129188.
+c. The maximum number of characters is 9736.
+
+ii.
+
+They playing with Indiana first at 7:00 PM, Wed, Oct 18.
+They playing with Boston last at 8:00 PM, Wed, Apr 11.
+
+iii.
+The $321^{st}$ line in the file holds information about the first game of the regular season.
+The $402^{st}$ line in the file provides the date, time, and opponent for the final game.
+
+iv.
+```{r}
+regdate <- ">[A-Z].{2},.*[0-9]<"
+length(grep(regdate, schedual))
+grep(regdate, schedual)
+```
+
+v.
+```{r}
+rdate       <- regexpr(regdate, schedual)
+date <- regmatches(schedual, rdate)
+date <- substring(date, 2, nchar(date) - 1)
+head(date)
+```
+
+vi.
+
+```{r}
+regtime <- "<td>[0-9].*M</td>"
+rtime       <- regexpr(regtime, schedual)
+time <- regmatches(schedual, rtime)
+time <- substring(time, 5, nchar(time) - 5)
+head(time)
+```
+
+vii.
+
+```{r}
+reghome <- "<li\\sclass=\"game-status\">."
+rhome      <- regexpr(reghome, schedual)
+home <- regmatches(schedual, rhome)
+home <- gsub("<li\\sclass=\"game-status\">@","1",home)
+home <- gsub("<li\\sclass=\"game-status\">v","0",home)
+home <- as.numeric(home)
+sum(home)
+```
+
+viii.
+
+```{r}
+regopponent <- "class=\"team-name\">.*>[A-Z]"
+ropponent      <- regexpr(regopponent, schedual)
+opponent <- regmatches(schedual, ropponent)
+opponent <- gsub("class.*[a-z]/","",opponent)
+opponent <- gsub("\">.*","",opponent)
+head(opponent,10)
+```
+ix.
+
+```{r}
+nets <- data.frame(date,time,opponent,home)
+head(nets,10)
+```
+The results match the first 10 games as website.
