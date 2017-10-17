@@ -1,0 +1,81 @@
+---
+title: "Lab 5 Solutions"
+author: "Fan Yang (fy2232)"
+date: "October 20, 2017"
+output: pdf_document
+---
+
+
+```{r, echo = FALSE}
+set.seed(1) # Please don't remove this code!
+```
+
+# Instructions 
+Before you leave lab today make sure that you upload a .pdf file to the canvas page (this should have a .pdf extension). This should be the PDF output after you have knitted the file, we don't need the .Rmd file (don't upload the one with the .Rmd extension).  The file you upload to the Canvas page should be updated with commands you provide to answer each of the questions below.  You can edit this file directly to produce your final solutions.  Note, however, in the file you upload you should the above header to have the date, your name, and your UNI.  Similarly, when you save the file you should replace **UNI** with your actualy UNI.
+
+# Background
+
+In this lab we look at dataset containing information on the world's richest people from the World Top Incomes Database (WTID) hosted by the Paris School of Economics [http://wid.world]. This is derived from income tax reports, and compiles information about the very highest incomes in various countries over time, trying as hard as possible to produce numbers that are comparable across time and space.
+For most countries in most time periods, the upper end of the income distribution roughly follows a Pareto distribution, with probability density function
+
+\[f(x) = \frac{(a-1)}{x_{min}}\left(\frac{x}{x_{min}}\right)^{-a}\]
+
+for incomes $X \geq x_{min}$.  (Typically, $x_{min}$ is large enough that only the richest 3\%-4\% of the population falls above it.) As the *Pareto exponent*, $a$, gets smaller, the distribution of income becomes more unequal, that is, more of the population's total income is concentrated among the very richest people.
+
+The proportion of people whose income is at least $x_{min}$ and whose income is also at or above any level $w \geq x_{min}$ is thus
+
+\[\textbf{Pr}(X \geq w) = \int_{w}^{\infty} f(x)dx = \int_{w}^{\infty} \frac{(a-1)}{x_{min}}\left(\frac{x}{x_{min}}\right)^{-a} dx = \left(\frac{w}{x_{min}}\right)^{-a+1}.\]
+
+We will use this to estimate how income inequality changed in the US over the last hundred
+years or so. (Whether the trends are good or bad or a mix is beyond our scope here.) WTID exports its data sets as `.xlsx` spreadsheets. For this lab session, we have extracted the relevant data and saved it as `wtid-report.csv`.
+
+# Part 1
+
+1. Open the file and make a new dataframe containing only the year, the "P99", "P99.5" and "P99.9" variables; these are the income levels which put someone at the 99th, 99.5th, and 99.9th, percentile of income. Rename the columns of your new dataframe as `Year`, `P99`, `P99.5`, `P99.9`.  What was P99 in 1993? P99.5 in 1942?
+You must identify these using your code rather than looking up the values manually.
+```{r}
+wtid <- read.csv("wtid-report.csv", header = TRUE)
+wtid <- data.frame(year=wtid$Year,P99=wtid$P99.income.threshold,
+                   P99.5=wtid$P99.5.income.threshold,
+                   P99.9=wtid$P99.9.income.threshold)
+wtid$P99[wtid$year==1993]
+wtid$P99.5[wtid$year==1942]
+```
+
+2. Plot the three percentile levels against time using `ggplot`. Make sure the axes are labeled appropriately, and in particular that the horizontal axis is labeled with years between 1913 and 2012, not just numbers from 1 to 100. Remember `library(ggplot2)`.  In my plot I used multiple layers of `geom_line` and didn't include a lengend (but plotted the years in different colors).
+```{r}
+library(ggplot2)
+ggplot(data = wtid) +
+  geom_point(mapping = aes(x = year, y = P99), color = "purple") +
+  geom_smooth(mapping = aes(x = year, y = P99), color = "purple")+
+  geom_point(mapping = aes(x = year, y = P99.5), color = "red") +
+  geom_smooth(mapping = aes(x = year, y = P99.5), color = "red")+
+  geom_point(mapping = aes(x = year, y = P99.9), color = "blue") +
+  geom_smooth(mapping = aes(x = year, y = P99.9), color = "blue")+
+  labs(title = "percentile against time", x = "year", y = "percentile")
+```
+3. It can be shown from the earlier equations that one can estimate the exponent by the formula
+\begin{equation}
+a = 1 - \frac{\log 10}{\log \left(\frac{P99}{P99.9}\right)} \label{eq:1}
+\end{equation}
+Write a function, `exponent.est_ratio()` which takes in values for `P99` and `P99.9`, and returns the value of $a$ implied by \eqref{eq:1}. Check that if `P99=1e6` and `P99.9=1e7`, your function returns an $a$ of 2.
+```{r}
+exponent.est_ratio <- function(P99,P99.9){
+  return (1 - log(10)/log(P99/P99.9))
+}
+exponent.est_ratio(P99=1e6,P99.9=1e7)
+```
+4. Estimate $a$ for each year in the data set, using your `exponent.est_ratio()` function. If the function was written properly, you should not need to use a loop. Plot your estimate of $a$ over time using `ggplot`. Think about whether these results look reasonable. (Remember that smaller exponents mean more income inequality.)
+```{r}
+a=exponent.est_ratio(wtid$P99,wtid$P99.9)
+wtid2 <- cbind(wtid, a)
+ggplot(data = wtid2) +
+  geom_point(mapping = aes(x = year, y = a)) +
+  geom_smooth(mapping = aes(x = year, y = a))
+```
+These results look reasonable.During the year1950-1975 there are more extrem wealthy people. While after that period, all countries began to distribute wealth equally which leads to a smaller exponent.
+
+(Note: the formula in \eqref{eq:1} is not the best way to estimate $a$, but it is one of the simplest.)
+
+
+
