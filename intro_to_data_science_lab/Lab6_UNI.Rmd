@@ -1,0 +1,118 @@
+---
+title: "Lab 6"
+author: "Fan Yang, fy2232"
+date: "November 14, 2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r, echo = FALSE}
+set.seed(1) # Please don't remove this code!
+```
+
+# Instructions 
+Before you leave lab today make sure that you upload a .pdf file to the canvas page (this should have a .pdf extension). This should be the PDF output after you have knitted the file, we don't need the .Rmd file (don't upload the one with the .Rmd extension).  The file you upload to the Canvas page should be updated with commands you provide to answer each of the questions below.  You can edit this file directly to produce your final solutions.  Note, however, in the file you upload you should the above header to have the date, your name, and your UNI.  Similarly, when you save the file you should replace **UNI** with your actualy UNI.
+
+# Background
+
+In today's lab we will use the Beta distribution to explore the probability of reaching a base safely in baseball.  The Beta is a random variable bounded between 0 and 1 and often used to model the distribution of proportions. The probability distribution function for the Beta with parameters $\alpha$ and $\beta$ is 
+
+\[ p(x|\alpha, \beta) = \frac{\Gamma (\alpha + \beta)}{\Gamma (\alpha) + \Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta - 1} \]
+
+where $\Gamma()$ is the Gamma function, the generalized version of the factorial. Thankfully, for this assignment, you need not know what the Gamma function is; you need only know that the mean of a Beta is $\frac{\alpha}{\alpha + \beta}$ and its variance is $\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}$.
+
+For this assignment you will test the fit of the Beta distribution to the on-base percentages (OBPs) of hitters in the 2014 Major League Baseball season; each plate appearance (PA) results in the batter reaching base or not, and this measure is the fraction of successful attempts. This set has been pre-processed to remove those players with an insufficient number of opportunities for success.
+
+# Part 1
+
+1. Load the file `baseball.csv` into a variable of your choice in R. How many players have been included? What is the minimum number of plate appearances required to appear on this list? Who had the most plate appearances? What are the minimum, maximum, and mean OBP?
+```{r}
+baseball <- read.csv("baseball.csv", header = T)
+nrow(baseball)
+min(baseball$PA)
+baseball$Name[which.max(baseball$PA)]
+range(baseball$OBP)
+mean(baseball$OBP)
+```
+There are 441 players included. The minimum number of plate appearances is 103.
+Ian Kinsler had the most plate appearances. Minimum OBP is 0.168 and maximum is 0.432 and mean is 0.3119184
+
+2. Plot the `OBP` data as a histogram with the aesthetic `y = ..density..`. Add a vertical line for the mean of the distribution. Does the mean coincide with the mode of the distribution?
+```{r}
+library(ggplot2)
+ggplot(baseball) +
+  geom_histogram(aes(x = OBP, y = ..density..)) +
+  geom_density(aes(x = OBP)) +
+  geom_vline(xintercept = mean(baseball$OBP))
+
+```
+The mean nearly coincide with the mode of the distribution.
+
+3. Eyeball Fit.  Now add a Beta density function to the previous plot using `stat_function()` and the density function `dbeta()`. Let `this.mean` be a variable assigned to be the mean of the `OBP` variable.  Pick parameters $\alpha = 100*this.mean$ and $\beta = 100 - \alpha$.
+```{r}
+this.mean <- mean(baseball$OBP)
+beta_args <- list(shape1 = 100*this.mean, shape2 = 100 - 100*this.mean)
+ggplot(baseball) +
+  geom_histogram(aes(x = OBP, y = ..density..)) +
+  geom_density(aes(x = OBP), linetype = "dashed") +
+  geom_vline(xintercept = mean(baseball$OBP)) + 
+  stat_function(aes(x = OBP), fun = dbeta, args = beta_args, color = "red")
+```
+
+
+# Part 2
+
+(Note that at this point in the semester, Part 1 should be easy.  There are problems if you are unable to do basic exploratory data analysis and plotting.)
+
+4. Method of moments fit. Using the values for the mean $\mu = \frac{\alpha}{\alpha + \beta}$ and variance $\sigma^2 = \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}$, solve for $\alpha$ and $\beta$ (as functions of the mean and variance).  Use these to find the Methods of Moments estimates.  With the new estimates, create a new density histogram and add this Method of Moments fit to the plot. How does it agree with the data?
+```{r}
+beta.MMest <- function(data) {
+  #estimates \hat{\alpha} and \hat{\beta} that best fit the data
+  m <- mean(data)
+  v <- var(data)
+  alpha <- m/v*(m*(1-m)-v)
+  beta <- (1-m)/v*(m*(1-m)-v)
+  return(c(alpha, beta))
+}
+OBP.MM   <- beta.MMest(baseball$OBP)
+beta_args <- list(shape1 = OBP.MM[1], shape2 = OBP.MM[2])
+ggplot(baseball) +
+  geom_histogram(aes(x = OBP, y = ..density..)) +
+  geom_density(aes(x = OBP), linetype = "dashed") +
+  stat_function(aes(x = OBP), fun = dbeta, args = beta_args, color = "red")
+```
+The new plot fits the data well.
+
+Hint: Solving for $\alpha$ and $\beta$ you should find
+\[\alpha = \frac{\mu}{\sigma^2}\left[\mu(1-\mu) - \sigma^2\right], \quad \text{ and } \quad \beta = \frac{1-\mu}{\sigma^2}\left[\mu(1-\mu) - \sigma^2\right].\]
+How? Solve the mean equation for $\beta$ and then plug this value of $\beta$ into the variance equation.
+
+5. Calibration. Find the 99 percentiles of the actual distribution of the data using the `quantile()` function using `quantile(bb$OBP, probs = seq(1, 99)/100)` and plot them against the 99 percentiles of the beta distribution you just fit using `qbeta()`. How does the fit appear to you?
+```{r}
+quantile(baseball$OBP, probs = seq(1, 99)/100)
+a <- beta_args$shape1
+b <- beta_args$shape2
+qqplot(baseball$OBP, qbeta((1:99)/100, shape1 = a, shape2 = b),
+       ylab = "Theoretical Quantiles")
+abline(0, 1, col = "red")
+```
+This fits well to the beta distribution.
+
+6. Optional if you have time -- MLE fit. Create a function that calculates the (negative) log-likelihood of the distribution.  Hint: Calculate this value with code like `-sum(dbeta(your.data.here, your.alpha, your.beta, log = TRUE))`.  The function should have argument `params = c(your.alpha, your.beta)`. Find the minimum of the negative of the log-likelihood using the optimization function `nlm()`. Take the Method of Moments fit for your starting position. How do these values compare?
+```{r}
+neg.beta.ll <- function(params, data) {
+a <- params[1]
+b <- params[2]
+return(-sum(dbeta(data, shape1 = a, shape2 = b, log = TRUE)))
+}
+beta_args
+a <- beta_args$shape1
+b <- beta_args$shape2
+nlm(neg.beta.ll, c(a,b), data = baseball$OBP)$minimum
+nlm(neg.beta.ll, c(a,b), data = baseball$OBP)$estimate
+```
+These two pairs of estimators are very close.
+
+

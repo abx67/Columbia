@@ -1,0 +1,405 @@
+---
+title: "Midterm V2"
+author: "Fan Yang (fy2232) "
+date: "Section 03#"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Instructions (Read this completely first)
+
+You should complete the exam by editting this file directly.  Please knit the file often, so that if you make a mistake you catch it before the end of the exam.  You will have exactly 1.5 hours (90 minutes) from your start time to complete the exam.  **At the end you must turn in your knitted .pdf file and raw .Rmd file on Courseworks.**
+
+**When the time is up, you must shut your computer immediately.**  We will take off points from anyone whose computer is still open after time is up.
+
+**You may use your class notes for the exam, but not the internet.  You absolutely may not communicate with anyone else during the exam.  Doing so will result in an F in this class and likely result in termination from the MA program.**  Note that your time will be tight so you will not be able to look up every bit of code from your class notes.
+
+\newpage
+
+# Question 0 (5 points)
+
+a. (0.5 points) Place your section number as the date of the document.  If you don't know your section number, you can determine it below based on when your lab meets.
+
+* Section 002 Lab meets TR 7:40pm-8:55pm
+* Section 003 Lab meets TR 11:40am-12:55pm
+* Section 004 Lab meets MW 8:40am-9:55am
+* Section 005 Lab meets TR 8:40am-9:55am
+
+b. (0.5 points) Write your name and UNI as the author of the document.
+
+c. (1 point) After you have submitted the exam, fill out the survey on Courseworks. You have until tomorrow evening to do this and in the survey you will have the opportunity to tell me if you see classmates in your vacinity communicating with others during the exam.
+
+d. (3 points) Please present your answers in a readable format.  This includes things like indenting your code and generally presenting easy-to-read code.  Presentation of the overall Markdown document will be considered as well.
+
+<!--  Do not edit any of the following code.  Your edits begin where Question 1 begins. -->
+
+```{r, echo = FALSE}
+board = list(
+  R1 = 8,  # center to double bullseye ring
+  R2 = 18,  # center to single bullseye ring
+  R3 = 120,    # center to inner triple ring
+  R4 = 140,   # center to outer triple ring
+  R5 = 190,   # center to inner double ring
+  R = 210,    # center to outer double ring
+  nums = c(20,1,18,4,13,6,10,15,2,17,3,19,
+           7,16,8,11,14,9,12,5)) # numbers in order
+
+drawBoard = function(board) {
+  R1 = board$R1; R2 = board$R2; R3 = board$R3; R4 = board$R4; 
+  R5 = board$R5; R = board$R; nums = board$nums
+  
+  mar.orig = par()$mar
+  par(mar = c(0, 0, 0, 0))
+  plot(c(), c(), axes = FALSE, xlim = c(-R - 15, R + 15), ylim = c(-R - 15, R + 15))
+  t = seq(0, 2 * pi, length = 5000)
+  x = cos(t); y = sin(t)
+  points(R * x, R * y, type = "l")
+  points(R5 * x, R5 * y, type = "l")
+  points(R4 * x, R4 * y, type = "l")
+  points(R3 * x, R3 * y, type = "l")
+  points(R2 * x, R2 * y, type = "l")
+  points(R1 * x, R1 * y, type = "l")
+  t0 = pi/2 + 2 * pi/40
+  points(c(R2 * cos(t0), R * cos(t0)), c(R2 * sin(t0), R * sin(t0)), type = "l")
+  for (i in 1:19) {
+    t1 = t0 - i * 2 * pi/20
+    points(c(R2 * cos(t1), R * cos(t1)), c(R2 * sin(t1), R * sin(t1)), type = "l")
+  }
+  r = R + 10
+  for (i in 1:20) {
+    t1 = pi/2 - (i - 1) * 2 * pi/20
+    text(r * cos(t1), r * sin(t1), nums[i])
+  }
+  par(mar=mar.orig)
+  invisible()
+}
+
+scorePositions = function(x, y, board) {
+  R1 = board$R1; R2 = board$R2; R3 = board$R3; R4 = board$R4
+  R5 = board$R5; R = board$R; nums = board$nums
+  
+  n = length(x)
+  rad = sqrt(x^2 + y^2)
+  raw.angles = atan2(x,y)
+  slice = 2*pi/20
+  tilted.angles = (raw.angles + slice/2) %% (2*pi)
+  scores = nums[floor(tilted.angles/slice) + 1]
+  
+  scores[rad <= R1] = 50
+  scores[R1 < rad & rad <= R2] = 25
+  scores[R3 < rad & rad <= R4] = 3*scores[R3 < rad & rad <= R4]
+  scores[R5 < rad & rad <= R] = 2*scores[R5 < rad & rad <= R]
+  scores[R < rad] = 0
+  return(scores)
+}
+```
+
+\newpage
+
+
+# Question 1: Simulations (32 points)
+
+Recall from class that we simulated dart throws using the `drawBoard()` and `scorePositions()` functions included in this document above.  For example, the following code simulates 100 throws where the x and y positions of the throws are modeled by $\mathcal{N}(0, 100^2)$ where the standard deviation is 100mm.  We then draw the dart board with the `drawBoard()` function, score the throws with the `scorePositions()` function, and plot the locations of the simulated throws and the score of each throw.  Note the dimensions of your dart board are a bit different than those used in class.
+
+```{r}
+set.seed(1)
+
+throws  <- 100 
+std.dev <- 100
+
+x <- rnorm(throws, sd = std.dev)
+y <- rnorm(throws, sd = std.dev)
+
+drawBoard(board)
+scores <- scorePositions(x, y, board)
+
+points(x, y, pch = 20, col = "red")
+text(x, y + 8, scores, cex = .75)
+```
+
+a. (4 points) Write code that simulates 500 throws where x and y are modeled as Uniform(-R,R), where $R = 210$.  Make sure to draw the dart board, plot the location of the throws, and the scores of the throws as in the above. Save the simulated values as `x1a` and `y1a`, as they will be used in question 1.d below.  Also compute two values `prop.normal` and `prop.unif` which return the proporation of throws from the model in the description and in this question which miss the board (i.e. the score is zero).  Print `prop.normal` and `prop.unif`.
+
+```{r}
+set.seed(1)
+
+# Your answer to question 1.a here.  Don't remove the set.seed(1) command.
+R = 210
+throws  <- 500 
+
+x1a <- runif(throws, -R, R)
+y1a <- runif(throws, -R, R)
+
+drawBoard(board)
+scores1a <- scorePositions(x1a, y1a, board)
+
+points(x1a, y1a, pch = 20, col = "red")
+text(x1a, y1a + 8, scores1a, cex = .75)
+
+prop.normal <- sum(scores==0)/length(scores)
+prop.unif <- sum(scores1a==0)/length(scores1a)
+prop.normal
+prop.unif
+
+```
+
+b. (10 points) We have now simulated throws using to both a normal and uniform model, but it turns out that the normal model is too pessimistic compared to the uniform model: the normal model can produce throws far from the center, but uniform model is restricted to [-R,R] in each direction.
+
+Fix this by restricting normal model so each sampled coordinate lies in [-R,R].  To do this, we will sample from a normal distribution, but if the draw lies outside of [-R,R], then toss it out.  
+
+Write a function `rnorm.reject()` that takes in the following five arguments:
+
+1. `n`, `mean`, `sd` (just as `rnorm()` does)
+
+2. `min.val`, `max.val` (upper and lower limits -R and R)
+
+The function should return a sample of length `n` which is generated by iteratively sampling $\mathcal{N}(\mu, \sigma^2)$ random variables, where $\mu$ is specified by the input `mean` and $\sigma$ by `sd`, but only accepting those draws that fall above `min.val` and below `max.val`.  Note that you don't want to sample any random variables unneccessarily, so the code should include a loop that terminates as soon as you have a sample of length `n`.
+
+Note we will use this function to, in turn, generate the x and y simulated throw locations below.
+
+```{r}
+# Your answer to question 1.b here.
+rnorm.reject <- function(n, mean, sd, min.val, max.val){
+  if(n==0){return(0)}
+  samp <- c()
+  while(length(samp)<n){
+    x <- rnorm(1, mean, sd)
+    if(x>min.val & x<max.val){
+      samp=c(samp,x)
+    }
+  }
+  return(samp)
+}
+```
+
+c. (5 points) Write code that simulates 500 throws where x and y are found using your function `rnorm.reject()` where the `mean` equals 0 and `sd` matches that used in the example (i.e.\ `sd` is 100).  The input `min.val` and `max.val` should be R and -R from 1.a.  Save these values as x1c and y1c to plot in question 1.d below.  Finally find the proportion of these throws for which the x location is between 0 and 50.  Return this value as `prop.x` and print the result.
+If you cannot complete 1.b write the code as if the `rnorm.reject()` function exists.  Of course, since it doesn't you will have to comment out this code.  Otherwise you will have problem knitting your file.
+
+
+```{r}
+set.seed(2)
+
+# Your answer to question 1.c here.  Don't remove the set.seed(2) command.
+x1c <- rnorm.reject(n=500,mean=0,sd=100,-R,R)
+y1c <- rnorm.reject(n=500,mean=0,sd=100,-R,R)
+
+prop.x <- sum(x1c>=0 & x1c <=50)/length(x1c)
+prop.x
+```
+
+d. (3 points) Draw the dart board, plot the location of the throws, and the scores of the throws from questions 1.a and 1.c.  The throws from 1.a should be colored blue and the throws from 1.c should be colored red.
+
+```{r}
+# Your answer to question 1.d here.
+drawBoard(board)
+scores1a <- scorePositions(x1a, y1a, board)
+scores1c <- scorePositions(x1c, y1c, board)
+points(x1a, y1a, pch = 20, col = "blue")
+points(x1c, y1c, pch = 20, col = "red")
+text(x1a, y1a + 8, scores1a, cex = .75)
+text(x1c, y1c + 8, scores1c, cex = .75)
+```
+
+
+e. (10 points) For each of the standard deviation (`sd`) values $10, 20, \ldots, 200$ (using increments of 10), simulate $1000$ throws using the thresholded normal model, i.e.\ x and y are both generated using `rnorm.reject()` with `mean` equal to 0 and `min.val` and `max.val` equal to R and -R from 1.a.  For each value of sd, compute the proportion of throws landing outside of the board (in other words, the proportion of throws equal to 0,) and save it in a vector called `prop.score`.  Print the first four values of `prop.score`.  (If you are unable to write an `rnorm.reject()` function in 1.c, then simply simulate from normals as in the question introduction.)  Plot these values using `ggplot` with standard deviation on the x-axis and `prop.score` on the y-axis.
+
+```{r}
+set.seed(3)
+
+# Your answer to question 1.e here.  Don't remove the set.seed(3) command.
+library(ggplot2)
+sd <- c(1:20)*10
+prop.score <- c()
+for (i in 1:length(sd)){
+  x1e <- rnorm.reject(n=1000,mean=0,sd[i],-R,R)
+  y1e <- rnorm.reject(n=1000,mean=0,sd[i],-R,R)
+  scores1e <- scorePositions(x1e, y1e, board)
+  prop.score[i] <- sum(scores1e==0)/length(x1e)
+}
+head(prop.score,4)
+
+ggplot() +
+  geom_point(mapping = aes(x=sd, y=prop.score)) + 
+  geom_smooth(mapping = aes(x=sd, y=prop.score))
+```
+
+\newpage
+
+# Question 2: Character Data (32 points)
+
+The file `rich.html` on the Canvas page is a listing of the 100 richest people in America, according to Forbes magazine (from 2013), which I scraped from `Forbes.com`. We will use the file to practice working with character data.  The file `rich_dataframe.txt` is formatted version of the data in the `.html` file.  
+
+a. (2 points) Please load `rich.html` onto your computer using `readLines()` and save it as `rich`.  Load `rich_dataframe.txt` so that it's a data frame in `R` and save it as `rich_df`.
+
+```{r}
+# Your answer to question 2.a here.
+rich <- readLines("rich.html")
+rich_df <- read.table("rich_dataframe.txt", header = TRUE, as.is = TRUE)
+```
+
+b. (10 points) Your task is to extract the net worths of people listed in `rich`.  The lines that contain the net worths look like the following:
+
+`"\t\t<td class=\"worth\">$##,# B</td>"`
+
+except with the \# values are replaced by digits.  For example, the first two lines which hold Bill Gates' and Warren Buffet's net worth are
+
+`"\t\t<td class=\"worth\">$72 B</td>"`
+`"\t\t<td class=\"worth\">$58,5 B</td>"`
+
+You can find the location of these lines by running the following command:
+
+`WorthLines <- grep("td class=\"worth\"", rich)`
+
+Note that the length of `WorthLines` should be 100.  Your first step is to create a vector called `networths` that holds the values of net worths recorded in `rich`, in the same format as they appear in the data, meaning the first two values of your vector should be `$72 B` and `$58,5 B` and it should be of length 100.  At the end, print the first five elements of `networths`.
+
+```{r}
+# Your answer to question 2.b here.
+WorthLines <- grep("td class=\"worth\"", rich)
+rich2 <- rich[WorthLines]
+richexpr <- ">$[0:9].*B<"
+rworth <- regexpr(richexpr, rich2)
+worth <- regmatches(rich2, rworth)
+#date <- substring(date, 2, nchar(date) - 1)
+##############
+```
+
+c. (10 points) The Forbes website writes net worths in the form ``$75,5 B" to mean $75,500,000,000$ dollars or 75.5 billion dollars. 
+
+Write code to convert from the Forbes format in your `networths` vector to numbers (in billions), and run it to create a numeric vector of net worths, called `networths2`.  (If you are unable to create a `networths` vector in question 2.b, use the column `Networths` in `rich_df` as your starting point for this question.) The first two values of your vector should be the numbers 72 and 58.5 and the vector should be of length 100.  At the end, print the frist five values of the `networths2` vector.
+
+```{r}
+# Your answer to question 2.c here.
+networths <- rich_df$Networths
+temp <- gsub("\\$|\\,|B", "",networths)
+networths2 <- as.numeric(temp)
+head(networths2,5)
+```
+
+d. (6 points) Using `ggplot2`  and `rich_df` create a scatterplot with
+\begin{itemize}
+\item billionaire age on the x-axis and billionaire worth on the y-axis.
+\item points colored according to whether or not the billionaire's industry is technology (this information is stored as an indicator variable in the date with 1 equaling `TRUE`).
+\item labels for the x-axis (`Age'), the y-axis (`Net Worth'), and the title (`Richest People Net Worth vs Age').
+\end{itemize}
+(There is an NA in the Age data, but `ggplot()` will take care of this.)
+
+```{r}
+# Your answer to question 2.d here.
+ggplot(data = rich_df) +
+  geom_point(mapping = aes(x=Age, y=Worth, color = TechnologyIndicator)) + 
+  labs(title = "Richest People Net Worth vs Age", x = "Age", y = "Net Worth")
+```
+
+e. (4 points) Consider the following block of code:
+\begin{verbatim}
+total <- 0
+count <- 0
+n     <- nrow(rich_df)
+for (i in 1:n) {
+  if (rich_df$TechnologyIndicator[i] == 1) {
+    total <- total + rich_df$Worth[i]
+    count <- count + 1
+  }
+}
+reported.val <- total/count
+\end{verbatim}
+Write a single line of code that provides the same `reported.val`.
+
+```{r}
+# Your answer to question 2.e here.
+reported.val <- mean(rich_df$Worth[rich_df$TechnologyIndicator==1])
+```
+
+\newpage
+
+
+# Question 3: Cross-Validation (31 points)
+
+Recall from class that we studied the idea that bigger cities tend to produce more economically per capita using the gross metropolitan product (gmp) data, `gmp.txt`.  We studied a statistical model for this relationship:
+\[ Y = \beta_0 X^{\beta_1} + \epsilon,\]
+where Y is the per-capita gmp of a city, X is the is the population of the city, $\beta_0, \beta_1$ are parameters, and $\epsilon$ is noise.  Suppose we are considering three other potential models for this data given below.
+
+* Model A (the same as above): \[ Y = \beta_0 X^{\beta_1} + \epsilon,\]
+* Model B (exponential relationship): \[ Y = \beta_0 \exp(\beta_1 X) + \epsilon,\] 
+* Model C (linear relationship): \[ Y = \beta_0 + \beta_1 X + \epsilon,\]
+* Model D (sinusoidal relationship): \[ Y = \beta_0 \sin(\beta_1X) + \epsilon.\] 
+
+The specific form of these models doesn't matter as you won't use them directly.
+
+We plan to choose a model to use by estimating the test mean square error of each model by using 3-fold cross-valiation.  Roughly the procedure is as follows, we divide the data into 3 groups, or folds.  For each of models A - D in turn, we train the model (optimizing over $\beta_0$ and $\beta_1$) three times, where each time it is trained on two of the folds, leaving out one of the folds as validation data.  Then for the three trained models, we estimate the test error using the validation data, since it was not used to train the model.
+
+Our focus will be on Model A throughout the question, the other models are jsut there to pose concrete examples of other models to consider.
+
+a. (3 points) Please load `gmp.txt` onto your computer save it as `gmp`.  Create a new column in the dataframe called `pop` that is created by dividing the `gmp` column by the `pcgmp` column.  Print the first three rows of `gmp`.
+
+```{r}
+# Your answer to question 3.a here.
+gmp <- read.table("gmp.txt", header = TRUE, as.is = TRUE)
+pop <- gmp$gmp/gmp$pcgmp
+gmp <- cbind(gmp,pop)
+gmp[1:3,]
+```
+
+b. (7 points) In class, we estimated values of the parameters $\beta_0$ and $\beta_1$ in Model A by minimizing the training MSE of the data, i.e.\ by minimizing
+\[\frac{1}{n} \sum_{i=1}^n (Y_i - \beta_0 X_i^{\beta_1})^2\]
+over all $\beta_0, \beta_1$ where $n$ is the number of data points.  Write a function `mse.calc()` that takes as input a dataframe `x` (assumed to have columns titled `gmp` and `pop`) and two estimates `b0` and `b1`.  The function should return the training mean square error of the data using the estimated values `b0` and `b1` of $\beta_0$ and $\beta_1$, respectively.
+
+Test it on the `gmp` data with the values $\beta_0 = 6500$ and $\beta_1 = 0.12$ and show the output.
+
+```{r}
+# Your answer to question 3.b here.
+mse.calc <- function(x,b0,b1){
+  temp <-mean((x$gmp-b0*(x$pop)^b1)^2)
+  return (temp)
+}
+mse.calc(gmp,6500,0.12)
+```
+
+c. (5 points) Notice the column `fold` in the `gmp` data frame.  It consists of the values 1, 2, and 3 indicating the randomly selected fold of that data point.  In other words, `fold` is a column with the values 1-3 each occurring 122 times (`gmp` has 366 rows and 366 divided by 3 is 122) in random order.  Create a vector `fold.vec` with a single line of code that could have produced this column in the data frame.  Print the first ten elements of `fold.vec`.
+
+```{r}
+set.seed(1)
+
+# Your answer to question 3.c here.  Do not remove the set.seed(1) command.
+fold.vec <- sample(rep(c(1,2,3),122),366,replace = FALSE)
+head(fold.vec,10)
+```
+
+d. (7 points) Now using cross validation, we'd like to produce an estimate of the test error for Model A.  Suppose we trained the model on folds 2 and 3, leaving out fold 1 as validation data, and received the following estimates of the parameters:  $\hat{\beta}_0 = 6600, \hat{\beta}_1 = 0.122$.  Using fold 1 like a test dataset (since it was not used to train this model), estimate the test error of Model A using your `mse.calc()` function from 3.a.  Note that the folds are determined by the `fold` column in the data.
+
+(If you are unable to write the `mse.calc()` function, write the code that solves this question as if the `mse.calc()` function exists.  Since it doesn't you will need to comment this code out so it doesn't try to run.)
+
+```{r}
+# Your answer to question 3.d here.
+test <- gmp[gmp$fold==1,]
+train <- gmp[gmp$fold!=1,]
+mse.calc(test,6600,0.122)
+```
+
+
+e. (7 points) Now suppose we have the following three estimates of $\beta_0$ and $\beta_1$ from our cross-validation procedure:
+
+* Validation Data is fold 1: $\hat{\beta}_0 = 6600, \hat{\beta}_1 = 0.122$
+* Validation Data is fold 2: $\hat{\beta}_0 = 6650, \hat{\beta}_1 = 0.129$
+* Validation Data is fold 3: $\hat{\beta}_0 = 6590, \hat{\beta}_1 = 0.125$
+
+Calculate the cross-validation estimate of the test error for Model A. Again, you will need to use your `mse.calc()` function from 3.a.
+
+(If you are unable to write the `mse.calc()` function, write the code that solves this question as if the `mse.calc()` function exists.  Since it doesn't you will need to comment this code out so it doesn't try to run.)
+
+```{r}
+# Your answer to question 3.e here.
+mse.calc(test,6600,0.122)
+mse.calc(test,6650,0.129)
+mse.calc(test,6590,0.125)
+```
+
+f. (2 points) Assume that you receive the following estimates of the test error for the four models using cross validation.  Which model do you select?
+
+* Model A: CV Error = 63,348,327
+* Model B: CV Error = 67,000,000
+* Model C: CV Error = 45,500,000
+* Model D: CV Error = 80,500,000
+
+Type your answer here: 
+Algoough Model C is smallest, we will choose Model A, because it is both small and take polynomial expression.

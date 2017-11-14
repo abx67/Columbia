@@ -1,0 +1,187 @@
+---
+title: "Homework #3"
+author: "Fan Yang (fy2232)"
+date: "October 24, 2017"
+output: pdf_document
+---
+
+
+# Part 1: Estimating a on US data
+Recall from the lab, we first get the data and function in lab.
+```{r}
+library(ggplot2)
+homework <- read.csv("wtid-homework.csv", header = TRUE)
+report <- read.csv("wtid-report.csv", header = TRUE)
+report <- data.frame(year=report$Year,P99=report$P99.income.threshold,
+                   P99.5=report$P99.5.income.threshold,
+                   P99.9=report$P99.9.income.threshold)
+exponent.est_ratio <- function(P99,P99.9){
+  return (1 - log(10)/log(P99/P99.9))
+}
+```
+
+i.
+```{r}
+lefthand.equ <- function(P99.5,P99.9,a){
+  return ((P99.5/P99.9)^(1-a))
+}
+a <- exponent.est_ratio(report$P99,report$P99.9)
+equ.value <- lefthand.equ(report$P99.5,report$P99.9,a)
+
+report2 <- cbind(report, equ.value)
+ggplot(data = report2) +
+  geom_point(mapping = aes(x = year, y = equ.value)) +
+  geom_smooth(mapping = aes(x = year, y = equ.value)) +
+  geom_abline(intercept = 5, slope = 0,col = "red")
+```
+Most of the points lay between 4.6 and 5.4. In spite of some deviation, this is a good fit.
+
+ii.
+```{r}
+lefthand.equ2 <- function(P99,P99.5,a){
+  return ((P99/P99.5)^(1-a))
+}
+a <- exponent.est_ratio(report$P99,report$P99.9)
+equ.value <- lefthand.equ2(report$P99,report$P99.5,a)
+
+report3 <- cbind(report, equ.value)
+ggplot(data = report3) +
+  geom_point(mapping = aes(x = year, y = equ.value)) +
+  geom_smooth(mapping = aes(x = year, y = equ.value)) +
+  geom_abline(intercept = 2, slope = 0,col = "red")
+```
+Compared with the previous fit, this one seems better. Most of the points lay between 1.8 and 2.2, which has a smaller deviation than the previous one.
+
+iii.
+```{r}
+percentile_ratio_discrepancies <- function(P99,P99.5,P99.9,a){
+  part1 = ((P99/P99.9)^(1-a) - 10) ^ 2
+  part2 = ((P99.5/P99.9)^(1-a) - 5) ^ 2
+  part3 = ((P99/P99.5)^(1-a) - 2) ^ 2
+  return (part1+part2+part3)
+}
+percentile_ratio_discrepancies(1e6,2e6,1e7,2)
+
+```
+
+iv.
+```{r}
+exponent.multi_ratios_est <- function(P99,P99.5,P99.9){
+  a <- 1 - log(10)/log(P99/P99.9)
+  f <- function(a,vector)
+    {percentile_ratio_discrepancies(vector[1],vector[2],vector[3],a)}
+  a <- 1 - log(10)/log(P99/P99.9)
+  vec <- c(P99,P99.5,P99.9)
+  return (nlm(f,a,vec)$estimate)
+}
+exponent.multi_ratios_est(1e6,2e6,1e7)
+
+```
+
+v.
+```{r}
+###PASS###########################
+exponent.every_ratios_est <- function(P99,P99.5,P99.9){
+  f <- function(vector)
+    {exponent.multi_ratios_est(vector[1],vector[2],vector[3])}
+  data <- as.matrix(cbind(P99,P99.5,P99.9))
+  a_estimate <- apply(data,1,f)
+  return (a_estimate)
+}
+a_estimate <- exponent.every_ratios_est(report$P99,report$P99.5,report$P99.9)
+report4 <- data.frame(report,a_estimate)
+ggplot(data = report4) +
+  geom_point(mapping = aes(x = year, y = a_estimate)) +
+  geom_smooth(mapping = aes(x = year, y = a_estimate))
+```
+
+vi.
+```{r}
+a <- exponent.est_ratio(report$P99,report$P99.9)
+datavi = data.frame(a,a_estimate)
+ggplot(data = datavi) +
+  geom_point(mapping = aes(x = a_estimate, y = a)) +
+  geom_smooth(mapping = aes(x = a_estimate, y = a))
+```
+
+The two estimates are very similar but not identical, which leads the conclusion that our estimates fit good.
+
+# Part 2: Data for Other Countries
+vii.
+```{r}
+homework <- na.omit(homework)
+a_country<-list()
+for (i in levels(homework$Country)){
+  temp=homework[homework$Country==i,]
+  a_country[[i]]=exponent.every_ratios_est(temp$P99,temp$P99.5,temp$P99.9)
+}
+
+```
+viii.
+```{r}
+##method 1
+# iter=1
+# g<-ggplot()
+# for (i in levels(homework$Country)){
+#   g<-g+ geom_point(mapping = aes(x = homework$Year[homework$Country==i] ,
+#                                  y = a_country[[i]]), col = iter) +
+#     geom_smooth(mapping = aes(x = homework$Year[homework$Country==i] ,
+#                                  y = a_country[[i]]), col = iter) +
+#     labs(title = i, x = "year", y = "estimate")
+#   iter <- iter + 1
+#   print(g)
+# }
+
+##method 2
+newdata <- data.frame(a=unlist(a_country),Country=homework$Country,Year=homework$Year)
+names(newdata)
+ggplot(data = newdata) +
+  geom_point(mapping = aes(x=Year, y=a, color=Country))+
+  geom_smooth(mapping = aes(x=Year, y=a, color=Country))
+```
+
+ix.
+```{r}
+ggplot(data = homework) +
+  geom_point(mapping = aes(x=Year, y=AverageIncome, color=Country))
+
+```
+x.
+```{r}
+datax <- data.frame(estimate=a_country$`United States`,
+                    AverageIncome=homework$AverageIncome[homework$Country=="United States"])
+ggplot(data = datax) +
+  geom_point(mapping = aes(x=AverageIncome, y=estimate)) +
+  geom_smooth(mapping = aes(x=AverageIncome, y=estimate))
+
+```
+At the very beginning of economic growth, which indicates low average income, the estimated exponent is small and the income inequality is high. As economic growing, average income grows and estimated exponent reaches a high value, which also implies less income inequality. Finally, when economic grows to some high extent, estimated exponent turns down and represents a high income inequality.
+
+xi.
+```{r}
+datax <- data.frame(estimate=a_country$`United States`,
+                    AverageIncome=homework$AverageIncome[homework$Country=="United States"])
+modelxi <- lm(estimate~AverageIncome+I(AverageIncome^2),data=datax)
+summary(modelxi)
+
+```
+The regression function is $y=0.823+1.394\times10^{-4}x-1.891\times10^{-9}x^2$
+The symmetry axis of function is $(1.394*10^{-4})/(2*1.891*10^{-9})=36858.8$ and is vary similar with the plot in part (x). What's more, the p-value of F-test less than 2.2e-16, which indicates our model is a good fit.
+
+xii.
+```{r}
+Kuznet <- function(estimate, AverageIncome){
+  model_sep <- lm(estimate~AverageIncome+I(AverageIncome^2))
+  return(model_sep$coefficients[3])
+}
+dataxii <- data.frame(estimate=unlist(a_country),
+                      AverageIncome=homework$AverageIncome,
+                      Country = homework$Country)
+x2coefficient<-c()
+for (i in levels(dataxii$Country)){
+  data_temp <- dataxii[dataxii$Country==i,]
+  x2coefficient[i] <- Kuznet(data_temp$estimate,data_temp$AverageIncome)
+}
+x2coefficient
+```
+So Canada, Italy, Sweden and United States compatible with the hypothesis.
