@@ -1,0 +1,499 @@
+"City","Population","Miles of Road","Daily Miles Traveled"
+"New York--Newark, NY--NJ--CT", 18351295, 43893, 286101
+"Los Angeles--Long Beach--Anaheim, CA", 12150996, 24877, 270807
+"Chicago, IL--IN", 8608208, 25905, 172708
+"Miami, FL", 5502379, 15641, 125899
+"Philadelphia, PA--NJ--DE--MD", 5441567, 19867, 99190
+"Dallas--Fort Worth--Arlington, TX", 5121892, 21610, 125389
+"Houston, TX", 4944332, 18385, 107746
+"Washington, DC--VA--MD", 4586770, 12330, 97736
+"Atlanta, GA", 4515419, 21036, 129641
+"Boston, MA--NH--RI", 4181019, 17103, 93719
+"Detroit, MI", 3734090, 14819, 90406
+"Phoenix--Mesa, AZ", 3629114, 12577, 77530
+"San Francisco--Oakland, CA", 3281212, 7150, 66930
+"Seattle, WA", 3059393, 12519, 70769
+"San Diego, CA", 2956746, 5252, 65837
+"Minneapolis--St. Paul, MN--WI", 2650890, 12283, 64807
+"Tampa--St. Petersburg, FL", 2441770, 9689, 60872
+"Denver--Aurora, CO", 2374203, 8430, 49492
+"Baltimore, MD", 2203663, 7361, 52741
+"St. Louis, MO--IL", 2150706, 11624, 65839
+"San Juan, PR", 2148346, 7714, 31249
+"Riverside--San Bernardino, CA", 1932666, 4998, 44557
+"Las Vegas--Henderson, NV", 1886011, 4557, 33852
+"Portland, OR--WA", 1849898, 7156, 34829
+"Cleveland, OH", 1780673, 7261, 39726
+"San Antonio, TX", 1758210, 6097, 38147
+"Pittsburgh, PA", 1733853, 9451, 33079
+"Sacramento, CA", 1723634, 5109, 34961
+"San Jose, CA", 1664496, 3693, 35985
+"Cincinnati, OH--KY--IN", 1624827, 6951, 43561
+"Kansas City, MO--KS", 1519417, 9348, 43997
+"Orlando, FL", 1510516, 5629, 41394
+"Indianapolis, IN", 1487483, 6792, 46424
+"Virginia Beach, VA", 1439666, 6665, 36427
+"Milwaukee, WI", 1376476, 6170, 27806
+"Columbus, OH", 1368035, 5342, 31613
+"Austin, TX", 1362416, 5035, 29016
+"Charlotte, NC--SC", 1249442, 4559, 32967
+"Providence, RI--MA", 1190956, 6369, 25490
+"Jacksonville, FL", 1065219, 5437, 31468
+"Memphis, TN--MS--AR", 1060061, 4805, 26611
+"Salt Lake City--West Valley City, UT", 1021243, 3159, 21933
+"Louisville/Jefferson County, KY--IN", 972546, NA, NA
+"Nashville-Davidson, TN", 969587, 5712, 34678
+"Richmond, VA", 953556, 5035, 26414
+"Buffalo, NY", 935906, 4372, 20717
+"Hartford, CT", 924859, 4125, 22239
+"Bridgeport--Stamford, CT--NY", 923311, 3958, 19976
+"New Orleans, LA", 899703, 3533, 14751
+"Raleigh, NC", 884891, 4293, 25618
+"Oklahoma City, OK", 861505, 4930, 31619
+"Tucson, AZ", 843168, 3855, 18270
+"El Paso, TX--NM", 803086, 2506, 14342
+"Urban Honolulu, HI", 802459, 1116, 12977
+"Birmingham, AL", 749495, 4999, 25943
+"Albuquerque, NM", 741318, 2543, 15167
+"McAllen, TX", 728825, 3762, 12839
+"Omaha, NE--IA", 725008, 2789, 13512
+"Dayton, OH", 724091, 3829, 19162
+"Rochester, NY", 720572, 3219, 15831
+"Allentown, PA--NJ", 664651, 3084, 13590
+"Tulsa, OK", 655479, 3562, 20518
+"Fresno, CA", 654628, 2392, 12199
+"Sarasota--Bradenton, FL", 643260, 3380, 16439
+"Springfield, MA--CT", 621300, 3265, 14176
+"Concord, CA", 615968, 1732, 14529
+"Albany--Schenectady, NY", 594962, 3078, 15826
+"Baton Rouge, LA", 594309, 2543, 15173
+"Mission Viejo--Lake Forest--San Clemente, CA", 583681, 1546, 12572
+"Grand Rapids, MI", 569935, 2737, 15058
+"Akron, OH", 569499, 3385, 14406
+"New Haven, CT", 562839, 2534, 13497
+"Colorado Springs, CO", 559409, 2579, 10676
+"Knoxville, TN", 558696, 3506, 16317
+"Columbia, SC", 549777, 2322, 13223
+"Charleston--North Charleston, SC", 548404, 1728, 11560
+"Ogden--Layton, UT", 546026, 2455, 10919
+"Cape Coral, FL", 530290, 2716, 12956
+"Bakersfield, CA", 523994, 1615, 8125
+"Toledo, OH--MI", 507643, 2468, 12235
+"Worcester, MA--CT", 486514, 2533, 12149
+"Provo--Orem, UT", 482819, 2737, 9881
+"Wichita, KS", 472870, 2988, 11075
+"Palm Bay--Melbourne, FL", 452791, 2687, 13455
+"Des Moines, IA", 450070, 2261, 10140
+"Harrisburg, PA", 444474, 2181, 10391
+"Murrieta--Temecula--Menifee, CA", 441546, NA, NA
+"Little Rock, AR", 431388, 2882, 13641
+"Poughkeepsie--Newburgh, NY--NJ", 423566, 3236, 13109
+"Syracuse, NY", 412317, 2059, 10043
+"Lancaster, PA", 402004, 1731, 6904
+"Madison, WI", 401661, 1679, 7074
+"Greenville, SC", 400492, 2114, 9133
+"Reno, NV--CA", 392141, 1194, 7052
+"Winston-Salem, NC", 391024, 2228, 11353
+"Spokane, WA", 387847, 2029, 7493
+"Youngstown, OH--PA", 387550, 2614, 9525
+"Augusta-Richmond County, GA--SC", 386787, 2461, 9831
+"Scranton, PA", 381502, 2090, 7784
+"Chattanooga, TN--GA", 381112, 2788, 11628
+"Port St. Lucie, FL", 376047, 1978, 11007
+"Stockton, CA", 370583, 1138, 7242
+"Oxnard, CA", 367260, 1264, 7729
+"Denton--Lewisville, TX", 366174, 1665, 8670
+"Modesto, CA", 358172, 1148, 5735
+"Flint, MI", 356218, 1994, 10060
+"Jackson, MS", 351478, 2994, 15078
+"Boise City, ID", 349684, 1615, 6947
+"Palm Coast--Daytona Beach--Port Orange, FL", 349064, NA, NA
+"Durham, NC", 347602, 1667, 10139
+"Indio--Cathedral City, CA", 345580, 1209, 7047
+"Lancaster--Palmdale, CA", 341219, 1106, 5737
+"Pensacola, FL--AL", 340067, 2856, 11803
+"Victorville--Hesperia, CA", 328454, 1274, 5223
+"Mobile, AL", 326183, 2202, 10847
+"Corpus Christi, TX", 320069, 1730, 7883
+"Kissimmee, FL", 314071, 1255, 6746
+"Lansing, MI", 313532, 1499, 6653
+"Fort Wayne, IN", 313492, 1595, 9017
+"Greensboro, NC", 311810, 1781, 10124
+"Bonita Springs, FL", 310298, 1381, 8127
+"Fayetteville, NC", 310282, 1808, 8373
+"Santa Rosa, CA", 308231, 847, 5881
+"Aguadilla--Isabela--San Sebastián, PR", 306196, 1695, 3410
+"Ann Arbor, MI", 306022, 1279, 8440
+"Shreveport, LA", 298317, 1888, 8706
+"Rockford, IL", 296863, 1839, 6630
+"Trenton, NJ", 296668, 1080, 7051
+"Fayetteville--Springdale--Rogers, AR--MO", 295083, 1440, 6640
+"Round Lake Beach--McHenry--Grayslake, IL--WI", 290373, 226, 363
+"Lexington-Fayette, KY", 290263, 1004, 5639
+"Huntsville, AL", 286692, 1677, 8090
+"Asheville, NC", 280648, 2195, 10298
+"Davenport, IA--IL", 280051, 1721, 6129
+"Canton, OH", 279245, 1825, 5779
+"South Bend, IN--MI", 278165, 1671, 7399
+"Antioch, CA", 277634, 713, 3910
+"Springfield, MO", 273724, 1498, 6668
+"Peoria, IL", 266921, 1415, 5484
+"Reading, PA", 266254, 1217, 4766
+"Fort Collins, CO", 264465, 1299, 5160
+"Montgomery, AL", 263907, 1806, 8830
+"Lakeland, FL", 262596, 1688, 6599
+"Savannah, GA", 260677, 1256, 7203
+"Lincoln, NE", 258719, 1372, 4946
+"Santa Clarita, CA", 258653, 259, 2549
+"Columbus, GA--AL", 253602, 2275, 6212
+"Lafayette, LA", 252720, 1126, 5874
+"Anchorage, AK", 251243, 1246, 3392
+"Atlantic City, NJ", 248402, 1458, 5990
+"Eugene, OR", 247421, 1071, 4339
+"Barnstable Town, MA", 246695, 2755, 8775
+"Tallahassee, FL", 240223, 1187, 6351
+"Conroe--The Woodlands, TX", 239938, NA, NA
+"Lubbock, TX", 237356, 1422, 4670
+"Salem, OR", 236632, 896, 4071
+"Laredo, TX", 235730, 844, 3161
+"York, PA", 232045, 1212, 4278
+"Evansville, IN--KY", 229351, 1251, 6177
+"Nashua, NH--MA", 226400, 1202, 4893
+"Wilmington, NC", 219957, 982, 5257
+"Visalia, CA", 219454, 503, 2299
+"Killeen, TX", 217630, 964, 3266
+"Brownsville, TX", 217585, 766, 3120
+"Appleton, WI", 216154, 1253, 4056
+"Myrtle Beach--Socastee, SC--NC", 215304, 760, 5300
+"Concord, NC", 214881, 1039, 4760
+"Thousand Oaks, CA", 214811, 690, 6251
+"Aberdeen--Bel Air South--Bel Air North, MD", 213751, 827, 4060
+"Hickory, NC", 212195, 1840, 6982
+"Kennewick--Pasco, WA", 210975, 1214, 3525
+"Roanoke, VA", 210111, 1200, 5103
+"Kalamazoo, MI", 209703, 1143, 5062
+"Norwich--New London, CT--RI", 209190, 1269, 5973
+"Gulfport, MS", 208948, 1574, 6962
+"Green Bay, WI", 206520, 1202, 4062
+"Portland, ME", 203914, 1075, 4575
+"Huntington, WV--KY--OH", 202637, 1353, 4685
+"Winter Haven, FL", 201289, 1395, 5309
+"Bremerton, WA", 198979, 940, 3514
+"Avondale--Goodyear, AZ", 197041, 641, 3151
+"Amarillo, TX", 196651, 1361, 4204
+"Erie, PA", 196611, 925, 2915
+"Santa Barbara, CA", 195861, 708, 4299
+"Waterbury, CT", 194535, 819, 3388
+"Fort Walton Beach--Navarre--Wright, FL", 191917, 1471, 5090
+"Gainesville, FL", 187781, 1019, 4186
+"Salinas, CA", 184809, 344, 2789
+"Hagerstown, MD--WV--PA", 182696, 688, 4170
+"Deltona, FL", 182169, 1070, 3769
+"Lorain--Elyria, OH", 180956, 1425, 6223
+"Spartanburg, SC", 180786, 1177, 5026
+"Cedar Rapids, IA", 177844, 1040, 3665
+"Fargo, ND--MN", 176676, 706, 3230
+"Olympia--Lacey, WA", 176617, 788, 4134
+"Waco, TX", 172378, 1325, 4960
+"College Station--Bryan, TX", 171345, 778, 3336
+"McKinney, TX", 170030, 359, 2506
+"North Port--Port Charlotte, FL", 169541, 2055, 4589
+"Gastonia, NC--SC", 169495, 829, 4205
+"Danbury, CT--NY", 168136, 835, 3615
+"High Point, NC", 166485, 1305, 4974
+"Vallejo, CA", 165074, 483, 3323
+"Santa Cruz, CA", 163703, 447, 3495
+"Hemet, CA", 163379, 372, 1367
+"Springfield, IL", 161316, 1098, 4004
+"Muskegon, MI", 161280, 989, 3644
+"Clarksville, TN--KY", 158655, 852, 3292
+"Manchester, NH", 158377, 840, 3622
+"Binghamton, NY--PA", 158084, 1091, 4815
+"Ocala, FL", 156909, 1380, 4639
+"Sioux Falls, SD", 156777, 926, 2819
+"Medford, OR", 154081, 822, 2746
+"Charleston, WV", 153199, 1249, 6350
+"Port Arthur, TX", 153150, NA, NA
+"Nampa, ID", 151499, 800, 2756
+"Topeka, KS", 150003, 1192, 3457
+"Ponce, PR", 149539, 579, 2358
+"New Bedford, MA", 149443, 684, 2708
+"Sebastian--Vero Beach South--Florida Ridge, FL", 149422, NA, NA
+"Spring Hill, FL", 148220, NA, NA
+"Beaumont, TX", 147922, 1785, 7418
+"Lafayette, IN", 147725, 583, 2317
+"Champaign, IL", 145361, 599, 2363
+"Marysville, WA", 145140, NA, NA
+"Houma, LA", 144875, 718, 3572
+"Elkhart, IN--MI", 143592, 1004, 3562
+"Lake Charles, LA", 143440, 969, 3837
+"Panama City, FL", 143280, 1338, 4250
+"Frederick, MD", 141576, 663, 3816
+"Fredericksburg, VA", 141238, 790, 5792
+"Arecibo, PR", 139171, 618, 1788
+"Tuscaloosa, AL", 139114, 831, 3919
+"Macon, GA", 137570, 949, 5051
+"Merced, CA", 136969, 528, 2160
+"Pueblo, CO", 136550, 1135, 2826
+"Harlingen, TX", 135663, 945, 3027
+"Yuma, AZ--CA", 135267, 439, 1797
+"Racine, WI", 133700, 576, 1554
+"Fairfield, CA", 133683, 355, 3817
+"Murfreesboro, TN", 133228, NA, NA
+"Warner Robins, GA", 133109, 680, 2390
+"Bloomington--Normal, IL", 132600, 694, 2758
+"Leesburg--Eustis--Tavares, FL", 131337, 954, 3170
+"Gainesville, GA", 130846, 787, 3360
+"Santa Maria, CA", 130447, 363, 2210
+"Tyler, TX", 130247, 873, 2703
+"Yakima, WA", 129534, 735, 2303
+"Athens-Clarke County, GA", 128754, 827, 3498
+"Las Cruces, NM", 128600, 891, 2696
+"Grand Junction, CO", 128124, 713, 1967
+"Odessa, TX", 126405, 1125, 2688
+"Saginaw, MI", 126265, 836, 3365
+"Simi Valley, CA", 125206, 334, 2556
+"Columbia, MO", 124748, 691, 2648
+"Kenosha, WI--IL", 124064, 537, 2019
+"Fort Smith, AR--OK", 122947, 1211, 3034
+"Mauldin--Simpsonville, SC", 120577, 338, 1861
+"Johnson City, TN", 120415, 1019, 3105
+"Duluth, MN--WI", 120378, 980, 2784
+"Burlington, NC", 119911, 744, 3271
+"South Lyon--Howell, MI", 119509, 670, 4538
+"San Germán--Cabo Rojo--Sabana Grande, PR", 118199, 571, 1392
+"Greeley, CO", 117825, 597, 1930
+"Midland, TX", 117807, 823, 2437
+"Greenville, NC", 117798, 552, 2483
+"Redding, CA", 117731, 659, 2919
+"Utica, NY", 117328, 1195, 4124
+"Leominster--Fitchburg, MA", 116960, 728, 2641
+"Yuba City, CA", 116719, 604, 1800
+"Lynchburg, VA", 116636, 764, 2983
+"Monroe, LA", 116533, 824, 3100
+"Billings, MT", 114773, 683, 2191
+"Boulder, CO", 114591, 422, 1983
+"Bellingham, WA", 114473, 443, 1747
+"Seaside--Monterey, CA", 114237, 1029, 2758
+"Kailua (Honolulu County)--Kaneohe, HI", 113682, 276, 2061
+"Waterloo, IA", 113418, 834, 2334
+"Lady Lake--The Villages, FL", 112991, 650, 1881
+"Dover, DE", 110769, 447, 2076
+"St. Cloud, MN", 110621, 662, 2510
+"Abilene, TX", 110421, 846, 2493
+"Waldorf, MD", 109919, NA, NA
+"Mayagüez, PR", 109572, 458, 1435
+"Burlington, VT", 108740, 732, 3141
+"Bloomington, IN", 108657, 458, 1776
+"Pottstown, PA", 107682, 510, 1635
+"Rochester, MN", 107677, 591, 2263
+"El Centro--Calexico, CA", 107672, 165, 382
+"Iowa City, IA", 106621, 450, 1883
+"Kingsport, TN--VA", 106571, 1116, 3390
+"Sioux City, IA--NE--SD", 106494, 745, 2157
+"Texas City, TX", 106383, 1205, 2998
+"Jacksonville, NC", 105419, 373, 2259
+"Rock Hill, SC", 104996, 453, 2179
+"Norman, OK", 103898, NA, NA
+"Eau Claire, WI", 102852, 858, 2374
+"La Crosse, WI--MN", 100868, 676, 2020
+"Holland, MI", 99941, 525, 1740
+"Turlock, CA", 99904, 149, 582
+"Wichita Falls, TX", 99437, 695, 1971
+"Longview, TX", 98884, 705, 2136
+"Danville, VA – NC", 98688, 420, 1129
+"Gilroy--Morgan Hill, CA", 98413, 266, 2375
+"Coeur d'Alene, ID", 98378, 549, 2212
+"St. George, UT", 98370, 602, 2520
+"Chico, CA", 98176, 301, 1471
+"Salisbury, MD--DE", 98081, 473, 1710
+"Middletown, OH", 97503, 494, 2069
+"Albany, GA", 95779, 815, 2819
+"Vineland, NJ", 95259, 684, 2414
+"Logan, UT", 94983, 984, 1817
+"Lawton, OK", 94457, 459, 1892
+"Decatur, IL", 93863, 721, 1837
+"Vacaville, CA", 93141, 340, 1965
+"San Angelo, TX", 92984, 676, 1776
+"Terre Haute, IN", 92742, 694, 2549
+"Charlottesville, VA", 92359, 310, 2040
+"Slidell, LA", 91151, 614, 2668
+"Yauco, PR", 90899, 446, 1073
+"Longmont, CO", 90897, 366, 1207
+"Idaho Falls, ID", 90733, 394, 1315
+"Muncie, IN", 90580, 617, 1977
+"Temple, TX", 90390, 850, 7894
+"Jackson, MI", 90057, 561, 2147
+"Florence, SC", 89557, 486, 2123
+"Santa Fe, NM", 89284, 671, 2342
+"Mandeville--Covington, LA", 88925, 459, 2074
+"Blacksburg, VA", 88542, 284, 1278
+"Portsmouth, NH--ME", 88200, 490, 2397
+"Anderson, IN", 88133, 775, 2819
+"Dover--Rochester, NH--ME", 88087, 409, 1853
+"Lawrence, KS", 88053, 452, 1538
+"Hanford, CA", 87941, NA, NA
+"Tracy, CA", 87569, 118, 294
+"State College, PA", 87454, 310, 1081
+"Port Huron, MI", 87106, 532, 1775
+"Springfield, OH", 85256, 484, 2050
+"Dalton, GA", 85239, 577, 2279
+"Fajardo, PR", 85225, 312, 867
+"Lee's Summit, MO", 85081, NA, NA
+"Prescott Valley--Prescott, AZ", 84744, NA, NA
+"Napa, CA", 83913, 254, 1194
+"Alton, IL--MO", 83890, NA, NA
+"Bend, OR", 83794, 446, 1367
+"Manteca, CA", 83578, 107, 778
+"Alexandria, LA", 82804, 693, 2005
+"Joplin, MO", 82775, 695, 2065
+"Missoula, MT", 82157, 475, 1400
+"Bismarck, ND", 81955, 385, 1372
+"Kankakee, IL", 81926, 439, 1377
+"Livermore, CA", 81624, 285, 2600
+"Rapid City, SD", 81251, 589, 1605
+"Wheeling, WV--OH", 81249, 653, 2367
+"St. Joseph, MO--KS", 81176, 578, 1548
+"Homosassa Springs--Beverly Hills--Citrus Springs, FL", 80962, NA, NA
+"Juana Díaz, PR", 80928, 226, 600
+"Hattiesburg, MS", 80358, 649, 2067
+"Guayama, PR", 80155, 362, 679
+"Altoona, PA", 79930, 499, 1394
+"Anniston--Oxford, AL", 79796, 1241, 2777
+"Lafayette--Louisville--Erie, CO", 79407, 366, 1372
+"Madera, CA", 78413, 100, 225
+"Battle Creek, MI", 78393, 593, 2189
+"Bowling Green, KY", 78306, 447, 2019
+"Texarkana--Texarkana, TX--AR", 78162, 880, 2177
+"Lebanon, PA", 77086, 370, 832
+"Valdosta, GA", 77085, 502, 2276
+"Florence, AL", 77074, 786, 2071
+"Newark, OH", 76068, 403, 1636
+"Anderson, SC", 75702, 612, 1808
+"Williamsburg, VA", 75689, NA, NA
+"Mansfield, OH", 75250, 541, 1868
+"Lake Jackson--Angleton, TX", 74830, 588, 1580
+"Auburn, AL", 74741, 786, 2394
+"Wausau, WI", 74632, 695, 1849
+"Oshkosh, WI", 74495, 382, 1426
+"Cheyenne, WY", 73588, 733, 1844
+"Watsonville, CA", 73534, 177, 934
+"Elizabethtown--Radcliff, KY", 73467, NA, NA
+"Sumter, SC", 73107, 489, 1360
+"Lima, OH", 72852, 487, 1688
+"Davis, CA", 72794, 180, 992
+"Westminster--Eldersburg, MD", 72714, 412, 1597
+"Flagstaff, AZ", 71957, 308, 1407
+"Jackson, TN", 71880, 525, 2359
+"Camarillo, CA", 71772, 223, 1662
+"Florida--Imbéry--Barceloneta, PR", 71747, 175, 1253
+"Sheboygan, WI", 71313, 409, 927
+"Weirton--Steubenville, WV--OH--PA", 70889, 556, 1671
+"Bay City, MI", 70585, 474, 1810
+"Owensboro, KY", 70543, 420, 1364
+"Decatur, AL", 70436, 639, 1242
+"Morgantown, WV", 70350, 311, 1280
+"Porterville, CA", 70272, 211, 700
+"Pocatello, ID", 69809, 370, 1243
+"Janesville, WI", 69658, 486, 1493
+"Bristol--Bristol, TN--VA", 69501, 679, 2225
+"Winchester, VA", 69449, 300, 1866
+"St. Augustine, FL", 69173, 454, 1512
+"Johnstown, PA", 69014, 510, 1074
+"Hilton Head Island, SC", 68998, NA, NA
+"Dothan, AL", 68781, 796, 2572
+"Lodi, CA", 68738, 291, 1275
+"DeKalb, IL", 68545, 347, 1062
+"West Bend, WI", 68444, NA, NA
+"Rocky Mount, NC", 68243, 424, 1565
+"Elmira, NY", 67983, 453, 1522
+"Carbondale, IL", 67821, NA, NA
+"Dubuque, IA--IL", 67818, 387, 1160
+"Hammond, LA", 67629, NA, NA
+"Parkersburg, WV--OH", 67229, 475, 1483
+"Wenatchee, WA", 67227, 357, 906
+"Harrisonburg, VA", 66784, 254, 1363
+"Cleveland, TN", 66777, 522, 1938
+"Zephyrhills, FL", 66609, 362, 1204
+"Hanover, PA", 66301, NA, NA
+"Monessen--California, PA", 66086, 629, 1262
+"Michigan City--La Porte, IN--MI", 66025, 587, 2238
+"Glens Falls, NY", 65443, 527, 2053
+"Jonesboro, AR", 65419, 624, 1643
+"Conway, AR", 65277, NA, NA
+"Great Falls, MT", 65207, 427, 1027
+"El Paso de Robles (Paso Robles)--Atascadero, CA", 65088, NA, NA
+"Casper, WY", 64548, 477, 1118
+"Fairbanks, AK", 64513, 500, 1225
+"Gadsden, AL", 64172, 920, 2418
+"Saratoga Springs, NY", 64100, 385, 1715
+"Petaluma, CA", 64078, 121, 512
+"Twin Rivers--Hightstown, NJ", 64037, NA, NA
+"Beckley, WV", 64022, NA, NA
+"Longview, WA--OR", 63952, 363, 1397
+"Beloit, WI--IL", 63835, 433, 1164
+"Los Lunas, NM", 63758, NA, NA
+"Victoria, TX", 63683, 483, 1381
+"Mount Vernon, WA", 62966, 334, 1424
+"Corvallis, OR", 62433, 315, 787
+"Kokomo, IN", 62182, 421, 1390
+"Sherman, TX", 61900, 569, 1507
+"Sebring--Avon Park, FL", 61625, NA, NA
+"Grand Forks, ND--MN", 61270, 280, 796
+"Bangor, ME", 61210, 411, 1610
+"Goldsboro, NC", 61054, 444, 1707
+"Benton Harbor--St. Joseph--Fair Plain, MI", 61022, 446, 1948
+"Rome, GA", 60851, 599, 2088
+"Ames, IA", 60438, 239, 740
+"Lewiston, ME", 59397, 526, 1490
+"San Luis Obispo, CA", 59219, 219, 992
+"Pittsfield, MA", 59124, 327, 1004
+"Morristown, TN", 59036, 512, 1550
+"Midland, MI", 59014, NA, NA
+"Lexington Park--California--Chesapeake Ranch Estates, MD", 58875, NA, NA
+"Jefferson City, MO", 58533, 423, 1740
+"Middletown, NY", 58381, NA, NA
+"Carson City, NV", 58079, 309, 1050
+"Watertown, NY", 57840, NA, NA
+"Mankato, MN", 57584, NA, NA
+"Kingston, NY", 57442, 723, 3436
+"Daphne--Fairhope, AL", 57383, NA, NA
+"Albany, OR", 56997, NA, NA
+"Hazleton, PA", 56827, 352, 980
+"Staunton--Waynesboro, VA", 56611, NA, NA
+"Williamsport, PA", 56142, 459, 1836
+"Kahului, HI", 55934, NA, NA
+"Walla Walla, WA--OR", 55805, NA, NA
+"Woodland, CA", 55513, NA, NA
+"Hot Springs, AR", 55121, 470, 1403
+"Columbus, IN", 54933, 423, 1942
+"Fond du Lac, WI", 54901, 351, 995
+"Manhattan, KS", 54622, NA, NA
+"Titusville, FL", 54386, 383, 1429
+"Delano, CA", 54372, NA, NA
+"East Stroudsburg, PA--NJ", 54316, NA, NA
+"Ithaca, NY", 53661, 290, 993
+"Bloomsburg--Berwick, PA", 53618, NA, NA
+"Pine Bluff, AR", 53495, 717, 1394
+"Lake Havasu City, AZ", 53427, NA, NA
+"Farmington, NM", 53049, 561, 1414
+"Cape Girardeau, MO--IL", 52900, NA, NA
+"San Marcos, TX", 52826, NA, NA
+"Sierra Vista, AZ", 52745, NA, NA
+"Cartersville, GA", 52477, NA, NA
+"Arroyo Grande--Grover Beach, CA", 52000, NA, NA
+"Lewiston, ID--WA", 51924, 343, 718
+"Cumberland, MD--WV--PA", 51899, 393, 1329
+"Lompoc, CA", 51509, 151, 461
+"Hinesville, GA", 51456, 270, 842
+"Uniontown--Connellsville, PA", 51370, 488, 1093
+"Casa Grande, AZ", 51331, NA, NA
+"Villas, NJ", 51291, NA, NA
+"Monroe, MI", 51240, 241, 1641
+"Brunswick, GA", 51024, 426, 1817
+"Danville, IL", 50996, 417, 1104
+"Chambersburg, PA", 50887, NA, NA
+"Grants Pass, OR", 50520, NA, NA
+"New Bern, NC", 50503, NA, NA
+"Grand Island, NE", 50440, NA, NA
+"Pascagoula, MS", 50428, 469, 1868
