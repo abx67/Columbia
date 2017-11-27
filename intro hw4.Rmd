@@ -45,9 +45,10 @@ library(ggplot2)
 samp_p <- runif(1000)
 draws <- upper.income(samp_p)
 ggplot() +
-  geom_histogram(aes(x = draws, y = ..density..)) +
-  geom_density(aes(x = draws)) + 
-  geom_smooth(aes(x = xi, y = f(xi)))
+  geom_histogram(aes(x = draws, y = ..density..,col="pink")) +
+  #geom_density(aes(x = draws)) + 
+  geom_smooth(aes(x = xi, y = f(xi),col="blue")) +
+  xlim(3*10^5,2*10^6) 
 
 ```
 
@@ -112,11 +113,41 @@ mean(intergenre_intervals)
 sd(intergenre_intervals)
 sd(intergenre_intervals) / mean(intergenre_intervals)
 ```
+vii.
+a)
 ```{r}
-intergenre_intervals <- diff(sort(moretti$Begin))
-mean(intergenre_intervals)
-sd(intergenre_intervals)
-sd(intergenre_intervals) / mean(intergenre_intervals)
+pois_draws <- rpois(161,0.273)
 ```
+b)
+```{r}
+pois_f <- function(num_new_genres){
+  yearinter = c()
+  for (i in c(1:length(num_new_genres))){
+    yearinter <- c(yearinter,rep(i,num_new_genres[i]))
+  }
+  return (diff(yearinter))
+}
+all(intergenre_intervals == pois_f(new_genres))
+```
+c)
+```{r}
+simu_pois <- function(num.years,mean.genres){
+  pois_draws <- rpois(num.years,mean.genres)
+  interv <- pois_f(pois_draws)
+  coeffov <- sd(interv) / mean(interv)
+  return (list(intervals = interv,coefficient_of_variation=coeffov))
+}
+simu_pois(161,0.273)
+```
+viii.
+```{r}
+coeffofv <- c()
+for (i in 1:10000){
+  coeffofv[i] <- simu_pois(161,0.273)$coefficient_of_variation
+}
+coeffofv_Moretti <- sd(intergenre_intervals) / mean(intergenre_intervals)
+sum(coeffofv>coeffofv_Moretti) / length(coeffofv)
+```
+
 
 
