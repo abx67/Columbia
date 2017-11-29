@@ -1,0 +1,57 @@
+---
+title: "Lab 7"
+author: "Fan Yang (fy2232)"
+date: "November 28, 2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+# Instructions 
+Before you leave lab today make sure that you upload a .pdf file to the canvas page (this should have a .pdf extension). This should be the PDF output after you have knitted the file, we don't need the .Rmd file (don't upload the one with the .Rmd extension).  The file you upload to the Canvas page should be updated with commands you provide to answer each of the questions below.  You can edit this file directly to produce your final solutions.  Note, however, in the file you upload you should the above header to have the date, your name, and your UNI.  Similarly, when you save the file you should replace **UNI** with your actualy UNI.
+
+# Introduction
+In today's lab we will use data on the 2829 fastest men's and women's 100m sprint times saved as dataframes `sprint.m.csv` and `sprint.f.csv`.
+
+1. Load the dataframe `sprint.m.csv` and save it as `sprint.m`.  Append a column to the dataframe called `CityDate` that is defined by concatenating the string entries in the `City` and `Date` columns.  For example, entries "Berlin" and "16.08.2009" in the `City` and `Date` columns, respectively, produce an entry of "Berlin 16.08.2009" in the `CityDate` column.  Note that there will be some weird characters in the city names.
+```{r}
+sprint.m <- read.csv("sprint.m.csv", header = T,as.is = T)
+CityDate <- paste(sprint.m$City,sprint.m$Date)
+sprint.m <- cbind(sprint.m, CityDate)
+```
+
+2. We assume that every unique combination of city and date in the `CityDate` column corresponds to a unique track meet.  How many unique track meets occur?  How many other sprint times were recorded in the same track meet as Usain Bolt's legendary time of 9.58 seconds?
+```{r}
+length(table(sprint.m$CityDate))
+sum(sprint.m$CityDate==sprint.m$CityDate[which(sprint.m$Time==9.58)])
+```
+3.  Compute a reduced version of `sprint.m` that only keeps the fastest time from each track meet.  For example, of all rows that correspond to sprint times recorded at the "Berlin 16.08.2009" track meet, we will only keep Usain Bolt's row since his time of 9.58 was fastest.  Hint: There are many ways to do this, `tapply()` or `split()` might be helpful.  You can do this without using a loop.  Call the result `sprint.m.fastest` and check that the number of rows is the same as the number of unique men's track meets.  Display the first five rows.  Note that if there are ties for first place, choose only one runner to represent the race in the reduced data frame.  How you chose doesn't matter.
+```{r}
+whichmin <- function(data){
+  return (data[which.min(data$Time),])
+}
+sprint.m.fastest <- lapply(split(sprint.m,sprint.m$CityDate),
+                           function(data) return (data[which.min(data$Time),]) )
+sprint.m.fastest <- data.frame(t(sapply(sprint.m.fastest, rbind)))
+nrow(sprint.m.fastest) == length(table(sprint.m$CityDate))
+head(sprint.m.fastest,5)
+```
+
+4. Load the women's dataframe `sprint.w.csv` and repeat steps (1) - (3) on this dataset so that what remains is `sprint.w.fastest`.  Display the first five rows.
+```{r}
+#1)
+sprint.w <- read.csv("sprint.w.csv", header = T,as.is = T)
+CityDate <- paste(sprint.w$City,sprint.w$Date)
+sprint.w <- cbind(sprint.w, CityDate)
+#2)
+length(table(sprint.w$CityDate))
+#3)
+whichmin <- function(data){
+  return (data[which.min(data$Time),])
+}
+sprint.w.fastest <- lapply(split(sprint.w,sprint.w$CityDate),
+                           function(data) return (data[which.min(data$Time),]) )
+sprint.w.fastest <- data.frame(t(sapply(sprint.w.fastest, rbind)))
+nrow(sprint.w.fastest) == length(table(sprint.w$CityDate))
+head(sprint.w.fastest,5)
+```
+
