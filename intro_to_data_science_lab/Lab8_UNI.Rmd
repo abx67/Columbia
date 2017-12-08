@@ -1,0 +1,51 @@
+---
+title: "Lab 8"
+author: "Fan Yang (fy2232)"
+date: "December 05, 2016"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Instructions 
+Before you leave lab today make sure that you upload a .pdf file to the canvas page (this should have a .pdf extension). This should be the PDF output after you have knitted the file, we don't need the .Rmd file (don't upload the one with the .Rmd extension).  The file you upload to the Canvas page should be updated with commands you provide to answer each of the questions below.  You can edit this file directly to produce your final solutions.  Note, however, in the file you upload you should the above header to have the date, your name, and your UNI.  Similarly, when you save the file you should replace **UNI** with your actualy UNI.
+
+# Introduction
+Today we use the same data as last week's lab, recording the 2829 fastest men's and women's 100m sprint times.
+
+1. Load the dataframes `sprint.m.fastest.csv` and `sprint.w.fastest.csv` and save them as `sprint.m.fastest` and `sprint.w.fastest`.  These are the data you created in last week's lab that only stores the fastest time from each track meet.
+```{r}
+sprint.m.fastest <- read.csv("sprint.m.fastest.csv", header = T, as.is = T)
+sprint.w.fastest <- read.csv("sprint.w.fastest.csv", header = T, as.is = T)
+```
+
+2.  We want to merge the dataframes `sprint.m.fastest` and `sprint.w.fastest` over rows that correspond to times recorded at the same track meet.  First find the common track meets between the two data frames, i.e. the common entries in `CityDate`.  Hint: Use `intersect()`.  Call the result `common.meets`.  
+```{r}
+common.meets <- intersect(sprint.m.fastest$CityDate,sprint.w.fastest$CityDate)
+```
+
+3. Now compute the rows of each dataframe that correspond to these common track meets.  Hint: Use `which()` and `is.element()`.  Call the results `ind.m` and `ind.w`.  Both should have length 385.
+```{r}
+ind.m <- which(is.element(sprint.m.fastest$CityDate,common.meets))
+ind.w <- which(is.element(sprint.w.fastest$CityDate,common.meets))
+```
+
+4.   Now create a new dataframe that merges the columns of `sprint.m.fastest` with `sprint.f.fastest`, but keeping only rows that correspond to common track meets (these are indexed by `ind.m` and `ind.f`).  Call the result `sprint` and arrange it so that the dataframe only has three columns: `MensTime`, `WomensTime`, and `CityDate` (the common track meet).  Display the first five rows.  Check to verify that the first index in `ind.m` corresponds to the same race as the first index in `ind.w`, the same for the second index, and so on...
+```{r}
+sprint <- cbind(MensTime = sprint.m.fastest$Time[ind.m], 
+                WomensTime = sprint.w.fastest$Time[ind.w], 
+                CityDate = common.meets)
+head(sprint,5)
+
+all(sprint.m.fastest$CityDate[ind.m]==sprint.w.fastest$CityDate[ind.w])
+```
+
+5. Note that the previous merge could have been done with the `merge()` function.  Can you get the same result using `merge()`?
+```{r}
+sprint2 <- merge(sprint.m.fastest,sprint.w.fastest,by="CityDate")
+sprint2 <- data.frame(MensTime = sprint2$Time.x,
+                      WomensTime = sprint2$Time.y,
+                      sprint2$CityDate)
+all(sprint2 == sprint)
+```
+
