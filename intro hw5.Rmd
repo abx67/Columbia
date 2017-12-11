@@ -1,5 +1,5 @@
 ---
-title: "Homework #4"
+title: "Homework #5"
 author: "Fan Yang, fy2232"
 date: "December 8, 2017"
 output:
@@ -9,129 +9,57 @@ output:
 
 # Part I
 
-i. 
+##1. 
 ```{r}
-nodes <- read.csv("ckm nodes.csv", header = T, as.is = T)
+nodes <- read.csv("ckm_nodes.csv", header = T, as.is = T)
+
+sum(na.omit(nodes$adoption_date) < Inf)
+sum(na.omit(nodes$adoption_date)==Inf)
+length(nodes$adoption_date) - length(na.omit(nodes$adoption_date))
+```
+
+##2. 
+
+```{r}
+ind.notNA <- complete.cases(nodes$adoption_date)
+ind.notNA <- seq(1:nrow(nodes))[ind.notNA]
+length(ind.notNA)
+nodes <- nodes[ind.notNA,]
+```
+
+##3.
+```{r}
+num_mon <- table(nodes$adoption_date)[-18]
+plot(num_mon,type = 'b',ylab="number begin prescribing") 
+plot(cumsum(num_mon),type = 'b',ylab="total number prescribing")
 
 ```
 
-
-ii. 
-$F^{-1}(u)=x_{min}(1-u)^{\frac{1}{-a+1}}$
+##4.
 ```{r}
-upper.income <- function(u, a = ahat,x_min=xmin ){
-  return (x_min*(1-u)^(1/(1-a)))
-}
-upper.income(0.5)
-
+begin2 <- nodes$adoption_date<=2
+begin2 <- seq(1:nrow(nodes))[begin2]
+begin2
+begin14 <- nodes$adoption_date>14
+begin14 <- seq(1:nrow(nodes))[begin14]
+begin14
 ```
-
-iii.
+##5.
 ```{r}
-library(ggplot2)
-samp_p <- runif(1000)
-draws <- upper.income(samp_p)
-ggplot() +
-  geom_histogram(aes(x = draws, y = ..density..,col="pink")) +
-  #geom_density(aes(x = draws)) + 
-  geom_smooth(aes(x = xi, y = f(xi),col="blue")) +
-  xlim(3*10^5,2*10^6) 
-
-```
-
-iv.
-```{r}
-median(draws)
-upper.income(0.5)
-
-```
-
-# Part 2
-i.
-```{r}
-moretti <- read.csv("moretti.csv",header = T, as.is = T)
-poisLoglik <- function(lambda, data){
-   return (sum(log(lambda^data*exp(-lambda)/factorial(data))))
-}
-poisLoglik(1,c(1,0,0,1,1))
-```
-ii.
-```{r}
-count_new_genres <- function(year){
-   return (sum(moretti$Begin==year))
-}
-count_new_genres(1803)
-count_new_genres(1850)
-```
-iii.
-```{r}
-new_genres = sapply(1740:1900,count_new_genres)
-1803-1740+1;1850-1740+1
-new_genres[64]
-new_genres[111]
-new_genres[64]==count_new_genres(1803)
-new_genres[111]==count_new_genres(1850)
-```
-
-
-iv.
-```{r}
-lambda <- c(0:3000)/1000
-poisLog <- sapply(lambda, poisLoglik, data=new_genres)
-ggplot() +
-  geom_point(aes(x =lambda , y = poisLog))
-
-```
-
-v.
-```{r}
-lambda <- c(0:3000)/1000
-poisLoglik2 <- function(lambda, data=new_genres){
-   return (-sum(log(lambda^data*exp(-lambda)/factorial(data))))
-}
-
-nlm(poisLoglik2,c(1))$estimate
-```
-
-vi.
-```{r}
-intergenre_intervals <- diff(sort(moretti$Begin))
-mean(intergenre_intervals)
-sd(intergenre_intervals)
-sd(intergenre_intervals) / mean(intergenre_intervals)
-```
-vii.
-a)
-```{r}
-pois_draws <- rpois(161,0.273)
-```
-b)
-```{r}
-pois_f <- function(num_new_genres){
-  yearinter = c()
-  for (i in c(1:length(num_new_genres))){
-    yearinter <- c(yearinter,rep(i,num_new_genres[i]))
+adopters <- function(month, not.yet = FALSE){
+  index <- seq(1:nrow(nodes))
+  late <- index[nodes$adoption_date>month]
+  early <- index[nodes$adoption_date==month]
+  if(not.yet){
+    return(late)
+  }else{
+    return(early)
   }
-  return (diff(yearinter))
 }
-all(intergenre_intervals == pois_f(new_genres))
+adopters(2)
+length(adopters(2))
+length(adopters(month = 14, not.yet = TRUE))
 ```
-c)
-```{r}
-simu_pois <- function(num.years,mean.genres){
-  pois_draws <- rpois(num.years,mean.genres)
-  interv <- pois_f(pois_draws)
-  coeffov <- sd(interv) / mean(interv)
-  return (list(intervals = interv,coefficient_of_variation=coeffov))
-}
-simu_pois(161,0.273)
-```
-viii.
-```{r}
-coeffofv <- c()
-for (i in 1:10000){
-  coeffofv[i] <- simu_pois(161,0.273)$coefficient_of_variation
-}
-coeffofv_Moretti <- sd(intergenre_intervals) / mean(intergenre_intervals)
-sum(coeffofv>coeffofv_Moretti) / length(coeffofv)
-```
+
+# Part II
+i.
