@@ -1,0 +1,46 @@
+---
+title: "Lab 8"
+author: "Fan Yang (fy2232)"
+date: "December 05, 2016"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+1. Load the dataframes `sprint.m.fastest.csv` and `sprint.w.fastest.csv`.
+```{r}
+sprint.m.fastest <- read.csv("sprint.m.fastest.csv", header = T, as.is = T)
+sprint.w.fastest <- read.csv("sprint.w.fastest.csv", header = T, as.is = T)
+```
+
+2. First find the common track meets between the two data frames, i.e. the common entries in `CityDate`. 
+```{r}
+common.meets <- intersect(sprint.m.fastest$CityDate,sprint.w.fastest$CityDate)
+```
+
+3. Now compute the rows of each dataframe that correspond to these common track meets.
+```{r}
+ind.m <- which(is.element(sprint.m.fastest$CityDate,common.meets))
+ind.w <- which(is.element(sprint.w.fastest$CityDate,common.meets))
+```
+
+4.   Now create a new dataframe that merges the columns of `sprint.m.fastest` with `sprint.f.fastest` and arrange it so that the dataframe only has three columns: `MensTime`, `WomensTime`, and `CityDate` (the common track meet).  Display the first five rows.
+```{r}
+sprint <- cbind(MensTime = sprint.m.fastest$Time[ind.m], 
+                WomensTime = sprint.w.fastest$Time[ind.w], 
+                CityDate = common.meets)
+head(sprint,5)
+
+all(sprint.m.fastest$CityDate[ind.m]==sprint.w.fastest$CityDate[ind.w])
+```
+
+5. Get the same result as 1-4 using `merge()`.
+```{r}
+sprint2 <- merge(sprint.m.fastest,sprint.w.fastest,by="CityDate")
+sprint2 <- data.frame(MensTime = sprint2$Time.x,
+                      WomensTime = sprint2$Time.y,
+                      sprint2$CityDate)
+all(sprint2 == sprint)
+```
+
