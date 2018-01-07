@@ -1,0 +1,71 @@
+---
+title: "Practice Final Question"
+author: "Name (UNI) "
+date: "Section 00#"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Instructions (Read this completely first)
+
+You should complete the exam by editting this file directly.  Please knit the file often, so that if you make a mistake you catch it before the end of the exam.  You will have exactly 30 minutes from the start time to complete the exam.  **At the end you must turn in your knitted .pdf file and raw .Rmd file on Courseworks.**
+
+**When the time is up, you must shut your computer immediately.**  We will take off points from anyone whose computer is still open after time is up.
+
+**You may use your class notes for the exam, but not the internet.  You absolutely may not communicate with anyone else during the exam.  Doing so will result in an F in this class and likely result in termination from the MA program.**  Note that your time will be tight so you will not be able to look up every bit of code from your class notes.
+
+\newpage
+
+# Question 1 (20 points)
+
+Consider the following "random walk" procedure:
+
+1. Start with $x=5$
+2. Sample a random number $r$ uniformly between $-2$ and $1$.
+3. Replace $x$ with $x+r$
+4. Stop if $x \leq 0$
+5. Else repeat
+
+a. (8 points) Write a `while()` loop to implement this procedure. Importantly, save all the positive values of $x$ that were visited in this procedure in a vector called `x.vals`, and display its entries.
+
+```{r}
+set.seed(1)
+
+# Your answer to question 1.a here.  Don't remove the set.seed(1) command.
+```
+
+b. (4 points) Produce a plot of the random walk values `x.vals` from 1 (a) versus the iteration number. Make sure the plot has an appropriately labeled x-axis and and y-axis.  You should plot points for the location of the random walk at each iteration and connect the points with a line.
+
+```{r}
+# Your answer to question 1.b here.
+```
+
+c. (8 points) Make sure you have completed the above before you begin part c.  Below is a `random.walk()` function made to implement the random walk procedure.  Unfortunately, the function has some bugs -- find them and fix them!
+
+\begin{verbatim}
+random.walk <- function(x.start = 5, seed = NULL) {
+  if (!is.null(seed)) set.seed(seed)
+  x.vals <- x.start
+  while (TRUE) {
+    r <- runif(1, -2, 1)
+    if (tail(x.vals + r, 1) <= 0) {
+      break
+    } else {
+      x.vals <- c(x.vals, x.vals + r)
+    }
+  }
+  return(x.vals = x.vals, num.steps = length(x.vals))
+}
+
+# random.walk(x.start = 5, seed = 3)$num.steps # Should print 8
+# random.walk(x.start = 10, seed = 7)$num.steps # Should print 14
+\end{verbatim}
+
+```{r}
+# Your answer to question 1.c here.  Uncomment the below commands to show that your corrected function is finding the 
+
+# random.walk(x.start=5, seed=3)$num.steps # Should print 8
+# random.walk(x.start=10, seed=7)$num.steps # Should print 14
+```
+

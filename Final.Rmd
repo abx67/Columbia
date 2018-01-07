@@ -1,0 +1,296 @@
+---
+title: "Final"
+author: "Fan Yang (fy2232) "
+date: "Section 03#"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Instructions (Read this completely first)
+
+You should complete the exam by editting this file directly.  Please knit the file often, so that if you make a mistake you catch it before the end of the exam.  You will have exactly 160 minutes from your start time to complete the exam.  **At the end you must turn in your knitted .pdf file and raw .Rmd file on Courseworks.**
+
+**When the time is up, you must shut your computer immediately.**  We will take off points from anyone whose computer is still open after time is up.
+
+**You may use your class notes for the exam, but not the internet.  You absolutely may not communicate with anyone else during the exam.  Doing so will result in an F in this class and likely result in termination from the MA program.**
+
+\newpage
+
+
+
+# Question 0 (5 points)
+
+a. (0.5 points) Place your section number as the date of the document.  If you don't know your section number, you can determine it below based on when your lab meets.
+
+* Section 002 Lab meets TR 7:40pm-8:55pm
+* Section 003 Lab meets TR 11:40am-12:55pm
+* Section 004 Lab meets MW 8:40am-9:55am
+* Section 005 Lab meets TR 8:40am-9:55am
+
+b. (0.5 points) Write your name and UNI as the author of the document.
+
+d. (4 points) Please present your answers in a readable format.  This includes things like indenting your code and generally presenting easy-to-read code.  Presentation of the overall Markdown document will be considered as well.
+
+\newpage
+
+# Question 1: Fitting Data (49 points)
+
+(a) (4 points) You have an urn with 30 balls -- 10 are red, 10 are blue, and 10 are green.  Write a single line of code to simulate randomly picking 400 balls from the urn with replacement.  Create a variable ``num_green`` that records the number of green balls selected in the 400 draws.
+
+```{r}
+set.seed(1)
+
+# Your answer to question 1.a here.  Don't remove the set.seed(1) command.
+num_total <- sample(c(rep('r',10),rep('b',10),rep('g',10)), 400,
+                    replace = TRUE)
+num_green <- sum(num_total == 'g')
+num_green
+```
+
+(b) (4 points) Now repeat the above experiment 1000 times.  Create a vector `data`, such that each element in `data` is the result (counting the number of green balls) from an independent trial like that described in 1.a.
+
+```{r}
+set.seed(2)
+
+# Your answer to question 1.b here.  Don't remove the set.seed(2) command.
+data <- c()
+for (i in 1:1000){
+  num_total_b <- sample(c(rep('r',10),rep('b',10),rep('g',10)), 400,
+                    replace = TRUE)
+  num_green_b <- sum(num_total_b == 'g')
+  data <- c(data, num_green_b)
+}
+data
+# If you can't produce a data vector, uncomment the following line of code 
+# and use it for the rest of the questions:
+
+# data <- rnorm(1000, 133, 9)
+```
+
+(c) (6 points) Note that if a random variable X is the number of green balls selected in 400 draws with replacement from the urn, then X follows a binomial distribution, namely $X \sim bin(n, p)$ where p is the probability of selecting a green ball from the urn in a single draw, $n$ is the total number of draws, and
+\[Pr(X = x) = {n \choose x} p^x (1-p)^{n-x} \quad \text{ for } \quad x = 0, 1, \ldots, 400,\]  
+with $\mathbb{E}[X] = np$.  Recall that the binomial distribution is well-approximated by the normal distribution.  To see that this is a good approximation, plot a histogram of your data from 1.b along with a normal density curve colored red having mean $np = 400*(1/3)$ and variance $np(1-p) = 400*(1/3)*(2/3)$.
+
+```{r}
+# Your answer to question 1.c here.
+library(ggplot2)
+samp_norm <- rnorm(10000,400*(1/3), sqrt(400*(1/3)*(2/3)) )
+ggplot() +
+  geom_histogram(aes(x = data, y = ..density..)) +
+  geom_density(aes(x = samp_norm), col = "red")
+```
+
+(d) (5 points) Give the proportion of values in your data vector that are less than or equal to 100 or greater than or equal to 150.  Using `R` functions for probability distributions, compare this proportion to the probability that a normal random variable having mean $np = 400*(1/3)$ and variance $np(1-p) = 400*(1/3)*(2/3)$ is less than $100$ or greater than $150$.
+
+```{r}
+# Your answer to question 1.d here.
+mean(data<=100 | data >=150)
+mu = 400*(1/3)  #mean of normal
+sigma = sqrt(400*(1/3)*(2/3))  #sd of normal
+pnorm(100,mu,sigma) + 1 - pnorm(150,mu,sigma)
+```
+
+(e) (5 points) Write a function `MomentEstimator` that takes two input: `data`, a vector containing the number of green balls selected in each experiment, and `n` the total number of balls selected in each experiment (in 1.a, $n = 400$ but we write the function where this could change) and returns a single output value `phat` that is the method of moments estimate of of the probability p. After the function is written run the code `MomentEstimator(data, 400)` to see the method of moment estimator from your simulated data in 1.b and the code `MomentEstimator(80, 100)` to check the functionality.
+
+```{r}
+# Your answer to question 1.e here.
+MomentEstimator <- function(data, n){
+  phat <- mean(data) / n
+  return(phat)
+}
+MomentEstimator(data,400)
+MomentEstimator(80,100)
+```
+
+(f) (7 points) If $num$ is the number of experiments run (i.e. in 1.b $num$ is 1000)  and $x_i$ is the number of green balls selected in experiment $i = 1, 2, \ldots, num$, then the log-likelihood for the binomial distribution is given by the following:
+\[\ell(p) = \sum_{i=1}^{num}\left(\log {n \choose x_i} + x_i\log p + (n-x_i) \log (1-p)\right). \]
+Find the MLE estimate by writing a function that calculates the negative log-likelihood and then using `nlm()` to minimize it.  Find the MLE estimate in this way on your data from part 1.b.  Use an initial guess of $p= 0.5$.
+
+```{r, warning = FALSE}
+# Your answer to question 1.f here.
+Neg_log_lik <- function(data, p){
+  n <- length(data)
+  log_lik <- sum(log(choose(n,data)) + data*log(p) + (n-data)*log(1-p) )
+  return (-log_lik)
+}
+nlm(Neg_log_lik,  p = 0.5, data = data)
+nlm(Neg_log_lik,  p = 0.5, data = data)$estimate
+```
+
+(g) (10 points) Use the bootstrap procedure to estimate the variance of your method of moments estimator.  Use 5000 bootstrap resamples of the data (stored in vector `data`) you calculated in 1.b.  The actual variance of the method of moments estimator is $5.56e-07$.
+
+```{r}
+set.seed(3)
+
+# Your answer to question 1.g here.  Don't remove the set.seed(3) command.
+B <- 5000
+n <- length(data)
+param_ests <- rep(NA, B)
+for (b in 1:B) {
+  resamp <- sample(1:n, n, replace = TRUE)
+  param_ests[b] <- MomentEstimator(data[resamp], 400)
+}
+var(param_ests)
+```
+
+
+(h) (8 points) Use simulation to provide evidence that the method of moments estimate is consistent (meaning that as the sample size increases $num$, the estimator converges to the population value).
+
+```{r}
+set.seed(4)
+
+# Your answer to question 1.h here.  Don't remove the set.seed(4) command.
+##first generate sample of size num
+generate_samp <- function(num){
+  data <- rep(NA, num)
+  for (i in 1:num){
+    num_total_b <- sample(c(rep('r',10),rep('b',10),rep('g',10)), 400,
+                      replace = TRUE)
+    data[i] <- sum(num_total_b == 'g')
+  }  
+  return(data)
+}
+##as num range from 1:5000, compute the moment estimator
+Mom_esti <- c()
+for (i in 1:1000){
+  esti <- MomentEstimator(generate_samp(i),400)
+  Mom_esti <- c(Mom_esti, esti)
+}
+mean(Mom_esti)
+var(Mom_esti)
+plot(Mom_esti, xlab = "num")
+```
+We can see the results above, as num goes larger, the moment estimator converge to the population value with variation becomes smaller and smaller.
+
+
+\newpage
+
+# Question 2: Transforming Data (46 points)
+
+
+Gross domestic product (GDP) is a measure of the total market value of all goods and services produced in a given country in a given year.  The percentage growth rate of GDP in year t is 
+\[
+100\times\left(\frac{GDP_{t+1} - GDP_{t}}{GDP_{t}}\right) - 100
+\]
+
+An important claim in economics is that the rate of GDP growth is closely related to the level of government debt, specifically with the ratio of the government's debt to the GDP.  The file `debt.csv` contains measurements of GDP growth and of the debt-to-GDP ratio for twenty countries around the world, from the 1940s to 2010.  Note that not every country has data for the same years, and some years in the middle of the period are missing data for some countries but not others.
+
+```{r}
+debt <- read.csv("debt.csv", as.is = TRUE)
+dim(debt)
+head(debt)
+```
+
+(a) (5 points)  Calculate the average GDP growth rate for each year (averaging over countries).  This is a classic split/apply/combine problem, and you should use `split()` and a function form the apply family of functions to solve it. You should not need to use a loop to do this.  (The average growth rates for 1972 and 1989 should be $5.63$ and $3.19$, respectively.  Print these values in your output.) 
+
+```{r}
+# Your answer to question 2.a here.
+ratio.by.year <- split(debt,f = debt$Year)
+
+mean.fun <- function(df) {
+  return(mean(df$growth))
+}
+aveg_growth <- lapply(ratio.by.year, mean.fun)
+aveg_growth$`1972`
+aveg_growth$`1989`
+```
+
+(b) (5 points)  Calculate the average GDP growth rate for each year (averaging over countries).  This is a classic split/apply/combine problem, and you should use `ddply()` to solve it.  Save your output as `year.avgs` and change the column names to be `Year` and `AverageGrowth`. You should not need to use a loop to do this.  (The average growth rates for 1972 and 1989 should be $5.63$ and $3.19$, respectively.  Print these values in your output.) 
+
+```{r}
+# Your answer to question 2.b here.
+library(plyr)
+my.mean.func <- function(data) {
+  return(mean(data$growth))
+}
+year.avgs <- ddply(debt, .(... = Year), my.mean.func)
+names(year.avgs) <- c("Year", "AverageGrowth")
+year.avgs$AverageGrowth[year.avgs$Year==1972]
+year.avgs$AverageGrowth[year.avgs$Year==1989]
+```
+
+(c) (4 points) The `year.avgs` dataframe from 2.b will be sorted by Year, meaning row 1 corresponds to 1946, row 2 to 1947, and so on with row 64 corresponding to 2009.  Produce a dataframe that instead has row 1 corresponding to the year with the largest average growth, row 2 to the year with the second largest average growth, and so on with row 64 corresponding to the year with the smallest average growth.
+
+```{r}
+# Your answer to question 2.c here.
+year.avgs[order(year.avgs$AverageGrowth, decreasing = T), ]
+```
+
+(d) (3 points) Make a plot of the growth rates (y-axis) versus the year (x-axis) using your results from either 2.a or 2.b (they should be the same). Make sure the axes are labeled appropriately.
+
+```{r}
+# Your answer to question 2.d here.
+plot(year.avgs$Year, year.avgs$AverageGrowth, type = 'b',
+     xlab = "Year", ylab = "AverageGrowth")
+```
+
+(e) (6 points) The function `cor(x,y)` calculates the correlation coefficient between two vectors `x` and `y`. First calculate the correlation coefficient between GDP growth and the debt ratio over the whole data set (all countries, all years).  Your answer should be $-0.1995$. Second, compute the correlation coefficient separately for each year, and plot a histogram of these coefficients.  The mean of these correlations should be $-0.1906$.  Do not use a loop. 
+
+```{r}
+# Your answer to question 2.e here.
+cor(debt$growth,debt$ratio)
+my.cor <- function(data){
+  return(cor(data$growth,data$ratio))
+}
+cor.by.year <- sapply(split(debt, debt$Year), my.cor)
+hist(cor.by.year,xlab = "cor")
+mean(cor.by.year)
+```
+
+(f) (3 points) Some economists claim that high levels of government debt cause slower growth. Other economists claim that low economic growth leads to higher levels of government debt. The data file, as given, lets us relate this year’s debt to this year’s growth rate; to check these claims, we need to relate current debt to future growth.  Create a new dataframe that contains all the rows of `debt` for France. It should have 54 rows and 4 columns. Note that some years are missing from the middle of this data set.
+
+```{r}
+# Your answer to question 2.f here.
+debt.france <- debt[debt$Country=="France",]
+dim(debt.france)
+```
+
+(g) Create a new column in your dataframe for France created in 2.f, labeled `next.growth`, which gives next year's growth *if* the next year is in the data frame, or `NA` if the next year is missing. Do this in two steps.  
+
+1. (7 points) First write a function `n.growth()` that takes in two arguments, a year and a dataframe (that has the same columns as `debt` but rows only corresponding to a single country), and outputs the proper next growth value for that year and that dataframe (i.e. it gives next year's growth if the next year is in the input dataframe, or `NA` if the next year is missing).  
+
+```{r}
+# Your answer to question 2.g.1 here.
+n.growth <- function(year, data){
+  logic.stat <- sum(data$Year==year+1)>0
+  if(logic.stat){
+    return(data$growth[which(data$Year==year+1)])
+  }else{
+    return(NA)
+  }
+}
+```
+
+2. (5 points) Next use `n.growth()` and one of the functions from the apply family to create the `next.growth` column in the dataframe.  (`next.growth` for 1971 should be $5.886$, but for 1972 it should be `NA`.)
+```{r}
+# Your answer to question 2.g.2 here.
+yearrange <- debt.france$Year
+next.growth <- sapply(yearrange, n.growth, data = debt.france)
+next.growth[which(yearrange==1971)]
+next.growth[which(yearrange==1972)]
+```
+
+(h) (8 points) Add a `next.growth` column, as in 2.g, to the whole of the `debt` data frame. Make sure that you do not accidentally put the first growth value for one country as the `next.growth` value for another. (The `next.growth` for France in 2009 should be `NA`, not 9.167
+.) Hints: Write a function to encapsulate what you did in 2.f, and apply it using `ddply()`.
+
+```{r}
+# Your answer to question 2.g here.
+my.next.growth <- function(data.country){
+  year <- unique(debt$Year)
+  next.growth <- sapply(year, n.growth, data = data.country)
+  return(next.growth)
+}
+next.growth1 <- ddply(debt, .(Country), my.next.growth)
+names(next.growth1) <- c("Country",unique(debt$Year))
+next.growth <- rep(NA, length(debt$Year))
+for (i in 1:nrow(debt)){
+  xloc <- which(next.growth1$Country==debt$Country[i])
+  yloc <- which(names(next.growth1)==as.character(debt$Year[i]))
+  value = next.growth1[xloc,yloc]
+  next.growth[i] <- value
+}
+debt <- cbind(debt,next.growth)
+head(debt)
+```
+\newpage
