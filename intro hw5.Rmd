@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: "Homework #5"
 author: "Fan Yang, fy2232"
@@ -137,3 +138,144 @@ ggplot() +
   xlab("month") + ylab("average proportion")
 ```
 
+=======
+---
+title: "Homework #5"
+author: "Fan Yang, fy2232"
+date: "December 8, 2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Part I
+
+##1. 
+```{r}
+nodes <- read.csv("ckm_nodes.csv", header = T, as.is = T)
+
+sum(na.omit(nodes$adoption_date) < Inf)
+sum(na.omit(nodes$adoption_date)==Inf)
+length(nodes$adoption_date) - length(na.omit(nodes$adoption_date))
+```
+
+##2. 
+
+```{r}
+ind.notNA <- complete.cases(nodes$adoption_date)
+ind.notNA <- seq(1:nrow(nodes))[ind.notNA]
+length(ind.notNA)
+nodes <- nodes[ind.notNA,]
+```
+
+##3.
+```{r}
+num_mon <- table(nodes$adoption_date)[-18]
+plot(num_mon,type = 'b',ylab="number begin prescribing") 
+plot(cumsum(num_mon),type = 'b',ylab="total number prescribing")
+
+```
+
+##4.
+```{r}
+begin2 <- nodes$adoption_date<=2
+begin2 <- seq(1:nrow(nodes))[begin2]
+begin2
+begin14 <- nodes$adoption_date>14
+begin14 <- seq(1:nrow(nodes))[begin14]
+begin14
+```
+##5.
+```{r}
+adopters <- function(month, not.yet = FALSE){
+  index <- seq(1:nrow(nodes))
+  late <- index[nodes$adoption_date>month]
+  early <- index[nodes$adoption_date==month]
+  if(not.yet){
+    return(late)
+  }else{
+    return(early)
+  }
+}
+adopters(2)
+length(adopters(2))
+length(adopters(month = 14, not.yet = TRUE))
+```
+
+# Part II
+##6.
+```{r}
+network <- read.table("ckm_network.txt")
+dim(network)
+network <- network[ind.notNA,ind.notNA]
+names(network) <- c()
+dim(network)
+```
+
+##7.
+```{r}
+doc.contacts <- apply(network,2,sum)
+doc.contacts[41]
+```
+
+##8.
+```{r}
+friend37 <- (network[,37]==1)*(nodes$adoption_date<=5)
+sum(friend37)
+sum(friend37) / doc.contacts[37]
+```
+##9.
+```{r}
+count_peer_pressure <- function(index, month){
+  return (sum((network[,index]==1)*(nodes$adoption_date<=month)))
+}
+count_peer_pressure(37,5)
+```
+
+##10.
+```{r}
+# approach 1
+# prop_peer_pressure <- function(index, month){
+#   return (
+#     sum((network[,index]==1)*(nodes$adoption_date<=month)) /
+#     sum((network[,index]==1))
+#   )
+# }
+# prop_peer_pressure(37,5)
+# prop_peer_pressure(102,12)
+
+# approach 2
+prop_peer_pressure <- function(index, month){
+  return (count_peer_pressure(index,month) / doc.contacts[index])
+}
+prop_peer_pressure(37,5)
+prop_peer_pressure(102,12)
+```
+
+##11.
+```{r}
+average_contact <- function(month){
+  return( c(
+    mean(sapply(adopters(month,FALSE),prop_peer_pressure,month=month),na.rm=TRUE),
+    mean(sapply(adopters(month,TRUE),prop_peer_pressure,month=month),na.rm=TRUE)  )
+  )
+}
+average_contact(2)
+```
+
+##12.
+```{r}
+month.ind <- 1:17
+begin_ave <- sapply(month.ind,average_contact)[1,]
+later_ave <- sapply(month.ind,average_contact)[2,]
+
+library(ggplot2)
+
+ggplot() +
+  geom_line(aes(x =month.ind , y = begin_ave,col='red')) +
+  geom_line(aes(x =month.ind , y = later_ave,col='blue')) + 
+  scale_colour_discrete(labels = c('later','begin')) + 
+  xlab("month") + ylab("average proportion")
+```
+
+>>>>>>> d6aff91dd3010c6aa576a4130e1156572d6a544c
