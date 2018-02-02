@@ -1,0 +1,449 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW0}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \#
+
+HW0
+
+Fan Yang
+
+UNI: fy2232
+
+1/18/2018
+
+    \hypertarget{problem-1}{%
+\section{Problem 1}\label{problem-1}}
+
+    \hypertarget{a.}{%
+\subsection{(a).}\label{a.}}
+
+\begin{align*}
+Pr(X=1)&=Pr(X=1,Y=1)+Pr(X=1,Y=2)=0.1+0.2=0.3\\
+Pr(X=2)&=Pr(X=2,Y=1)+Pr(X=2,Y=2)=0.2+0.2=0.3\\
+Pr(X=3)&=Pr(X=3,Y=1)+Pr(X=3,Y=2)=0.3+0.1=0.4\\
+\end{align*}
+
+    \hypertarget{b.}{%
+\subsection{(b).}\label{b.}}
+
+\begin{align*}
+Pr(Y = 1 | X = 2) = \frac{Pr(Y=1,X=2)}{Pr(X=2)}=\frac{0.2}{0.3}=\frac{2}{3}
+\end{align*}
+
+    \hypertarget{c.}{%
+\subsection{(c).}\label{c.}}
+
+\begin{align*}
+E(Y) &= Pr(Y=1)*1+Pr(Y=2)*2\\&=(0.1+0.2+0.3)*1+(0.2+0.1+0.1)*2=0.6+0.8=1.4\\
+E(Y^2)&=Pr(Y=1)*1^2+Pr(Y=2)*2^2\\&=(0.1+0.2+0.3)*1+(0.2+0.1+0.1)*4=0.6+1.6=2.2\\
+Var(Y)&=E(Y^2)-E^2(Y)=2.2-1.4^2=0.24
+\end{align*}
+
+    \hypertarget{d.}{%
+\subsection{(d).}\label{d.}}
+
+\begin{align*}
+Pr(X = 1 | Y = 1) &= \frac{Pr(X=1,Y=1)}{Pr(Y=1)}=\frac{0.1}{0.6}=\frac{1}{6}\\
+Pr(X = 2 | Y = 1) &= \frac{Pr(X=2,Y=1)}{Pr(Y=1)}=\frac{0.2}{0.6}=\frac{1}{3}\\
+Pr(X = 3 | Y = 1) &= \frac{Pr(X=3,Y=1)}{Pr(Y=1)}=\frac{0.3}{0.6}=\frac{1}{2}\\
+E(f(X)|Y=1) &= Pr(X = 1 | Y = 1)*1^2+Pr(X = 2 | Y = 1)*2^2+Pr(X = 3 | Y = 1)*3^2\\
+&=\frac{1}{6}+\frac{1}{3}*4+\frac{1}{2}*9=6
+\end{align*}
+
+    \hypertarget{e.}{%
+\subsection{(e).}\label{e.}}
+
+\begin{align*}
+Pr(X = 1 | Y = 2) &= \frac{Pr(X=1,Y=2)}{Pr(Y=2)}=\frac{0.2}{0.4}=\frac{1}{2}\\
+Pr(X = 2 | Y = 2) &= \frac{Pr(X=2,Y=2)}{Pr(Y=2)}=\frac{0.1}{0.4}=\frac{1}{4}\\
+Pr(X = 3 | Y = 2) &= \frac{Pr(X=3,Y=2)}{Pr(Y=2)}=\frac{0.1}{0.4}=\frac{1}{4}\\
+E(f(X)|Y=2) &= Pr(X = 1 | Y = 2)*1^2+Pr(X = 2 | Y = 2)*2^2+Pr(X = 3 | Y = 2)*3^2\\
+&=\frac{1}{2}+\frac{1}{4}*4+\frac{1}{4}*9=3.75
+\end{align*}
+
+Therefore, \(E(f(X)|Y=1) =6,~E(f(X)|Y=2)=3.75\)
+
+    \hypertarget{problem-2}{%
+\section{Problem 2}\label{problem-2}}
+
+    \hypertarget{a.}{%
+\subsection{(a).}\label{a.}}
+
+\textbackslash{}begin\{split\}
+\int\textsuperscript{\{\infty\}\emph{\{\infty\}f(x)dx \&=
+\int}\{0\}}\{\infty\}\frac{1}{Z}(e\textsuperscript{\{-\theta x\}+e}\{-2\theta x\})dx\textbackslash{}
+\&=\frac{1}{Z} (- \frac{1}{\theta} e\^{}\{-\theta x\}-\frac{2}{\theta}
+e\^{}\{-2\theta x\})\Big\textbar{}\_0\^{}\infty\textbackslash{}
+\&=\frac{3}{Z\theta} \textbackslash{}end\{split\}
+
+    This integral should be equal to 1. which is \(\frac{3}{Z\theta}=1\). So
+\(Z=\frac{3}{\theta}\)
+
+    \hypertarget{b.}{%
+\subsection{(b).}\label{b.}}
+
+\begin{align*}
+E(X)&=\int^{\infty}_{\infty}~xf(x)~dx = \int_{0}^{\infty}\frac{1}{Z}(xe^{-\theta x}+xe^{-2\theta x})dx\\
+&=\frac{1}{Z} (-\frac{1}{\theta^2} e^{-\theta x}(\theta x+1)-\frac{1}{4\theta^2} e^{-2\theta x}(2\theta x+1))\Big|_0^\infty\\
+&=\frac{1}{Z}(\frac{1}{\theta^2}+\frac{1}{4\theta^2})\\
+&=\frac{1}{Z}\frac{5}{4\theta^2}\\
+&=\frac{5}{12\theta}\\
+\end{align*}
+
+    \hypertarget{c.}{%
+\subsection{(c).}\label{c.}}
+
+\begin{align*}
+E(X^2)&=\int^{\infty}_{\infty}~x^2f(x)~dx = \int_{0}^{\infty}\frac{1}{Z}(x^2e^{-\theta x}+x^2e^{-2\theta x})dx\\
+&=\frac{1}{Z} (-\frac{1}{\theta^3} e^{-\theta x}(\theta^2 x^2+2\theta x+2)-\frac{1}{4\theta^3} e^{-2\theta x}(2\theta^2 x^2+2\theta x+1))\Big|_0^\infty\\
+&=\frac{1}{Z}(\frac{2}{\theta^3}+\frac{1}{4\theta^3})\\
+&=\frac{1}{Z}\frac{9}{4\theta^3}\\
+&=\frac{3}{4\theta^2}\\
+Var(X)&=E(X^2)-E^2(X)=\frac{3}{4\theta^2}-\frac{25}{144\theta^2}=\frac{83}{144\theta^2}\\
+\end{align*}
+
+    \hypertarget{problem-3}{%
+\section{Problem 3}\label{problem-3}}
+
+    \hypertarget{a.}{%
+\subsection{(a).}\label{a.}}
+
+denote ``having red hair'' as R. denote ``not having red hair'' as NR.
+denote ``has the genetic disease'' as G. denote ``not has the genetic
+disease'' as NG.
+
+\begin{split}
+&Pr(G)=Pr(R)=0.01\\
+&Pr(yes|G)=Pr(yes|R)=0.99\\
+&Pr(no|NG)=Pr(no|NR)=0.99\\
+\end{split}
+
+now we want to calculate \(Pr(G|yes)\)
+
+\begin{split}
+&Pr(yes|G)=\frac{Pr(yes;G)}{Pr(G)}=0.99\\
+&\therefore Pr(yes;G)=0.99\times0.01=0.0099\\
+&Pr(yes|NG)=1-Pr(no|NG)=0.01\\
+&Pr(yes|NG)=\frac{Pr(yes;NG)}{Pr(NG)}=0.01\\
+&\therefore Pr(yes;NG)=0.01\times(1-0.01)=0.0099\\
+&Pr(yes)=Pr(yes;G)+Pr(yes;NG)=0.0099+0.0099=0.0198\\
+&Pr(G|yes)=\frac{Pr(G;yes)}{Pr(yes)}=\frac{0.99}{0.0198}=\frac{1}{50}\\
+\end{split}
+
+    \hypertarget{problem-4}{%
+\section{Problem 4}\label{problem-4}}
+
+    \hypertarget{a.}{%
+\subsection{(a).}\label{a.}}
+
+Since \(M=M^T\), then \(A=M^TDM\) and \(D\) is a diagonal matrix,
+therefore, \(\{-1,\frac{1}{2},\frac{1}{4},0\}\) are eigen values of
+matrix \(A\). So the dimension of \(R\) is 4.
+
+    \hypertarget{b.}{%
+\subsection{(b).}\label{b.}}
+
+Denote the first and third matrices as \(M\), then \(MM=I;~M^{-1}=M\)
+Denote the diagonal matrix as \(D\). then,
+\(A=MDM;~A^2=MDM*MDM=(MD)(MM)(DM)=MD^2M;~A^3=MD^3M;~A^k=MD^kM\).
+\(D^3=\left( \begin{matrix} -1&0&0&0&0&0\\ 0&\frac{1}{8}&0&0&0&0\\ 0&0&\frac{1}{8}&0&0&0\\ 0&0&0&\frac{1}{64}&0&0\\ 0&0&0&0&0&0\\ 0&0&0&0&0&\frac{1}{64}\\ \end{matrix} \right)\)
+So the largest eigen value is \(\frac{1}{8}\).
+
+    \hypertarget{c.}{%
+\subsection{(c).}\label{c.}}
+
+\textbackslash{}begin\{split\}
+P\&=A(A\textsuperscript{TA)}\{-1\}A\textsuperscript{T\textbackslash{}
+\&=A(AA)}\{-1\}A\textbackslash{}
+\&=MDM(MDMMDM)\textsuperscript{\{-1\}MDM\textbackslash{}
+\&=MDM(MDDM)}\{-1\}MDM\textbackslash{}
+\&=MDMM\textsuperscript{\{-1\}D}\{-1\}D\textsuperscript{\{-1\}M}\{-1\}MDM\textbackslash{}
+\&=MDD\textsuperscript{\{-1\}D}\{-1\}DM\textbackslash{}
+\&=MM\textbackslash{} \&=I\_\{6\times6\}\textbackslash{}
+\textbackslash{}end\{split\}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

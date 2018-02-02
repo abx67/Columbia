@@ -1,0 +1,111 @@
+---
+title: "HW0"
+author: "Fan Yang"
+date: "1/18/2018"
+output: pdf_document
+---
+
+#Problem 1
+##(a). 
+
+\begin{align*}
+Pr(X=1)&=Pr(X=1,Y=1)+Pr(X=1,Y=2)=0.1+0.2=0.3\\
+Pr(X=2)&=Pr(X=2,Y=1)+Pr(X=2,Y=2)=0.2+0.2=0.3\\
+Pr(X=3)&=Pr(X=3,Y=1)+Pr(X=3,Y=2)=0.3+0.1=0.4\\
+\end{align*}
+##(b).
+\begin{align*}
+Pr(Y = 1 | X = 2) = \frac{Pr(Y=1,X=2)}{Pr(X=2)}=\frac{0.2}{0.3}=\frac{2}{3}
+\end{align*}
+##(c).
+\begin{align*}
+E(Y) &= Pr(Y=1)*1+Pr(Y=2)*2\\&=(0.1+0.2+0.3)*1+(0.2+0.1+0.1)*2=0.6+0.8=1.4\\
+E(Y^2)&=Pr(Y=1)*1^2+Pr(Y=2)*2^2\\&=(0.1+0.2+0.3)*1+(0.2+0.1+0.1)*4=0.6+1.6=2.2\\
+Var(Y)&=E(Y^2)-E^2(Y)=2.2-1.4^2=0.24
+\end{align*}
+##(d).
+\begin{align*}
+Pr(X = 1 | Y = 1) &= \frac{Pr(X=1,Y=1)}{Pr(Y=1)}=\frac{0.1}{0.6}=\frac{1}{6}\\
+Pr(X = 2 | Y = 1) &= \frac{Pr(X=2,Y=1)}{Pr(Y=1)}=\frac{0.2}{0.6}=\frac{1}{3}\\
+Pr(X = 3 | Y = 1) &= \frac{Pr(X=3,Y=1)}{Pr(Y=1)}=\frac{0.3}{0.6}=\frac{1}{2}\\
+E(f(X)|Y=1) &= Pr(X = 1 | Y = 1)*1^2+Pr(X = 2 | Y = 1)*2^2+Pr(X = 3 | Y = 1)*3^2\\
+&=\frac{1}{6}+\frac{1}{3}*4+\frac{1}{2}*9=6
+\end{align*}
+##(e).
+\begin{align*}
+Pr(X = 1 | Y = 2) &= \frac{Pr(X=1,Y=2)}{Pr(Y=2)}=\frac{0.2}{0.4}=\frac{1}{2}\\
+Pr(X = 2 | Y = 2) &= \frac{Pr(X=2,Y=2)}{Pr(Y=2)}=\frac{0.1}{0.4}=\frac{1}{4}\\
+Pr(X = 3 | Y = 2) &= \frac{Pr(X=3,Y=2)}{Pr(Y=2)}=\frac{0.1}{0.4}=\frac{1}{4}\\
+E(f(X)|Y=2) &= Pr(X = 1 | Y = 2)*1^2+Pr(X = 2 | Y = 2)*2^2+Pr(X = 3 | Y = 2)*3^2\\
+&=\frac{1}{2}+\frac{1}{4}*4+\frac{1}{4}*9=3.75
+\end{align*}
+Therefore, $E(f(X)|Y=1) =6,E(f(X)|Y=2)=3.75$
+
+#Problem 2
+##(a).
+
+$$
+\int^{\infty}_{\infty}f(x)dx = \int_{0}^{\infty}\frac{1}{Z}(e^{-\theta x}+e^{-2\theta x})dx\\
+=\frac{1}{Z} (- \frac{1}{\theta} e^{-\theta x}-\frac{2}{\theta} e^{-2\theta x})\Big|_0^\infty\\
+=\frac{3}{Z\theta}
+$$
+This integral should be equal to 1. which is $\frac{3}{Z\theta}=1$. So $Z=\frac{3}{\theta}$
+
+##(b).
+\begin{align*}
+E(X)&=\int^{\infty}_{\infty}~xf(x)~dx = \int_{0}^{\infty}\frac{1}{Z}(xe^{-\theta x}+xe^{-2\theta x})dx\\
+&=\frac{1}{Z} (-\frac{1}{\theta^2} e^{-\theta x}(\theta x+1)-\frac{1}{4\theta^2} e^{-2\theta x}(2\theta x+1))\Big|_0^\infty\\
+&=\frac{1}{Z}(\frac{1}{\theta^2}+\frac{1}{4\theta^2})\\
+&=\frac{1}{Z}\frac{5}{4\theta^2}\\
+&=\frac{5}{12\theta}\\
+\end{align*}
+
+##(c).
+\begin{align*}
+E(X^2)&=\int^{\infty}_{\infty}~x^2f(x)~dx = \int_{0}^{\infty}\frac{1}{Z}(x^2e^{-\theta x}+x^2e^{-2\theta x})dx\\
+&=\frac{1}{Z} (-\frac{1}{\theta^3} e^{-\theta x}(\theta^2 x^2+2\theta x+2)-\frac{1}{4\theta^3} e^{-2\theta x}(2\theta^2 x^2+2\theta x+1))\Big|_0^\infty\\
+&=\frac{1}{Z}(\frac{2}{\theta^3}+\frac{1}{4\theta^3})\\
+&=\frac{1}{Z}\frac{9}{4\theta^3}\\
+&=\frac{3}{4\theta^2}\\
+Var(X)&=E(X^2)-E^2(X)=\frac{3}{4\theta^2}-\frac{25}{144\theta^2}=\frac{83}{144\theta^2}\\
+\end{align*}
+
+#Problem 3
+
+##(a).
+\begin{align*}
+PASS
+\end{align*}
+
+#Problem 4
+
+##(a).
+\begin{align*}
+&\text{Since $M=M^T$, then $A=M^TDM$ and $D$ is a diagonal matrix, therefore, }\{-1,\frac{1}{2},\frac{1}{4},0\}\text{ are eigen values of matrix $A$}\\
+&\text{So the dimension of $R$ is 4}
+\end{align*}
+
+##(b).
+\begin{align*}
+&\text{Denote the first and third matrices as M, then }MM=I\\
+&\text{Denote the diagonal matrix as D}\\
+&\text{then, }A=MDM;~A^2=MDM*MDM=(MD)(MM)(DM)=MD^2M;~A^3=MD^3M;~A^k=MD^kM\\
+D^3&=\left(
+\begin{matrix}
+-1&0&0&0&0&0\\
+0&\frac{1}{8}&0&0&0&0\\
+0&0&\frac{1}{8}&0&0&0\\
+0&0&0&\frac{1}{64}&0&0\\
+0&0&0&0&0&0\\
+0&0&0&0&0&\frac{1}{64}\\
+\end{matrix}
+\right)\\
+&\text{So the largest eigen value is $\frac{1}{8}}\\
+\end{align*}
+
+
+##(c).
+\begin{align*}
+&A*V=\frac{1}{2}I*V\\
+
+\end{align*}
