@@ -1,0 +1,524 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+
+%\graphicspath{{D:\Tex\Regression Homework\material/}}
+
+%\graphicspath{{/material/}}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+%\chead{\hmwkClass\ (\hmwkClassInstructor): \hmwkTitle}
+\rhead{\hmwkAuthorUNI}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    %\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    %\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    %\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    %\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+\newenvironment{homeworkProblem}{
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{0}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{September 25, 2017}
+\newcommand{\hmwkClass}{LINEAR REGRESSION MODELS}
+%\newcommand{\hmwkClassTime}{Section 005}
+\newcommand{\hmwkClassInstructor}{Professor Jingchen Liu}
+\newcommand{\hmwkAuthorName}{Fan Yang}
+\newcommand{\hmwkAuthorUNI}{UNI: fy2232}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}\\
+    \text{\hmwkAuthorUNI}}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+
+\pagebreak
+
+%\clearpage
+\phantom{s}
+%\clearpage
+\setcounter{page}{0}
+\thispagestyle{empty}
+\pagebreak
+
+\begin{homeworkProblem}     %1
+
+    \textbf{a.}\\
+
+    My answer is yes. There is a linear association between Y and X. Because in the diagram above, we can find
+    95\% confidence interval. And the estimated slope value is 0.755048, which lies in the 95\% confidence interval [0.452886, 1.05721].
+    What's more, it is now obvious that the implied level of significance is 95\%.\\
+
+    \textbf{b.}\\
+
+    The plausible reason for this question is 'dollar sales cannot be negative even if the population in a district is zero.' But actually
+    population in a district can not be 0. What's more, x=0 is not included in our sample space. So there is no sense considering the value of
+    sales when x=0.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}%2\\
+
+    \textbf{a.}\\
+    The summary of model in Problem 1.19 lists as below:
+
+        \begin{verbatim}
+        > summary(lm.pr19)
+
+        Call:
+        lm(formula = da$V1 ~ da$V2)
+
+        Residuals:
+             Min       1Q   Median       3Q      Max
+        -2.74004 -0.33827  0.04062  0.44064  1.22737
+
+        Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)
+        (Intercept)  2.11405    0.32089   6.588  1.3e-09 ***
+        da$V2        0.03883    0.01277   3.040  0.00292 **
+        ---
+        Signif. codes:  0 ¡®***¡¯ 0.001 ¡®**¡¯ 0.01 ¡®*¡¯ 0.05 ¡®.¡¯ 0.1 ¡® ¡¯ 1
+        \end{verbatim}
+    \[
+        \begin{split}
+            &\text{As we already know the confidence interval of }\beta_1 : [\widehat{\beta}_1-\xi_{0.005}SD(\beta_1),\widehat{\beta}_1+\xi_{0.005}SD(\beta_1)]\\
+            &\text{Since $\xi_{0.005}=2.58$, and we know $SD(\beta_1)=0.01277$, therefore, the CI is:}\\
+            &[0.03883-2.58\times0.01277, 0.03883+2.58\times0.01277]\text{, which is }\\
+            &[0.0058834, 0.0717766]\\
+            &\\
+            &\text{this interval does not include 0.}\\
+            &\text{if the interval includes 0, which means GPA(Y) can not be predicted by ACT test score(X) since they shows}\\
+            &\text{little asso  ciation. And this conclusion could reach a confidence level of 99\%.}
+        \end{split}
+    \]
+
+    \textbf{b.}\\
+    two alternatives are:\\
+    \centerline{$H_0 : \beta_1=0$}\\
+    \centerline{$H_1 : \beta_1\neq0$}\\
+    test statistic is\\
+    \[t^*=\frac{\widehat{\beta}_1}{sd(\beta)}\]
+    \[\text{when $t^*>t(1-\alpha/2,n-2)$, we reject $H_0$; otherwise, conclude $H_0$.}\]
+
+    \[
+    \begin{split}
+        &\text{Calculate $t^*$ first: } t^*=\frac{\widehat{\beta}_1}{sd(\beta)}=\frac{0.03883}{0.01277}=3.04072\\
+        &\text{And we can get from table that }t(1-\alpha/2,n-2)=t(1-0.005,118)\approx 2.58 < t^*=3.04072.\\
+        &\text{Therefore, we can conclude that } \beta_1\neq 0.\\
+        &\text{Which means linear association exists between student's ACT score (X) and GPA.}\\
+    \end{split}
+    \]
+
+    \textbf{c.}\\
+    \[
+    \begin{split}
+    &\text{The two-sided P-value for the sample outcome is obtained by first finding the onesided P-value,}\\
+    &Pr(|t(118)| > t* = 3.04072).\\
+    &\text{We use R to compute that this probability is about 0.003.}\\
+    &\text{Since the P-value is less 0.01, which is the level of significance.Therefore we can conclude $H_1$}\\
+    &\text{directly.}
+    \end{split}
+    \]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}     %3
+
+    \textbf{a.}
+    we use R to get the summary of the model:
+    \begin{verbatim}
+        Call:
+        lm(formula = d22$V1 ~ d22$V2)
+
+        Residuals:
+            Min      1Q  Median      3Q     Max
+        -5.1500 -2.2188  0.1625  2.6875  5.5750
+
+        Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)
+        (Intercept) 168.60000    2.65702   63.45  < 2e-16 ***
+        d22$V2        2.03438    0.09039   22.51 2.16e-12 ***
+        ---
+        Signif. codes:  0 ¡®***¡¯ 0.001 ¡®**¡¯ 0.01 ¡®*¡¯ 0.05 ¡®.¡¯ 0.1 ¡® ¡¯ 1
+    \end{verbatim}\\
+    \[
+    \begin{split}
+    &\text{The regression function is } Y_i=168.6+2.03438X_i\\
+    &\text{We already know that $\frac{\widehat{\beta}_1-\beta_1}{sd(\widehat{\beta}_1)}$ follows $t(n-2)$}\\
+    &\text{Thus, $[\widehat{\beta}_1-t(0.005,14)sd(\beta_1), \widehat{\beta}_1+t(0.005,14)sd(\beta_1)]$ is the confidence interval.}\\
+    &~~~~~\widehat{\beta}_1=2.03438¡¡\text{ and } t(0.005,14)=2.98 \text{ and } sd(\beta_1)=0.09039\\
+    &\text{So the confidence interval is} [2.03438-0.09039\times2.98, 2.03438+0.09039\times2.98]\\
+    &\text{ which is }[1.765018, 2.303742]\\
+    &\text{This is also interval estimate for change in the mean hardness.}
+    \end{split}
+    \]
+
+    \textbf{b.}
+    two alternatives are:\\
+    \centerline{$H_0 : \beta_1=2$}\\
+    \centerline{$H_1 : \beta_1\neq2$}\\
+    test statistic is\\
+    \[t^*=\frac{\widehat{\beta}_1-\beta_1}{sd(\widehat{\beta}_1)}\]
+    \[\text{when $t^*>t(1-\alpha/2,n-2)$, we reject $H_0$; otherwise, conclude $H_0$.}\]
+
+    \[
+    \begin{split}
+        &\text{Calculate $t^*$ first: } t^*=\frac{\widehat{\beta}_1-\beta_1}{sd(\widehat{\beta}_1)}=\frac{2.03438-2}{0.09039}=0.3803518\\
+        &\text{And we can get from table that }t(1-\alpha/2,n-2)=t(1-0.005,14)\approx 2.98 > t^*=0.3803518.\\
+        &\text{Therefore, we can not reject $H_0$. So we conclude that } \beta_1= 2.\\
+        &\\
+        &\text{The two-sided P-value for the sample outcome is obtained by first finding the onesided P-value,}\\
+        &Pr(|t(14)| > t* = 0.3803518).\\
+        &\text{We use R to compute that this probability is about 0.7093927. So P-value is 0.7093927.}\\
+    \end{split}
+    \]
+
+    \textbf{c.}
+    \[
+    \begin{split}
+    &\text{From textbook equation (2.27) we know that}\\
+    &\delta=\frac{|\beta_1-\beta_{10}|}{\sigma(\widehat{\beta}_1)}\\
+    &=\frac{0.3}{\sigma(0.1)}=\frac{0.3}{\sigma(0.1)}=3\\
+    &\text{And $\alpha=0.01~~\delta=3$, we can find the power using table: Power=0.53.}\\
+    \end{split}
+    \]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}     %4
+    \[
+        \begin{split}
+    &\text{Let's derive $\sigma^2\{\widehat{Y}_h\}$ first:}\\
+    &\sigma^2\{\widehat{Y}_h\}=\sigma^2\ \left[  \frac{1}{n}+\frac{(X_h-\overline{X})^2}{\sum( X_i-\overline{X})^2} \right]
+    =\sigma^2\ \left[  \frac{1}{n}+\frac{\frac{1}{n}(X_h-\overline{X})^2}{\frac{1}{n}\sum( X_i-\overline{X})^2} \right] \\
+    &\text{as n becomes large, $\frac{1}{n}\rightarrow0$}\\
+    &\text{According to law of large number, when n is large enough}\\
+    &\frac{1}{n}\sum( X_i-\overline{X})^2\rightarrow E((X_i-\overline{X})^2)\\
+    &\text{Thus }\frac{1}{n}\sum( X_i-\overline{X})^2\rightarrow var(X)\\
+    &\text{Therefore }\sigma^2\{\widehat{Y}_h\}\rightarrow \sigma^2\ \left[  \frac{1}{n}+\frac{(X_h-\overline{X})^2}{n\times var(X)} \right]
+    \rightarrow \sigma^2 \left[  0+0 \right] =0\\
+    &\\
+    &\text{Now we will consider $\sigma^2\{pred\}$:}\\
+    &\sigma^2\{pred\}=\sigma^2+\sigma^2\{\widehat{Y}_h\}\\
+    &\text{Although $\sigma^2\{\widehat{Y}_h\} \rightarrow 0 $ while n becomes large, }\\
+    &\text{$\sigma^2$ is variance of the distribution of $Y$ at $X=X_h$ and will always lager than 0}\\
+    &\text{So $\sigma^2\{pred\}$ can not be close to 0}\\
+    &\\
+    &\text{We can conclude that with sample size becomes larger, we can get accurate mean of $Y$;}\\
+    &\text{but the prediction mean could not be accurately got no matter how large n is.}\\
+    \end{split}
+    \]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}     %5
+
+
+    \textbf{a.}
+    \[
+        \begin{split}
+        &\text{The $1-\alpha$ confidence limits are:}\\
+        &~~~~~\widehat{Y}_h\pm t(1-\alpha/2; n-2)s\{\widehat{Y}_h\}\\
+        &\text{where}\\
+        &\widehat{Y}_h= 2.11405+0.03883*28=3.20129\\
+        &s^2\{\widehat{Y}_h\}=
+        \sigma^2\ \left[  \frac{1}{n}+\frac{(X_h-\overline{X})^2}{\sum( X_i-\overline{X})^2} \right]
+        \\
+        &=\sigma^2\ \left[  \frac{1}{n}+\frac{(X_h-\overline{X})^2}{\sum( X_i-\overline{X})^2} \right]\\
+        &\text{While }\widehat{\sigma}^2=MSE=0.3882848\\
+        &\frac{(X_h-\overline{X})^2}{\sum( X_i-\overline{X})^2}=
+        \frac{(28-24.725)^2}{\sum( X_i-24.725)^2}=0.004506707\\
+        &\text{So }s\{\widehat{Y}_h\}=\sqrt{0.3882848*(\frac{1}{118}+0.004506707)}=0.07099602\\
+        &\text{And we know $t(0.975,118)=1.980272$, therefore the confidence limits is }\\
+        &3.20129\pm1.980272*0.07099602~ \text{ which is } ~[3.060699, ~3.341881]\\
+        \end{split}
+    \]
+
+    \textbf{b.}
+    \[
+        \begin{split}
+        &\text{The $1-\alpha$ confidence interval is:}\\
+        &~~~~~\widehat{Y}_h\pm t(1-\alpha/2; n-2)s\{pred\}\\
+        &\text{We already know that:}\\
+        &~~~~~~\widehat{Y}_h=3.20129~~~MSE=0.3882848~~~s\{\widehat{Y}_h\}=0.07099602\text{ and }t(0.975,118)=1.980272\\
+        &\text{Then we need to get $s\{pred\}$}\\
+        &~~~~~s^2\{pred\}=MSE+s^2\{\widehat{Y}_h\}=0.3882848+0.07099602^2= 0.3933252\\
+        &\text{so}s\{pred\}=0.6271564\\
+        &\text{Therefore the confidence limits is }\\
+        &~~~~~3.20129\pm1.980272*0.6271564~ \text{ which is } ~[1.95935  , ~4.44323]\\
+        \end{split}
+    \]
+
+    \textbf{c.}
+    \[
+        \begin{split}
+        &\text{The prediction interval in part (b) is wider than the confidence interval in part (a)}.\\
+        &\text{Because the prediction for new observation involves new error randomness. In order to get}\\
+        &\text{the same confidence level, it must be wider.}\\
+        \end{split}
+    \]
+
+    \textbf{d.}
+    \[
+        \begin{split}
+        &\text{The two boundary values at $1-\alpha$ confidence level is:}\\
+        &~~~~~\widehat{Y}_h\pm Ws\{\widehat{Y}_h\}\\
+        &\text{where}\\
+        &~~~~~W^2 = 2F(1 - \alpha; 2, n - 2)=2F(0.95;2,118)=6.146181\\
+        &\text{So }W=2.479149\\
+        &\text{We already know that:}\\
+        &~~~~~\widehat{Y}_h=3.20129~~~MSE=0.3882848~~~s\{\widehat{Y}_h\}=0.07099602\\
+        &\text{Therefore the confidence band are }\\
+        &~~~~~3.02528 \leq \beta_0+\beta_1X_h\leq3.3773\\
+        &\\
+        &\text{The confidence band is wider at this point than the confidence interval in part (a)}\\
+        &\text{Because the bands must cover all possible values no matter what observation is, which means}\\
+        &\text{the same level of confidence interval estimate of the mean must be included in the bands.}\\
+        \end{split}
+    \]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}     %6
+
+    \[
+        \begin{split}
+        b_0&=\overline{Y}-b_1\overline{X}\\
+        E(b_0)&=E(\overline{Y}-b_1\overline{X})\\
+        &=E(\beta_0+\beta_1\overline{X}+\overline{\varepsilon}-b_1\overline{X})\\
+        &=E(\beta_0+\overline{X}(\beta_1-b_1))\\
+        &=\beta_0+\overline{X}(\beta_1-E(b_1))~~~(\text{$b_1$ is unbiased}.)\\
+        &=\beta_0\\
+        &\text{Thus, $b_0$ is a unbiased estimator of $\beta_0$}.
+        \end{split}
+    \]
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}     %7
+
+    \[
+        \begin{split}
+        \sigma^2\{b_0\}&=var(\overline{y}-b_1\overline{X})\\
+        &=var(\overline{y})+var(b_1\overline{X})-2cov(\overline{y},b_1\overline{X})\\
+        &=var(\overline{y})+\overline{X}^2var(b_1)-2\overline{X}^2cov(\overline{y},b_1)~~~(\text{using (2.31)},then:)\\
+        &=var(\overline{y})+\overline{X}^2var(b_1)\\
+        &=var(\frac{1}{n}\sum y_i)+\overline{X}^2\frac{\sigma^2}{\sum(X_i-\overline{X})^2}\\
+        &=\frac{1}{n^2}\sum var(y_i)+\frac{\sigma^2\overline{X}^2}{\sum(X_i-\overline{X})^2}\\
+        &=\frac{1}{n^2}\sum \sigma^2+\frac{\sigma^2\overline{X}^2}{\sum(X_i-\overline{X})^2}\\
+        &=\frac{1}{n}\sigma^2+\frac{\sigma^2\overline{X}^2}{\sum(X_i-\overline{X})^2}\\
+        &=\sigma^2(\frac{1}{n}+\frac{\overline{X}^2}{\sum(X_i-\overline{X})^2})\\
+        &\\
+        &\\
+        &\sigma^2\{\widehat{Y}_h\}=\sigma^2(\frac{1}{n}+\frac{(X_h-\overline{X})^2}{\sum(X_i-\overline{X})^2})\\
+        &\text{while $X_h$ is 0 }\sigma^2\{\widehat{Y}_h\}=\sigma^2\{b_0+b_1*0\}=\sigma^2\{b_0\}=\sigma^2(\frac{1}{n}+\frac{\overline{X}^2}{\sum(X_i-\overline{X})^2})\\
+        &\text{That's to say, variance (2.22b) is a special case of variance (2.29b) when $X_h=0$}\\
+        \end{split}
+    \]
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}     %8
+    \text{the $1-\alpha$ confidence limits for $\beta_1$ are: } \[b_1 \pm t(1 - \alpha/2; n - 2)sd\{b_1\}\]
+
+    \[
+        \begin{split}
+        &\text{For the}\textbf{ first}\text{ region}\\
+        \end{split}
+    \]
+    \begin{verbatim}
+        > b_1 <- lm.cdi1$coefficients[2]
+        > b_1
+        522.1588
+        > t <- qt(0.95,lm.cdi1$df.residual)
+        > sd2 <- sum((lm.cdi1$residuals)^2)/lm.cdi1$df.residual / sum((X-mean(X))^2)
+        > b_1-t*sqrt(sd2)
+        460.5177
+        > b_1+t*sqrt(sd2)
+        583.8
+    \end{verbatim}
+    \[
+        \begin{split}
+        &\text{interval estimate of $\beta_1$ is }[460.5177,~583.8]\\
+        \end{split}
+    \]
+
+    \[
+        \begin{split}
+        &\text{For the}\textbf{ second}\text{ region}\\
+        \end{split}
+    \]
+    \begin{verbatim}
+        > b_1 <- lm.cdi2$coefficients[2]
+        > b_1
+        238.6694
+        > t <- qt(0.95,lm.cdi2$df.residual)
+        > sd2 <- sum((lm.cdi2$residuals)^2)/lm.cdi2$df.residual / sum((X-mean(X))^2)
+        > b_1-t*sqrt(sd2)
+        193.4858
+        > b_1+t*sqrt(sd2)
+        283.853
+    \end{verbatim}
+    \[
+        \begin{split}
+        &\text{interval estimate of $\beta_1$ is }[193.4858,~283.853]\\
+        \end{split}
+    \]
+
+    \[
+        \begin{split}
+        &\text{For the}\textbf{ third}\text{ region}\\
+        \end{split}
+    \]
+    \begin{verbatim}
+        > b_1 <- lm.cdi3$coefficients[2]
+        > b_1
+        330.6117
+        > t <- qt(0.95,lm.cdi3$df.residual)
+        > sd2 <- sum((lm.cdi3$residuals)^2)/lm.cdi3$df.residual / sum((X-mean(X))^2)
+        > b_1-t*sqrt(sd2)
+        285.7076
+        > b_1+t*sqrt(sd2)
+        375.5158
+    \end{verbatim}
+    \[
+        \begin{split}
+        &\text{interval estimate of $\beta_1$ is }[285.7076,~375.5158]\\
+        \end{split}
+    \]
+
+    \[
+        \begin{split}
+        &\text{For the}\textbf{ forth}\text{ region}\\
+        \end{split}
+    \]
+    \begin{verbatim}
+        > b_1 <- lm.cdi4$coefficients[2]
+        > b_1
+        440.3157
+        > t <- qt(0.95,lm.cdi4$df.residual)
+        > sd2 <- sum((lm.cdi4$residuals)^2)/lm.cdi4$df.residual / sum((X-mean(X))^2)
+        > b_1-t*sqrt(sd2)
+        364.7585
+        > b_1+t*sqrt(sd2)
+        515.8729
+    \end{verbatim}
+    \[
+        \begin{split}
+        &\text{interval estimate of $\beta_1$ is }[364.7585,~515.8729]\\
+        \end{split}
+    \]
+
+    ~~~Different regression lines of the 4 regions have different slopes as shown above. Their values of bound of interval vary from each other very much.
+\end{homeworkProblem}
+
+
+\end{document}
