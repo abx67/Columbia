@@ -1,0 +1,24 @@
+## Gaussian copula codes for first-to-default swap example in lecture slides
+library(mvtnorm)
+FT = 0.047
+
+#(1) Lower bound on FTD
+1000000*exp(-0.04*5)*FT
+
+#(2) Independent defaults
+1000000*exp(-0.04*5)*(FT+FT-FT*FT)
+
+#(3) Gaussian copula with rho=0.2
+C = pmvnorm(lower=c(-Inf,-Inf),upper=c(qnorm(FT),qnorm(FT)),
+            sigma=matrix(c(1,0.2,0.2,1),2,2))
+1000000*exp(-0.04*5)*(FT+FT-C)
+
+#(4) Gaussian copula with rho=0.5
+C = pmvnorm(lower=c(-Inf,-Inf),upper=c(qnorm(FT),qnorm(FT)),
+            sigma=matrix(c(1,0.5,0.5,1),2,2))
+1000000*exp(-0.04*5)*(FT+FT-C)
+
+#(5) Gaussian copula with rho=0.9
+C = pmvnorm(lower=c(-Inf,-Inf),upper=c(qnorm(FT),qnorm(FT)),
+            sigma=matrix(c(1,0.9,0.9,1),2,2))
+1000000*exp(-0.04*5)*(FT+FT-C)

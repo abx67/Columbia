@@ -1,0 +1,71 @@
+,Name,Score,Qty
+0,100 Calories or Less,True,349
+1,100 Calories or Less 2018,True,349
+2,AHA - Heart Healthy,True,358
+3,AHA - Heart Healthy - Standard,True,358
+4,AHA - Heart Healthy - Standard 2018,True,358
+5,Carbohydrate Exchange = <1,True,354
+6,Excellent Calcium > 20% DV,True,362
+7,Excellent Vitamin D > 20% DV,True,298
+8,Fat Free <0.5 g,True,361
+9,Good Plus Calcium,True,362
+10,Good Plus Calcium 2018,True,362
+11,Good Plus Potassium,True,151
+12,Good Plus Potassium 2018,True,151
+13,Good Plus Protein,True,363
+14,Good Plus Vitamin A,True,334
+15,Good Plus Vitamin A 2018,True,334
+16,Good Plus Vitamin D,True,336
+17,Good Plus Vitamin D 2018,True,336
+18,Good Potassium 10% - 19% DV,True,148
+19,Good Protein 10% - 19% DV,True,163
+20,Good Source Antioxidant Vitamin A,True,342
+21,Good Vitamin A 10% - 19% DV,True,331
+22,Heart Healthy,True,363
+23,Heart Healthy - 2018,True,363
+24,Low Cholesterol 2 mg - 20 mg,True,313
+25,Low Sodium 35-140 mg,True,353
+26,Saturated Fat Free <0.5 g,True,305
+27,Trans Fat Free < 0.5 g,True,359
+28,Calorie Free <5 Cal,False,1
+29,Carbohydrate Exchange = 1 - 2,False,9
+30,Cholesterol Free <2 mg,False,2
+31,Excellent Iron > 20% DV,False,1
+32,Excellent Phosphorus > 20% DV,False,27
+33,Excellent Potassium > 20% DV,False,3
+34,Excellent Protein > 20% DV,False,11
+35,Excellent Riboflavin > 20% DV,False,8
+36,Excellent Source Antioxidant Vitamin A,False,15
+37,Excellent Source Antioxidant Vitamin C,False,1
+38,Excellent Source Antioxidant Vitamin E,False,1
+39,Excellent Vitamin A > 20% DV,False,6
+40,Excellent Vitamin B12 > 20% DV,False,10
+41,Excellent Vitamin B6 > 20% DV,False,1
+42,Excellent Vitamin C > 20% DV,False,1
+43,Excellent Vitamin E > 20% DV,False,1
+44,Good Niacin 10% - 19% DV,False,1
+45,Good Plus Iron,False,1
+46,Good Plus Iron 2018,False,1
+47,Good Plus Niacin,False,1
+48,Good Plus Niacin 2018,False,1
+49,Good Plus Pantothenic Acid 2018,False,27
+50,Good Plus Phosphorus,False,27
+51,Good Plus Riboflavin,False,8
+52,Good Plus Riboflavin 2018,False,8
+53,Good Plus Vitamin B12,False,10
+54,Good Plus Vitamin B12 2018,False,10
+55,Good Plus Vitamin B6,False,1
+56,Good Plus Vitamin B6 2018,False,1
+57,Good Plus Vitamin C,False,12
+58,Good Plus Vitamin C 2018,False,12
+59,Good Plus Vitamin E,False,1
+60,Good Plus Vitamin E 2018,False,1
+61,Good Plus Zinc,False,1
+62,Good Plus Zinc 2018,False,1
+63,Good Source Antioxidant Vitamin C,False,11
+64,Good Vitamin C 10% - 19% DV,False,11
+65,Good Vitamin D 10% - 19% DV,False,38
+66,Good Zinc 10% - 19% DV,False,1
+67,Low Fat 0.5 g - 3 g,False,2
+68,Low Saturated Fat 0.5 g - 1 g,False,3
+69,NLEA 2018 Sugar Free <0.5 g,False,69

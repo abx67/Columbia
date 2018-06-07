@@ -1,0 +1,230 @@
+,Name,Score,Qty
+0,Fat Free,True,351
+1,FDA RBST Statement Claim,True,234
+2,Grade A Claim,True,304
+3,Pasteurized,True,329
+4,RBST Free Claim,True,142
+5,Storage Instructions Claim,True,314
+6,Vitamin A Claim,True,303
+7,Vitamin D Claim,True,317
+8,% Post Consumer Recycled Content Claim,False,1
+9,0g Saturated Fat Per Serving,False,7
+10,100 Calories Per Serve,False,1
+11,Added Nutrient Claim,False,24
+12,All Natural Claim,False,3
+13,Antibiotic Free Claim,False,42
+14,Artificial Color and Dye Free Claim,False,5
+15,Artificial Color Free Claim,False,5
+16,Artificial Flavor Free Claim,False,3
+17,Artisanal Claim,False,1
+18,B Corporation Claim,False,5
+19,Big Size Claim,False,1
+20,Bone Claim,False,3
+21,Bonus Claim,False,3
+22,Brain Claim,False,1
+23,Builds Strong Bones Claim,False,2
+24,Calcium and Osteoporosis Claim,False,1
+25,Calcium Claim,False,65
+26,California Grown Claim,False,6
+27,Calorie Claim,False,31
+28,Calorie Free Claim,False,1
+29,Certified Organic By Midwest Organic Services Association Claim,False,1
+30,Certified Organic by QCS Claim,False,5
+31,Charitable Causes,False,11
+32,Cholesterol Claim,False,1
+33,Clinically Tested Claim,False,3
+34,Cold Preparation Instructions Claim,False,3
+35,Complete Nutrition Claim,False,1
+36,Concentrated Claim,False,1
+37,Conserve/Promote Biodiversity Claim,False,1
+38,Contains Bifidobacterium Bifidum Claim,False,1
+39,Contains Bifidobacterium Claim,False,1
+40,Contains Caffeine Claim,False,1
+41,Contains Dairy Claim,False,3
+42,Contains Lactobacillus Acidophilus Claim,False,1
+43,Contains Lactobacillus Claim,False,1
+44,Convenient Claim,False,6
+45,Convention Oven Preparation Instructions Claim,False,1
+46,Cooking Instruction - Oven/Conventional - Bake Claim,False,1
+47,Cooking Instruction - Stove Top - Boil Claim,False,1
+48,Cooperatives or Co-Op's Claim,False,16
+49,Craft Claim Base,False,1
+50,Daily Use Claim,False,1
+51,Daily Value Statement - New Label Claim,False,1
+52,Delicious Claim,False,50
+53,DHA Omega Claim,False,1
+54,Digest Claim,False,8
+55,Easy Claim,False,7
+56,Egg Free Claim,False,1
+57,Enriched Calcium Claim,False,7
+58,Enriched Claim,False,1
+59,Enriched DHA Omega Claim,False,1
+60,Enriched Docosahexaenoic Acid (DHA) Claim,False,1
+61,Enriched Protein Claim,False,3
+62,Enriched Vitamin A Claim,False,26
+63,Enriched Vitamin D Claim,False,29
+64,Enriched/More/Fortified/Added/Extra/Plus Claim,False,2
+65,Environmental,False,49
+66,Environmentally Friendly Claim,False,4
+67,Excellent Source of Calcium Claim,False,30
+68,Excellent Source of Vitamin D Claim,False,12
+69,Exclusive Claim,False,1
+70,Extra Nutrient Claim,False,3
+71,Family Farm Claim,False,29
+72,Family Owned Claim,False,21
+73,Farm Fresh Claim,False,14
+74,Farm Raised Claim,False,8
+75,Farm To Table Claim,False,3
+76,Farmer Owned Claim,False,26
+77,Fat Free Ingredients Claim,False,4
+78,FDA Nutrient Content Claim Disclosure Statement,False,1
+79,FDAMA Fats and Heart Disease Claim,False,1
+80,Fiber Claim,False,2
+81,For Best Results,False,2
+82,For Women Claim,False,1
+83,Fortified With Nutrient Claim,False,3
+84,Fortified with Vitamin A Claim,False,3
+85,Fortified with Vitamin D Claim,False,3
+86,Free Range Claim,False,1
+87,Freshness Guaranteed,False,4
+88,Geographical Source - California Claim,False,4
+89,Geographical Source - Maryland Claim,False,1
+90,Geographical Source - New York Claim,False,1
+91,Geographical Source - Oregon Claim,False,1
+92,Geographical Source - Pennsylvania Claim,False,1
+93,Gluten Free Claim,False,35
+94,Good Source of Protein Claim,False,5
+95,Good Source of Vitamin A Claim,False,8
+96,Good Source of Vitamin C Claim,False,3
+97,Good Source of Vitamin D Claim,False,6
+98,Grain Free Claim,False,1
+99,Grain Free Claim Cert,False,1
+100,Grass Fed Claim,False,11
+101,Growth Hormone Free Claim,False,87
+102,Guarantee Claim,False,80
+103,Hand Filled Claim,False,1
+104,Hand Selected Claim,False,1
+105,Harvest Location-Northwest Pacific (FAO 61) Claim,False,1
+106,Heart Healthy Claim,False,1
+107,High Pressure Processing (HPP) Claim,False,1
+108,High Quality Ingredients Claim,False,4
+109,High Quality Protein Claim,False,4
+110,Hormone Free,False,19
+111,Humane Certified Claim,False,5
+112,Humane Claim,False,6
+113,Immune Boost Claim,False,1
+114,Immune Claim,False,2
+115,Immune Support Claim,False,1
+116,Infection Health Claim,False,1
+117,Kosher Certified Claim,False,2
+118,Kosher Claim,False,11
+119,Lactose Free Claim,False,13
+120,Less than 100 Calories Per Serve Claim,False,22
+121,Local Claim,False,29
+122,Long Lasting,False,2
+123,Low Cholesterol Claim,False,4
+124,Low Fat Claim,False,2
+125,Low Fat Ingredients Claim,False,1
+126,Made In USA Claim,False,60
+127,Made With 100% Ingredient Statement Claim,False,3
+128,Made With Ingredient Statement Claim,False,2
+129,Made with Probiotics Claim,False,2
+130,Made With Real Cheese Claim,False,1
+131,Made With Real Ingredient Statement Claim,False,7
+132,Made With Real Milk Claim,False,4
+133,May Contain Bacteria Claim,False,1
+134,Minimally Processed,False,3
+135,More docosahexaenoic acid (DHA) Claim,False,1
+136,More Nutrient Claim,False,9
+137,Natural Generic Claim,False,27
+138,New,False,5
+139,No Added Nitrites Claim,False,1
+140,No Added Sweeteners Claim,False,1
+141,No Additives,False,3
+142,No Artificial Fertilizers Claim,False,2
+143,No Artificial Pesticides Claim,False,6
+144,No Fertilizers,False,1
+145,No Pesticides,False,24
+146,Non GMO,False,29
+147,Non GMO Ingredient,False,3
+148,Non-GMO Fed Claim,False,6
+149,Non-Toxic Claim,False,1
+150,Not a Significant Source of Statement,False,4
+151,Not Homogenized,False,6
+152,Not Intended For Resale Claim,False,1
+153,Nothing Artificial,False,5
+154,Nut Free Claim,False,1
+155,Nutrient Dense Claim,False,3
+156,Omega 3 Claim,False,1
+157,Oregon Tilth Certified Organic Claim,False,13
+158,Organic,False,61
+159,Organic Certified Claim,False,29
+160,Organic Farm Claim,False,8
+161,Organic Fed Claim,False,10
+162,Organic Ingredient,False,48
+163,Original,False,2
+164,Package Disclaimer,False,1
+165,Partially Produced with Genetic Engineering Claim,False,1
+166,Pasture Raised,False,18
+167,Peanut Free Claim,False,1
+168,Percent Daily Values Statement,False,209
+169,Potassium Claim,False,1
+170,Preservative Free Claim,False,2
+171,Printed in USA Claim,False,1
+172,Probiotic Claim,False,3
+173,Probiotic/Prebiotic Claim,False,3
+174,Product Consumption Temperature Claim,False,3
+175,Protein Claim,False,43
+176,Pure Claim,False,38
+177,Purity Tested Claim,False,5
+178,Raw Claim,False,1
+179,Ready To Eat Claim,False,2
+180,Real Dairy,False,2
+181,Recipe Claim,False,4
+182,Recipe Ready Claim,False,2
+183,Recognizable Ingredients Claim,False,3
+184,Recycle Claim,False,32
+185,Recycled Content,False,1
+186,Recycled Packaging Content Claim,False,1
+187,Reduced Calorie Claim,False,3
+188,Reduced Fat Claim,False,3
+189,Reduced Source,False,1
+190,Reduced Sugar Claim,False,2
+191,Refreshing Claim,False,2
+192,Relative Claim - More Calcium,False,1
+193,Renewable Packaging Content Claim,False,1
+194,Resealable Claim,False,1
+195,"Sat Fat, Cholesterol, and Heart Disease Claim",False,1
+196,Satisfaction Guarantee,False,53
+197,Saturated Fat Claim,False,1
+198,Saturated Fat Free Claim,False,2
+199,Serving Suggestions Claim,False,5
+200,Shake Before Using Claim,False,9
+201,Shelf-Stable Claim,False,1
+202,Sodium Claim,False,8
+203,Sourced Sustainably Claim,False,1
+204,Stay Fresh Packaging Claim,False,3
+205,Stove Top Preparation Instructions,False,1
+206,Sugar Claim,False,10
+207,Suggested Use,False,13
+208,Sustainable Claim,False,14
+209,Sustainable Farming Claim,False,6
+210,Temperature Control Claim,False,1
+211,Tested for Beta-Lactam Antibiotics Claim,False,6
+212,Tested For Harmful Substances Claim,False,3
+213,Traceable Food Claim,False,13
+214,Trans Fat Free Claim,False,1
+215,Tree Nut Free Claim,False,1
+216,Usage Instructions Claim,False,20
+217,USDA Certified Organic Claim,False,6
+218,Vegetarian Claim,False,1
+219,Vitamin B Claim,False,2
+220,Vitamin C Claim,False,5
+221,Vitamin Claim,False,3
+222,Vitamin K Claim,False,1
+223,Warning - Ask a Doctor,False,1
+224,Wheat Free Claim,False,1
+225,Wholesome Claim,False,27
+226,Wholesome Ingredients Claim,False,27
+227,Years Of Experience Claim,False,2
+228,Yogurt Claim,False,2

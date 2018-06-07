@@ -1,0 +1,516 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Challenge\_Problem}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \#
+
+Challenge Problem
+
+Fan Yang
+
+UNI: fy2232
+
+02/28/2018
+
+    \hypertarget{create-data}{%
+\subsection{1. Create data}\label{create-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} Socio\PYZus{}tab \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Low\PYZdq{}}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}\PY{p}{,} \PY{k+kp}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Medium\PYZdq{}}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}\PY{p}{,} \PY{k+kp}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{High\PYZdq{}}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}\PY{p}{)}
+        Boyscout\PYZus{}tab \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rep}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Yes\PYZdq{}}\PY{p}{,}\PY{l+m}{2}\PY{p}{)}\PY{p}{,}\PY{k+kp}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{No\PYZdq{}}\PY{p}{,}\PY{l+m}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}
+        delinquency\PYZus{}tab \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rep}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Yes\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{No\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{l+m}{6}\PY{p}{)}
+        frequency \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{10}\PY{p}{,}\PY{l+m}{40}\PY{p}{,}\PY{l+m}{40}\PY{p}{,}\PY{l+m}{160}\PY{p}{,}\PY{l+m}{18}\PY{p}{,}\PY{l+m}{132}\PY{p}{,}\PY{l+m}{18}\PY{p}{,}\PY{l+m}{132}\PY{p}{,}\PY{l+m}{8}\PY{p}{,}\PY{l+m}{192}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{48}\PY{p}{)}
+        Socioeconomic \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{factor}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}Socio\PYZus{}tab\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{12}\PY{p}{]}\PY{p}{,}frequency\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{12}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        Boyscout \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{factor}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}Boyscout\PYZus{}tab\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{12}\PY{p}{]}\PY{p}{,}frequency\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{12}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        delinquency \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{factor}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}delinquency\PYZus{}tab\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{12}\PY{p}{]}\PY{p}{,}frequency\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{12}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now we get 3 variables named \textbf{\emph{Socioeconomic}},
+\textbf{\emph{Boyscout}} and \textbf{\emph{delinquency}}. They all have
+\textbf{800} observations. \emph{Socioeconomic} has 3 levels( ``Low'',
+``Medium'' and ``High'') while \emph{Boyscout} and \emph{delinquency}
+both have two levels( ``Yes'' and ``No'').
+
+    \hypertarget{exploratory-data-analysis}{%
+\subsection{2. exploratory data
+analysis}\label{exploratory-data-analysis}}
+
+    \hypertarget{graphical-descriptive-statistics}{%
+\subsubsection{Graphical descriptive
+statistics}\label{graphical-descriptive-statistics}}
+
+    First let's draw pair-wise comparisons of the three variables.
+
+    The below three plots are pair-wise comparisons of
+\emph{``Socioeconomic-Boyscout''}, \emph{``Socioeconomic-delinquency''}
+and \emph{``Boyscout-delinquency''}. In each plot, the dark bars
+reprensent ``No'' for y-axis while the bright bars represent ``Yes'' for
+y-axis. And the width of each bar in each plot stands for the number of
+corresponding group. We can easily find that the 3 levels of
+Socioeconomic have similar number of observations.
+
+    We can draw conclusion from below plots: (1). For the comparision of
+\emph{``Socioeconomic-Boyscout''}, response of Boyscout influenced
+significantly by the levels of Socioeconomic. (2). For the other
+comparisons, different levels do not show significant differences.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{8}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{3}\PY{p}{)}
+        par\PY{p}{(}mfrow\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+        plot\PY{p}{(}Socioeconomic\PY{p}{,}Boyscout\PY{p}{,}xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Socioeconomic\PYZdq{}}\PY{p}{,}ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Boyscout\PYZdq{}}\PY{p}{)}
+        plot\PY{p}{(}Socioeconomic\PY{p}{,}delinquency\PY{p}{,}xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Socioeconomic\PYZdq{}}\PY{p}{,}ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{delinquency\PYZdq{}}\PY{p}{)}
+        plot\PY{p}{(}Boyscout\PY{p}{,}delinquency\PY{p}{,}xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Boyscout\PYZdq{}}\PY{p}{,}ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{delinquency\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{numerical-descriptive-statistics}{%
+\subsubsection{Numerical descriptive
+statistics}\label{numerical-descriptive-statistics}}
+
+    Denote
+\(x_1:\text{Socioeconomic status; } ~x_2:\text{Boy scout; } ~x_3:\text{delinquency.}\)
+
+    Now let's use logistic regression to determine the relationship between
+the 3 variables.
+
+    \(\text{logit}(\pi(x_1|x_2,x_3)) = \beta_0 + \beta_1x_2+\beta_2x_3\)
+
+    \textbf{Socioeconomic} vs \textbf{Boyscout} + \textbf{delinquency}
+
+    Since Socioeconomic is a ordinal categorical variable with 3
+hierarchies: ``Low'', ``Medium'' and ``High''. We now use
+\textbf{multinomial logistic regression model}.
+
+    From the below above, we get the fitted model as: \[
+\log\left(\frac{\hat{\pi}_{\text{High}}}{\hat{\pi}_{\text{Low}}}\right)
+=-1.1164-0.8038x_2+0.3526x_3\\
+\log\left(\frac{\hat{\pi}_{\text{Low}}}{\hat{\pi}_{\text{Medium}}}\right)
+=0.2403-0.8038x_2+0.3526x_3
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{library}\PY{p}{(}MASS\PY{p}{)}
+        polr.cred\PY{o}{\PYZlt{}\PYZhy{}}polr\PY{p}{(}Socioeconomic\PY{o}{\PYZti{}}Boyscout\PY{o}{+}delinquency\PY{p}{)} 
+        \PY{k+kp}{summary}\PY{p}{(}polr.cred\PY{p}{)}\PY{o}{\PYZdl{}}coefficients
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Re-fitting to get Hessian
+
+
+    \end{Verbatim}
+
+    \begin{tabular}{r|lll}
+  & Value & Std. Error & t value\\
+\hline
+	BoyscoutYes & -0.8037657 & 0.13459568 &  -5.971705\\
+	delinquencyYes &  0.3526039 & 0.19354302 &   1.821838\\
+	High\textbar{}Low & -1.1163846 & 0.10467675 & -10.665068\\
+	Low\textbar{}Medium &  0.2403070 & 0.09648995 &   2.490487\\
+\end{tabular}
+
+
+    
+    Use can \textbf{use} \(\mathbf{\chi^2}\) \textbf{test} (
+\textbf{Likelihood Ratio Test} ) to check the significance of our model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} drop1\PY{p}{(}polr.cred\PY{p}{,}test\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Chi\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llll}
+  & Df & AIC & LRT & Pr(>Chi)\\
+\hline
+	<none> & NA           & 1717.873     &        NA    &           NA\\
+	Boyscout &  1           & 1752.126     & 36.252338    & 1.733520e-09\\
+	delinquency &  1           & 1719.220     &  3.347117    & 6.732282e-02\\
+\end{tabular}
+
+
+    
+    Notice that the p-value for coefficients of Boyscout is very small, say
+less than 0.01. While p-value for coefficients of delinquency is greater
+than 0.05. Therefore under \(\alpha=0.05\) and ``\(H_0\): \(\beta_2=0\)
+vs \(H_A\): otherwise'', we fail to reject \(H_0\) and conclude that
+\(\beta_2=0\).
+
+    \textbf{use AIC for model selection}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} step\PY{p}{(}polr.cred\PY{p}{,}direction \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{backward\PYZdq{}}\PY{p}{)}\PY{o}{\PYZdl{}}anova
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Start:  AIC=1717.87
+Socioeconomic \textasciitilde{} Boyscout + delinquency
+
+              Df    AIC
+<none>           1717.9
+- delinquency  1 1719.2
+- Boyscout     1 1752.1
+
+    \end{Verbatim}
+
+    \begin{tabular}{r|llllll}
+ Step & Df & Deviance & Resid. Df & Resid. Dev & AIC\\
+\hline
+	          & NA       & NA       & 796      & 1709.873 & 1717.873\\
+\end{tabular}
+
+
+    
+    In the above output, when we delete delinquency in the model, the AIC is
+1719.2 which is very similar to the full model. According to Likelihood
+Ratio Test and AIC, we can remove delinquency and refit the model.
+
+    \textbf{refit model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} polr.fit\PY{o}{\PYZlt{}\PYZhy{}}polr\PY{p}{(}Socioeconomic\PY{o}{\PYZti{}}Boyscout\PY{p}{)} 
+        \PY{k+kp}{summary}\PY{p}{(}polr.fit\PY{p}{)}\PY{o}{\PYZdl{}}coefficients
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Re-fitting to get Hessian
+
+
+    \end{Verbatim}
+
+    \begin{tabular}{r|lll}
+  & Value & Std. Error & t value\\
+\hline
+	BoyscoutYes & -0.8243628 & 0.13416508 &  -6.144392\\
+	High\textbar{}Low & -1.1707291 & 0.10052016 & -11.646710\\
+	Low\textbar{}Medium &  0.1812920 & 0.09089892 &   1.994435\\
+\end{tabular}
+
+
+    
+    From the below above, we get the fitted model as: \[
+\log\left(\frac{\hat{\pi}_{\text{High}}}{\hat{\pi}_{\text{Low}}}\right)
+=-1.1707291 -0.8243628x_2
+\tag{1}\] \[
+\log\left(\frac{\hat{\pi}_{\text{Low}}}{\hat{\pi}_{\text{Medium}}}\right)
+=0.1812920-0.8243628x_2
+\tag{2}\]
+
+    \hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
+
+    In this report, we first draw pair-wise comparison of the three
+variables. And in view of graph we find that only Boy scout and
+Socioeconomic Status have some correlation. The number of levels of
+Socioeconomic differ at different levels of Boy scout. Then we conduct
+Numerical descriptive statistics. Our main model is \textbf{Multinomial
+Logistic Regression Model}. Set response variable as Socioeconomic and
+other two as predictor variables. In the first fitted model, we conduct
+\(\chi^2\) test to determine
+
+\(H_0\): \(\beta_2=0~\) vs \(~H_A\): otherwise
+
+where \(\beta_2\) is the coefficient of delinquency. Then we get the
+p-value is 6.732282e-02 and under \(\alpha=0.05\), we fail to reject
+\(H_0\) and conclude that \(\beta_2=0\). Therefore we delete the
+variable \textbf{delinquency} and refit the model.
+
+    And get our final model as below:
+\[\text{logit}(\pi(x_1|x_2)) = \beta_0 + \beta_1x_2\] where \(\pi()\) is
+computed in (1) and (2) and response variable is Socioeconomic and
+predictor(\(x_2\)) is Boy scout.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

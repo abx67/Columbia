@@ -1,0 +1,137 @@
+---
+title: 'Tutorial 7: Shrinkage'
+output:
+  html_document: default
+  html_notebook: default
+  pdf_document: default
+date: "March 4, 2018"
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+In this example, we look at several aspects of the voting records of the US Congress of 2017. The votes were compiled from [http://clerk.house.gov](http://clerk.house.gov).
+
+We have the votes (or absence of a vote) for each member of the House of Representatives on over 710 roll call votes in 2017 with 424 members having all votes. Not surprisingly, these votes are clearly structured across party lines. This is a data set with more predictors than the number of observations. We will use compare the following three methods: logistic regression and, $L_1$ penalized model and $L_2$ penalized model.
+
+Data preprocessing is written in Python. We generated the data file `2017_cleaned_votes.csv`. 
+
+```{r}
+setwd("~/Dropbox/Teaching/Statistical_Machine_Learning_Spring2018/Tutorials/Week_7_Congress_Voting")
+votes = read.table("./data/2017_cleaned_votes.csv", header = TRUE, sep = ";")
+full_votes = read.table("./data/2017_votes.csv", header = TRUE, sep = ";")
+dim(votes)
+```
+
+```{r}
+summary(votes$party)
+```
+
+First, we perform the principal components analysis. As implemented in `R`, PCA only works when there are fewer votes, than members. Let’s take a random sample of 100 votes and look at the result.
+
+```{r}
+set.seed(0)  # this can be changed
+subset = sample(2:ncol(votes), 100)
+pca.votes = princomp(votes[, subset])
+plot(pca.votes$scores[, 1], pca.votes$scores[, 2])
+```
+
+This data is also “supervised”, in the sense that we have a label: the member’s party. Let’s color our points with this label.
+
+```{r}
+red = votes$party == "R"
+blue = votes$party == "D"
+
+plot(pca.votes$scores[, 1], pca.votes$scores[, 2], type = "n", xlab = "Variable 1", ylab = "Variable 2")
+points(pca.votes$scores[red, 1], pca.votes$scores[red, 2], pch = 23, bg = "red")
+points(pca.votes$scores[blue, 1], pca.votes$scores[blue, 2], pch = 23, bg = "blue")
+```
+
+The plot verifies the fact that the votes are clusteredy by parties. In fact, there is some separation between the two parties along Variable 1. However, there does not appear to be much separation between the parties on Variable 2.
+
+We first fit a logistic regression model to our data. The model assumption is $n \geq p$, so we will only use the randomly selected 100 votes. 
+
+```{r}
+votes.selected = as.data.frame(cbind(votes$party, votes[, subset]))
+colnames(votes.selected) = colnames(votes)[c(1, subset)]
+
+logistic.fit = glm(party ~ ., data= votes.selected, family = binomial())
+summary(logistic.fit)
+```
+
+In this case, since the two classes are well separated, so the model suffers from the high variance, which is reflected by the variance of coefficients. 
+
+How well did the model fit? Well, the logistic model estimates probabilities between 0 or 1. We can turn these into 0-1 labels by the rule: assign 1 if the probability is > 0.5, 0 otherwise.
+
+```{r}
+party_N = numeric(length(votes$party))
+party_N[red] = 1
+party_N[blue] = 0
+
+glm.probs = predict(logistic.fit, type="response")
+predictions_logistic = glm.probs > 0.5
+sum(predictions_logistic != party_N)
+```
+
+The model can still be used for making predictions, and the training error is zero! To be fair, we want to use part of the data to fit the model and then make predictions on the rest. Let’s take a subset of 150 members, and then see how well our classifier does.
+
+```{r}
+set.seed(5)
+train = sample(1:nrow(votes), 150)
+glm.fit = glm(party ~ ., data = votes.selected, family = binomial(), subset=train)
+summary(glm.fit)
+```
+
+We will summarize the prediction result by a confusion matrix. 
+
+```{r}
+glm.probs = predict(glm.fit, votes.selected[-train,], type="response")
+glm.pred = glm.probs > 0.5
+sum(glm.pred != party_N[-train])
+table(party_N[-train], glm.pred)
+```
+
+Next, we will fit the model with $L_1$ penalty. In our case, $n < p$. The penalized model has the form $$ \min_{\beta} -\mbox{loglik}/n + \lambda \sum_{j=1}^p |\beta_j|.$$ We select optimal value of $\lambda$ by crossvalidation. We will use the `R` package `glmnet` to fit the model.
+
+```{r}
+library(glmnet)
+lasso.fit<-glmnet(as.matrix(votes[train, -1]), party_N[train], family = "binomial")
+lasso.cv<-cv.glmnet(as.matrix(votes[train, -1]), party_N[train],family = "binomial", type.measure = "class")
+plot(lasso.fit)
+lasso.coef <- predict(lasso.fit, type = "coefficients", s = lasso.cv$lambda.1se )
+lasso.coef
+```
+
+From this model fit, we known that bill 4 are very partisan, achieving perfect separation. Here is the [bill](http://clerk.house.gov/evs/2017/roll004.xml). We see that all 193 Democrats voted N, 237 Republicans voted Y, and 3 Republican did not vote. If we use the $L_1$ penalized model, it can perform variable selection automatically. Only the coefficient of bill 4 is nonzero!
+
+Let's check the prediction by the new model with an optimal $\lambda$. 
+
+```{r}
+lasso.prob = predict(lasso.fit, s= lasso.cv$lambda.1se, newx = as.matrix(votes[-train, -1]),type = "response")
+lasso.pred = lasso.prob>0.5
+table(party_N[-train], lasso.pred)
+```
+
+The accuracy has been improved! 
+
+Now, let's consider the $L_2$ penalized model $$ \min_{\beta} -\mbox{loglik}/n + \lambda \sum_{j=1}^p \beta_j^2.$$
+```{r}
+ridge.fit<-glmnet(as.matrix(votes[train, -1]), party_N[train],alpha = 0, family = "binomial")
+plot(ridge.fit)
+ridge.cv<-cv.glmnet(as.matrix(votes[train, -1]), party_N[train],alpha=0, family = "binomial", type.measure = "deviance")
+ridge.coef <- predict(ridge.fit, type = "coefficients", s = ridge.cv$lambda.1se )
+ridge.coef
+```
+
+If we use the $L_2$ penalty, we get a lot of small nonzero coefficients. We are able to apply the ridge regression to the case when $n< p$, but it can not contribute to the variable selection. Let's check the model prediction.
+
+```{r}
+ridge.prob = predict(ridge.fit, s= ridge.cv$lambda.1se, newx = as.matrix(votes[-train, -1]),type = "response")
+ridge.pred = ridge.prob>0.5
+table(party_N[-train], ridge.pred)
+```
+
+The accuracy has also been improved compared to that of logistic regression.
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).

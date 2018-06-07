@@ -1,0 +1,248 @@
+
+
+                     Breast Cancer in Women with Benign Breast Disease
+
+ 
+        This study is concerned with the development of breast cancer (BC) in
+        women with a previous diagnosis of benign breast disease (BBD).  The
+        study is prospective in nature.  The group of women available for study
+        consists of 336 women with biopsy-proven BBD seen in a private practice
+        in the Philadelphia area in the 1960s-1990s. A set of questions was 
+        devised in 1962 and asked of all women enterring the study.  Study
+        participants provided information on age and date of the initial diagnosis
+        of BBD, side of BBD, parity and previous use of exogenous estrogens. 
+        Follow-up to determine occurrence of BC was conducted through 1996 by
+        the following methods: review of subsequent office visits, letters and
+        telephone calls to study subjects, discussion with attending physicians, 
+        and review of death certificates.  Additional information was ascertained 
+        relative to age at menarche and menopause, age at birth of first child and 
+        use of exogenous estrogens since initial episode of BBD in the private 
+        practice.  Histological slides of the initial benign lesion from the
+        vast majority of the women were reviewed in 1997 for classification of
+        the benign lesions and subsequent BC's. This classification was done 
+        in a uniform manner according to a predefined protocol by a panel of 
+        pathologists who were blind to subsequent BC development. The data set 
+        described below was created from the information as described above, but 
+        does not include all of the original variables.  The data provided are 
+        "clean" in the sense that: 
+        1) it is the best available information that could be extracted from the
+           original data; 
+        2) there are no (or few) inconsistencies in the data (any problems that 
+           one should be aware of are described next to the variables names) 
+        3) the data should not need further cleaning/editing.
+
+
+
+
+                                      VARIABLE EXPLANATIONS
+
+
+          1.   ID# - self explanatory
+
+
+          2.   E-AGE - age at BC or follow-up (calculated from age at entry,
+                       date of entry and date of follow-up or BC and rounded
+                       down to a whole number).
+
+          3.   CANCER - indicator for breast cancer status at follow-up
+
+
+          4.   DYRIB - year of first episode of BBD
+
+
+          5.   BIOPSY - side of initial episode of BBD
+
+
+               Variables 6-10 describe the histology of the womens'
+               initial episode of BBD (type of lesions present).  Women
+               with bilateral disease at entry have had the information
+               from each biopsy combined.  As such it is possible for
+               these women to have two FCD descriptors (variable #'s
+               11-17) characterized as "predominant." Women with
+               unilateral disease should only have one of these
+               variables coded as "predominant."
+
+          6.   INFLAM - inflammatory lesions
+
+          7.   FAD - fibroadenoma
+
+          8.   FCD - fibrocystic disease
+
+          9.   INPAP - intraductal papilloma
+
+          10.  OTHER - other
+
+               Variables 11-17 describe the specific histologic
+               features of FCD for women with FCD.
+
+          11.  FC-CYS - cysts
+
+          12.  FC-APM - apocrine metaplasia
+
+          13.  FC-ADEN - adenosis
+
+          14.  FC-SCAD - sclerosing adenosis
+
+          15.  FC-EH/PP - papillomatosis (diffuse) and/or epithelial
+                          hyperplasia
+
+          16.  FC-INFL - inflammation
+
+          17.  FC-CALC - calcification
+
+          18.  AGEMENA - age at menarche
+
+          19.  MCHILD - maximum number of children women reported
+                        during her visits (Caution: this factor does 
+                        not necessarily reflect the women's total 
+                        parity as evidenced by the fact that according 
+                        to it 29.9% of the women are nulliparious vs. 
+                        21.8% as recorded in the factor AGEBCH which 
+                        is ascertained at follow-up.)
+
+          20.  AGEDX - age at initial diagnosis of BBD - it's the women's
+                       age at entry into the study cohort
+
+          21.  HORMX1 - indicator for whether or not women reported
+                        using hormones (exogenous estrogens) prior to
+                        her first episode of BBD (does not count use of 
+                        the birth control pills, thyroid pills or "some")
+
+          22.  FAMHIS - indicator for whether or not women reported a family
+                        history of cancer at her initial episode
+
+          23.  YRFU - year of BC or follow-up
+
+          24.  TIME - number of months woman is on study (i.e. under
+                      observation - its determined from the dates of
+                      entry and the dates of follow-up)
+
+          25.  AGEBCH - age at birth of first child for parous women
+
+          26.  AGMENOP - age at menopause
+
+          27.  HORMSF - indicator for whether or not women used
+                        hormones (exogenous estrogens-includes oral
+                        contraceptives, premarin, other specific
+                        estrogens, and hormones of an unknown type)
+                        since her first episode of BBD.
+                        - Note: This variable is not one of
+                        the original questions asked at follow-up,
+                        rather it is derived from them in such a way
+                        that it should reflect the above, however, one
+                        should be aware of the fact that in certain
+                        situations the date and age corresponding to
+                        this use of hormones may be conservative (i.e.,
+                        later than the actual date and age the women
+                        first started using hormones)
+
+          28.  AGEHR - age at which women first started using hormones
+                       following her initial episode of BBD (must be 
+                       >= AGEDX) - see remarks under variable #27
+
+          29.  YRHR - year of first use of hormones following BBD
+
+
+
+
+
+
+
+
+
+
+
+
+                             CODESHEET FOR BBD STUDY
+
+
+
+            Variable          Codes Explanation  
+
+          1.   ID #           nonconsecutive  
+
+          2.   E-AGE          14-90            
+
+          3.   CANCER         1 BC
+
+          4.   DYR1B          62-95 (1900's)  
+
+          5.   BIOPSY         0 none
+                              1 right
+                              2 left
+                              3 bilateral
+
+          6.   INFLAM         0 no
+                              1 yes
+                             -1 unk
+
+          7.   FAD*             "                       
+
+          8.   FCD              "                      
+
+          9.   INPAP            "                       
+
+          10.  OTHER            "                       
+ 
+          11.  FC-CYS         0 absent
+                              1 non predominant
+                              2 predominant
+                             -1 unknown
+
+          12.  FC-APM              "                       
+
+          13.  FC-ADEN             "                       
+
+          14.  FC-SCAD             "                       
+
+          15.  FC-EH/PP            "                       
+
+          16.  FC-INFL             "                       
+
+          17.  FC-CALC             "                       
+
+          18.  AGEMENA        9-19
+                             -1 unk
+
+          19.  MCHILD         0-6
+                             -1 unk
+
+          20.  AGEDX          14-85 yrs                 
+
+          21.  HORMX1         0 none
+                              1 some
+                             -1 unk
+
+          22.  FAMHIS         0 no
+                              1 yes
+                             -1 unk
+
+          23.  YRFU           65-97 (1900's)            
+
+          24.  TIME           1-400 mos.                
+
+          25.  AGEBCH         0 no child
+                              age in yrs
+                             -1 missing
+
+          26.  AGMENOP        0 pre-meno.
+                              age in yrs
+                             -1 missing
+
+          27.  HORMSF         0 none
+                              1 some
+                             -1 unknown
+
+          28.  AGEHR          0 if none
+                              age in yrs
+                             -1 unknown
+
+          29.  YRHR           0 if none
+                              year (1900's)
+                             -1 unknown
+
+            Note:  YRHR is less than DYRIB for eight women in the original
+            data set but AGEHR was calculated in such a way that it
+            must be >=AGEDX.
+
+

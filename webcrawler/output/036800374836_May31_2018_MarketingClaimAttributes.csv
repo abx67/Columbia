@@ -1,0 +1,179 @@
+,Name,Score,Qty
+0,Guarantee Claim,True,57
+1,Satisfaction Guarantee,True,48
+2,Storage Instructions Claim,True,457
+3,0g Sugar Per Serving Claim,False,1
+4,0g Trans Fat Per Serving Claim,False,2
+5,100 Calories Per Serve,False,1
+6,Adds Insignificant Amount Of Trans Fat Claim,False,1
+7,All Natural Claim,False,66
+8,All Natural Ingredient Claim,False,5
+9,Antioxidant Claim,False,1
+10,Artificial Color and Dye Free Claim,False,16
+11,Artificial Color Free Claim,False,15
+12,Artificial Flavor Free Claim,False,14
+13,Bonus Claim,False,1
+14,Calcium Claim,False,15
+15,California Grown Claim,False,3
+16,Calorie Claim,False,16
+17,Calorie Free Claim,False,7
+18,Certified Organic by QCS Claim,False,1
+19,Charitable Causes,False,1
+20,Cholesterol Claim,False,15
+21,Cholesterol Free Claim,False,50
+22,Contains Olive Oil Claim,False,1
+23,Contains Sodium Bisulfite Claim,False,2
+24,Contains Sulfites Claim,False,21
+25,Convenient Claim,False,3
+26,Cooking Instruction - Grill - Barbecue Claim,False,2
+27,Cooking Instruction - Microwave Manual Claim,False,1
+28,Cooking Instruction - Microwave Manual Claim,False,1
+29,Cooking Instruction - Skillet - Saute Claim,False,2
+30,Cooking Instruction - Stove Top - Boil Claim,False,1
+31,Cooking Instruction - Stove Top - Simmer Claim,False,1
+32,Craft Claim Base,False,1
+33,Crispy Claim,False,2
+34,Crunchy Claim,False,2
+35,Dairy Free Claim,False,1
+36,Deli Style Claim,False,6
+37,Delicious Claim,False,36
+38,Easy Claim,False,11
+39,Environmental,False,59
+40,Environmentally Friendly Claim,False,1
+41,Excellent Source of Vitamin A Claim,False,2
+42,Excellent Source of Vitamin C Claim,False,3
+43,Excellent Source of Vitamins,False,1
+44,Exclusive Claim,False,2
+45,Extra Virgin Claim,False,4
+46,Family Farm Claim,False,5
+47,Family Owned Claim,False,50
+48,Farm Raised Claim,False,4
+49,Farm To Table Claim,False,3
+50,Fat Free,False,23
+51,Fat Free Ingredients Claim,False,1
+52,FDA Nutrient Content Claim Disclosure Statement,False,21
+53,Fiber Claim,False,13
+54,Firm Claim,False,2
+55,Fragrance - Bold Claim,False,1
+56,Fragrance - Spicy Claim,False,1
+57,Fresh Sliced Claim,False,1
+58,Geographical Source - California Claim,False,3
+59,Geographical Source - Ohio Claim,False,1
+60,Gluten Free Claim,False,127
+61,Good Source of Vitamin A Claim,False,1
+62,Gourmet Claim,False,27
+63,Greek Style Claim,False,13
+64,Grown In USA,False,4
+65,Hand Made Claim,False,2
+66,Hand Packed Claim,False,4
+67,Hand Picked Claim,False,10
+68,Hand Selected Claim,False,17
+69,Heart Healthy Claim,False,1
+70,High Quality Ingredients Claim,False,4
+71,Improved Formulation,False,5
+72,Iron Claim,False,14
+73,Italian Style Claim,False,17
+74,Kosher Certified Claim,False,2
+75,Kosher Claim,False,60
+76,Lactose Free Claim,False,2
+77,Less than 100 Calories Per Serve Claim,False,11
+78,Limited Edition Claim,False,1
+79,Limited Edition Claim,False,1
+80,Limited Edition/Seasonal Claim,False,1
+81,Local Claim,False,5
+82,Low Calorie Claim,False,2
+83,Low Carb Claim,False,5
+84,Low Fat Claim,False,5
+85,Low Sodium Claim,False,4
+86,Low Sugar Claim,False,1
+87,Made in Austria,False,2
+88,Made in Canada,False,1
+89,Made in China,False,3
+90,Made in EU,False,3
+91,Made in Germany,False,1
+92,Made in India,False,1
+93,Made in Italy,False,14
+94,Made in Korea,False,1
+95,Made in Mexico,False,48
+96,Made in Peru,False,108
+97,Made in Poland,False,7
+98,Made in Spain,False,19
+99,Made in Thailand,False,1
+100,Made in Turkey,False,35
+101,Made In USA Claim,False,66
+102,Made With 100% Kosher Beef Claim,False,2
+103,Made With Ingredient Statement Claim,False,8
+104,Made with Ingredients From South Africa,False,5
+105,Made With Natural Ingredients Claim,False,1
+106,May Contain Natural Flavor Claim,False,1
+107,Mediterranean Style Claim,False,7
+108,Mexican Style Claim,False,1
+109,Microwave Safe Claim,False,1
+110,Mild Claim,False,105
+111,Mini Size Claim,False,4
+112,Mood Claim,False,5
+113,Natural Generic Claim,False,12
+114,New,False,7
+115,No Added Artificial Color Claim,False,2
+116,No Added Oil,False,1
+117,No Added Preservatives Claim,False,11
+118,No Added Sugar Claim,False,2
+119,No Additives,False,3
+120,No Artificial Dye,False,1
+121,No High Fructose Corn Syrup,False,1
+122,No MSG Claim,False,2
+123,Non GMO,False,30
+124,Non GMO Ingredient,False,3
+125,Not a Significant Source of Potassium,False,4
+126,Not a Significant Source of Statement,False,84
+127,Nothing Artificial,False,2
+128,Nut Free Claim,False,1
+129,Organic,False,10
+130,Organic Certified Claim,False,4
+131,Organic Ingredient,False,6
+132,Organically Grown Claim,False,2
+133,Original,False,12
+134,Pareve Claim,False,1
+135,Partially Produced with Genetic Engineering Claim,False,1
+136,Pasteurized,False,5
+137,Percent Daily Values Statement,False,473
+138,Performance Claim,False,1
+139,Picked At Peak Claim,False,6
+140,Pickled Claim,False,1
+141,Potassium Claim,False,1
+142,Precautionary Statements,False,2
+143,Premium/Strong Proteins Claim,False,1
+144,Preservative Free Claim,False,46
+145,Product Consumption Temperature Claim,False,3
+146,Protein Claim,False,6
+147,Pure Claim,False,3
+148,Raw Claim,False,2
+149,Ready To Eat Claim,False,15
+150,Recipe Claim,False,9
+151,Recycle Claim,False,54
+152,Refreshing Claim,False,1
+153,Roasted Claim,False,84
+154,Salted Claim,False,1
+155,Saturated Fat Claim,False,8
+156,Serving Suggestions Claim,False,52
+157,Sodium Claim,False,6
+158,Soy Free Claim,False,2
+159,Sports Performance Claim,False,7
+160,Sugar Claim,False,14
+161,Sugar Free Claim,False,2
+162,Suggested Use,False,121
+163,Sulfate Free Claim,False,1
+164,Sulfite Free Claim,False,3
+165,Sustainable Claim,False,5
+166,Sustainable Farming Claim,False,2
+167,Trans Fat Free Claim,False,5
+168,Tree Nut Free Claim,False,1
+169,Usage Instructions Claim,False,10
+170,Vegan Claim,False,42
+171,Vegetarian Claim,False,7
+172,Vitamin A Claim,False,13
+173,Vitamin C Claim,False,14
+174,Vitamin D Claim,False,1
+175,Wash Before Eating Claim,False,2
+176,Whole Food,False,15
+177,Years Of Experience Claim,False,4

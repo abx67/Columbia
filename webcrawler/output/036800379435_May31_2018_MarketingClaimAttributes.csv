@@ -1,0 +1,179 @@
+,Name,Score,Qty
+0,BPA Free Claim,True,58
+1,Delicious Claim,True,43
+2,Environmental,True,101
+3,Guarantee Claim,True,159
+4,Inspired By Claim,True,1
+5,Organic,True,32
+6,Organic Certified Claim,True,10
+7,Picked At Peak Claim,True,56
+8,Recycle Claim,True,97
+9,Satisfaction Guarantee,True,228
+10,Serving Suggestions Claim,True,223
+11,Storage Instructions Claim,True,122
+12,0g Saturated Fat Per Serving,False,51
+13,0g Sodium Per Serving,False,2
+14,0g Trans Fat Per Serving Claim,False,11
+15,100 Calories Per Pack,False,1
+16,100 Calories Per Serve,False,24
+17,100% Juice Claim,False,43
+18,All Natural Claim,False,22
+19,All Natural Ingredient Claim,False,5
+20,Artificial Additive Free,False,1
+21,Artificial Color and Dye Free Claim,False,40
+22,Artificial Color Free Claim,False,40
+23,Artificial Flavor Free Claim,False,49
+24,Best Value Claim,False,4
+25,Bite Size Claim,False,1
+26,Bone Claim,False,1
+27,Boneless Claim,False,1
+28,Builds Strong Bones Claim,False,1
+29,Calcium Claim,False,7
+30,California Goodnes Claim,False,10
+31,California Grown Claim,False,2
+32,Calorie Claim,False,132
+33,Cancer Health Claim,False,1
+34,Casein Free,False,1
+35,Charitable Causes,False,2
+36,Chemical Free,False,1
+37,Cholesterol Claim,False,8
+38,Cholesterol Free Claim,False,1
+39,Cold Preparation Instructions Claim,False,1
+40,Concentrated Claim,False,2
+41,Conserve/Promote Biodiversity Claim,False,1
+42,Contains Juice Claim,False,4
+43,Contains Sweetener Claim,False,6
+44,Convenient Claim,False,8
+45,Convention Oven Preparation Instructions Claim,False,4
+46,Cooking Instruction - Microwave Manual Claim,False,2
+47,Cooking Instruction - Microwave Manual Claim,False,2
+48,Cooking Instruction - Oven/Conventional - Bake Claim,False,7
+49,Cooking Instruction - Preparation Claim,False,1
+50,Cooking Instruction - Stove Top - Simmer Claim,False,2
+51,Diabetic Claim,False,1
+52,Diabetic Exchange,False,1
+53,Easy Claim,False,10
+54,Environmentally Friendly Claim,False,1
+55,Excellent Source of Vitamin A Claim,False,5
+56,Excellent Source of Vitamin C Claim,False,36
+57,Exclusive Claim,False,6
+58,Family Farm Claim,False,2
+59,Family Owned Claim,False,1
+60,Family Size Claim,False,2
+61,Farm Fresh Claim,False,2
+62,Farm Raised Claim,False,7
+63,Farm To Table Claim,False,2
+64,Fat Free,False,71
+65,FDA Nutrient Content Claim Disclosure Statement,False,10
+66,Fiber Claim,False,5
+67,For All Ages,False,3
+68,For Children,False,1
+69,For Use with the Following Ages,False,1
+70,Freshness Guaranteed,False,6
+71,Full Serve Fruit,False,5
+72,Full Serve Fruit & Vegetables Combined,False,1
+73,Geographical Source - California Claim,False,1
+74,Gluten Free Claim,False,91
+75,Good Source of Fiber Claim,False,1
+76,Good Source of Vitamin C Claim,False,5
+77,Gourmet Claim,False,4
+78,Greek Style Claim,False,1
+79,Grown In USA,False,32
+80,Hand Packed Claim,False,2
+81,Hand Picked Claim,False,2
+82,Hand Selected Claim,False,6
+83,Heavy Syrup Claim,False,188
+84,High Quality Ingredients Claim,False,6
+85,Immune Claim,False,1
+86,Immune Support Claim,False,1
+87,Kosher Claim,False,13
+88,Lactose Free Claim,False,3
+89,Less than 100 Calories Per Serve Claim,False,21
+90,Lightly Sweetened Claim,False,5
+91,Local Claim,False,7
+92,Low Calorie Claim,False,4
+93,Low Carb Claim,False,2
+94,Low Sodium Claim,False,11
+95,Made in Chile,False,2
+96,Made in China,False,79
+97,Made in Spain,False,1
+98,Made in Thailand,False,3
+99,Made In USA Claim,False,155
+100,Made With 100% Ingredient Statement Claim,False,43
+101,Made with Ingredients From Chile,False,1
+102,Made with Ingredients From China,False,8
+103,Made with Ingredients From Mexico,False,1
+104,Made with Ingredients From South Africa,False,5
+105,Made with Ingredients From Thailand,False,1
+106,Made with Ingredients From USA Claim,False,9
+107,Made With Natural Ingredients Claim,False,3
+108,Made With Real Fruit Claim,False,3
+109,Made With Real Fruit Juice Claim,False,1
+110,Made With Real Ingredient Statement Claim,False,5
+111,Natural Generic Claim,False,19
+112,Naturally Flavored,False,29
+113,Naturally Gluten Free Claim,False,8
+114,New,False,6
+115,No Added Sugar Claim,False,43
+116,No Additives,False,1
+117,No Artificial Pesticides Claim,False,1
+118,No Artificial Sweeteners,False,9
+119,No Fertilizers,False,2
+120,No High Fructose Corn Syrup,False,15
+121,No Pesticides,False,1
+122,Non GMO,False,27
+123,Non GMO Ingredient,False,3
+124,Non Irradiated,False,1
+125,Not A Low Calorie Food Claim,False,8
+126,Not a Significant Source of Statement,False,8
+127,Nothing Artificial,False,1
+128,Omega 3 Claim,False,1
+129,Organic Farm Claim,False,4
+130,Organic Ingredient,False,17
+131,Organically Grown Claim,False,3
+132,Pasteurized,False,7
+133,Percent Daily Values Statement,False,322
+134,Perfect For Active Lifestyles Claim,False,3
+135,Performance Claim,False,1
+136,Pre Cut Claim,False,2
+137,Preservative Free Claim,False,52
+138,Produced with Genetic Engineering Claim,False,2
+139,Product Consumption Temperature Claim,False,8
+140,Protein Claim,False,22
+141,Pure Claim,False,10
+142,Ready To Eat Claim,False,6
+143,Recipe Claim,False,11
+144,Recycled Content,False,1
+145,Recycled Packaging Content Claim,False,1
+146,Reduced Calorie Claim,False,45
+147,Reduced Fat Claim,False,2
+148,Reduced Sugar Claim,False,6
+149,Refreshing Claim,False,4
+150,Resealable Claim,False,2
+151,Saturated Fat Claim,False,8
+152,Serves Four Claim,False,1
+153,Shatter Proof Claim,False,2
+154,Shelf-Stable Claim,False,1
+155,Skinless Claim,False,1
+156,Snack Size Claim,False,2
+157,Sodium Claim,False,60
+158,Southern Style Claim,False,2
+159,Sugar Claim,False,105
+160,Sugar Free Claim,False,1
+161,Suggested Use,False,48
+162,Sustainable Claim,False,3
+163,Sweetened Generic Claim,False,12
+164,Sweetened With Splenda Claim,False,19
+165,Trans Fat Free Claim,False,1
+166,Usage Instructions Claim,False,28
+167,USDA Certified Organic Claim,False,6
+168,USDA Mypyramid Claim,False,1
+169,Vegan Claim,False,9
+170,Vegetarian Claim,False,1
+171,Vitamin A Claim,False,6
+172,Vitamin C Claim,False,18
+173,Weight Watchers Points,False,1
+174,Wholesome Claim,False,1
+175,Wholesome Ingredients Claim,False,1
+176,Years Of Experience Claim,False,5
+177,Yogurt Claim,False,2

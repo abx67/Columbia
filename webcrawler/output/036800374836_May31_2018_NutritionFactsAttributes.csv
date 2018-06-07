@@ -1,0 +1,60 @@
+,Name,Score,Qty
+0,100 Calories or Less,True,660
+1,100 Calories or Less 2018,True,658
+2,Calorie Free <5 Cal,True,216
+3,Carbohydrate Exchange = <1,True,694
+4,Cholesterol Free <2 mg,True,417
+5,Fat Free <0.5 g,True,591
+6,NLEA 2018 Sugar Free <0.5 g,True,12
+7,Saturated Fat Free <0.5 g,True,400
+8,Trans Fat Free < 0.5 g,True,522
+9,AHA - Heart Healthy,False,303
+10,AHA - Heart Healthy - Standard,False,303
+11,Carbohydrate Exchange = 1 - 2,False,1
+12,Excellent Calcium > 20% DV,False,2
+13,Excellent Fiber > 5 g,False,2
+14,Excellent Iron > 20% DV,False,6
+15,Excellent Source Antioxidant Vitamin A,False,50
+16,Excellent Source Antioxidant Vitamin C,False,210
+17,Excellent Vitamin A > 20% DV,False,53
+18,Excellent Vitamin C > 20% DV,False,217
+19,Good Calcium 10% - 19% DV,False,8
+20,Good Fiber 2.5 g - 5 g,False,10
+21,Good Iron 10% - 19% DV,False,7
+22,Good Plus Calcium,False,6
+23,Good Plus Calcium 2018,False,6
+24,Good Plus Fiber,False,14
+25,Good Plus Fiber 2018,False,14
+26,Good Plus Iron,False,7
+27,Good Plus Iron 2018,False,7
+28,Good Plus Protein 2018,False,14
+29,Good Plus Vitamin A,False,89
+30,Good Plus Vitamin A 2018,False,89
+31,Good Plus Vitamin C,False,217
+32,Good Plus Vitamin C 2018,False,217
+33,Good Source Antioxidant Vitamin A,False,83
+34,Good Source Antioxidant Vitamin C,False,24
+35,Good Vitamin A 10% - 19% DV,False,78
+36,Good Vitamin C 10% - 19% DV,False,63
+37,Heart Healthy,False,238
+38,Heart Healthy - 2018,False,238
+39,Low Calorie 5-40 Cal,False,432
+40,Low Cholesterol 2 mg - 20 mg,False,8
+41,Low Fat 0.5 g - 3 g,False,60
+42,Low Saturated Fat 0.5 g - 1 g,False,9
+43,Low Sodium 35-140 mg,False,185
+44,NLEA 2018 Added Sugar >0g,False,14
+45,NLEA 2018 Excellent Fiber > 5.6 g,False,1
+46,NLEA 2018 Good Fiber 2.8 g - 5.6 g,False,11
+47,NLEA 2018 Good Plus Fiber,False,13
+48,NLEA 2018 Good Plus Fiber 2018,False,13
+49,Sodium Free <5 mg,False,11
+50,Sugar Free <0.5 g,False,223
+51,USDA - Excellent Source of Vitamin C,False,1
+52,USDA - Good Source of Vitamin C,False,1
+53,USDA - Lean,False,1
+54,USDA - Low Cholesterol,False,1
+55,USDA - Low Sodium,False,1
+56,USDA - Sugar Free,False,1
+57,USDA - Trans Fat Free,False,2
+58,Very Low Sodium 5 mg - 35 mg,False,25

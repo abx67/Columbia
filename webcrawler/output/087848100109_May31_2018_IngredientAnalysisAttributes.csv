@@ -1,0 +1,272 @@
+,Name,Score,Qty
+0,Abalone Free,True,366
+1,Acesulfame K Free,True,365
+2,Acidity Regulator Free,True,349
+3,Added Sugar Free,True,365
+4,Agave Free,True,366
+5,Almond Free,True,366
+6,Amberjack Free,True,366
+7,Anchovy Free,True,366
+8,Animal Ingredient Free,True,353
+9,Anti-Caking Agent Free,True,361
+10,Anti-Foaming Agent Free,True,366
+11,Artificial Color Free,True,360
+12,Artificial Flavor Free,True,366
+13,Artificial Preservative Free,True,364
+14,Artificial Sweetener Free,True,365
+15,Aspartame Free,True,366
+16,Barley Malt Syrup Free,True,366
+17,Barnacle Free,True,366
+18,Barracuda Free,True,366
+19,Barramundi Free,True,366
+20,Basa Free,True,366
+21,Beech Nut Free,True,366
+22,Blue Whiting Free,True,366
+23,Bonefish Free,True,366
+24,Bonito Free,True,366
+25,Brazil Nut Free,True,366
+26,Bream Free,True,366
+27,Brotula Free,True,366
+28,Brown Sugar Free,True,366
+29,Bulking Agent Free,True,366
+30,Bumper Free,True,366
+31,Butternut Free,True,366
+32,Carp Free,True,366
+33,Carrageenan Free,True,356
+34,Cashew Free,True,366
+35,Catfish Free,True,366
+36,Celery Free,True,366
+37,Cereal Free,True,345
+38,Chestnut Free,True,366
+39,Chilean Sea Bass Free,True,366
+40,Chinquapin Free,True,366
+41,Clam Free,True,366
+42,Cobia Free,True,366
+43,Cockle Free,True,366
+44,Coconut Free,True,366
+45,Cod Free,True,366
+46,Conch Free,True,366
+47,Confectionary Sugar Free,True,366
+48,Contains 5 or Less Ingredients,True,354
+49,Contains Animal By Products,True,366
+50,Contains Colors,True,364
+51,Contains Lactose,True,366
+52,Contains Milk,True,366
+53,Contains Natural Preservative,True,364
+54,Contains Palm Oil,True,353
+55,Contains Preservatives,True,364
+56,Corn Free,True,345
+57,Corn Syrup Free,True,366
+58,Crab Free,True,366
+59,Crayfish Free,True,366
+60,Cusk Free,True,366
+61,Cuttlefish Free,True,366
+62,Dash Diet Tropical Oils,True,353
+63,Demerara Sugar Free,True,366
+64,Dextrose Free,True,366
+65,Eel Free,True,366
+66,Egg Free,True,366
+67,Emulsifier Free,True,355
+68,Erythritol Free,True,366
+69,Firming Agent Free,True,361
+70,Flavor Enhancer Free,True,366
+71,Flounder Free,True,366
+72,Flour Treating Agent Free,True,349
+73,Food Acid Free,True,349
+74,Fructose Free,True,366
+75,Fruit Juice Concentrate Free,True,366
+76,Galactose Free,True,366
+77,Gelatin Free,True,366
+78,Gelling Agent Free,True,356
+79,Ginko Nut Free,True,366
+80,Glazing Agent Free,True,356
+81,Glucose Free,True,366
+82,Gluten Free Ingredients,True,366
+83,Glycerin Free Ingerdients,True,366
+84,Grain Free,True,345
+85,Grouper Free,True,366
+86,Grunt Free,True,366
+87,Haddock Free,True,366
+88,Hake Free,True,366
+89,Halibut Free,True,366
+90,Hazelnut Free,True,366
+91,Herring Free,True,366
+92,Hickory Nut Free,True,366
+93,Honey Free,True,366
+94,Humectant Free,True,366
+95,Invert Sugar Free,True,366
+96,Isomalt Free Ingredients,True,366
+97,Jaggery Free,True,366
+98,Krill Free,True,366
+99,Lactitol Free,True,366
+100,Leavening Agent Free,True,361
+101,Lobster Free,True,366
+102,Low/Non/Reduced Fat/Skim Dairy,True,360
+103,Lumpfish Free,True,366
+104,Lupin Free,True,366
+105,Lychee Nut Free,True,366
+106,Macadamia Nut Free,True,366
+107,Mackerel Free,True,366
+108,Mahi-Mahi Free,True,366
+109,Maltitol Free,True,366
+110,Maltose Free,True,366
+111,Mannitol Free Ingredients,True,366
+112,Maple Syrup Free,True,366
+113,May Contain Fish,True,342
+114,May Contain Prop 65 Food Ingredients,True,352
+115,Milk GMO Risk Ingredients,True,306
+116,Milk Ingredients,True,364
+117,Mineral Salt Free,True,361
+118,Monk Fruit Free,True,366
+119,Mussel Free,True,366
+120,Mustard Free,True,366
+121,Natural Flavor Free,True,358
+122,Natural Sweetener Free,True,366
+123,Neotame Free,True,366
+124,Nitrate Free,True,366
+125,Nitrite Free,True,366
+126,No High Fructose Corn Syrup,True,366
+127,No MSG,True,366
+128,No Sodium Ingredients,True,365
+129,No Trans Fat,True,366
+130,Non-Caloric Sweetener Free,True,365
+131,Not Acceptable Ingredients for HBC,True,355
+132,Octopus Free,True,366
+133,Oyster Free,True,366
+134,Paraffin and Mineral Oil Free Ingredient,True,369
+135,Partially Hydrogenated Vegetable Oil Free,True,366
+136,Peanut Free,True,366
+137,Pearl Sugar Free,True,366
+138,Pecan Free,True,366
+139,Perch Free,True,366
+140,Pike Free,True,366
+141,Pili Nut Free,True,366
+142,Pine Nut Free,True,366
+143,Pistachio Free,True,366
+144,Pollock Free,True,366
+145,Polydextrose Free Ingredients,True,366
+146,Propellant Free,True,366
+147,Propyl Paraben Free,True,366
+148,Raising Agent Free,True,349
+149,Redfish Free,True,366
+150,Rice Syrup Free,True,366
+151,Rockfish Free,True,366
+152,Saccharin Free,True,366
+153,Salmon Free,True,366
+154,Sand Lance Free,True,366
+155,Sanding Sugar Free,True,366
+156,Sardine Free,True,366
+157,Scad Free,True,366
+158,Scallop Free,True,366
+159,Sea Bass Free,True,366
+160,Sea Snail Free,True,366
+161,Sequestrant Free,True,361
+162,Sesame Free,True,358
+163,Shark Free,True,366
+164,Shea Nut Free,True,366
+165,Shellfish Free,True,366
+166,Shrimp Free,True,366
+167,Smelt Free,True,366
+168,Sodium Ingredients Free,True,365
+169,Sodium Lauryl Sulfate Free,True,366
+170,Sole Free,True,366
+171,Sorbitol Free,True,366
+172,Soybean Free,True,366
+173,Squid Free,True,366
+174,Stabilizer Free,True,355
+175,Starch Free,True,366
+176,Stevia Free,True,366
+177,Sturgeon Free,True,366
+178,Sucrose Free,True,366
+179,Sugar Alcohol Free,True,366
+180,Sugar Free Ingredients,True,366
+181,Sulfite Free,True,366
+182,Swai Free,True,366
+183,Swordfish Free,True,366
+184,Tapioca Syrup Free,True,366
+185,Thickener Free,True,355
+186,Tilapia Free,True,366
+187,Titanium Dioxide Free,True,366
+188,Tree Nut Free,True,366
+189,Trout Free,True,366
+190,Tuna Free,True,366
+191,Turbinado Free,True,366
+192,Turbot Free,True,366
+193,Vegetable Gum Free,True,356
+194,Vegetable Juice Concentrate Free,True,366
+195,Vegetarian Ingredients,True,353
+196,Vitamin D Ingredients,True,360
+197,Walleye Free,True,366
+198,Walnut Free,True,366
+199,Wheat Free,True,366
+200,Whelk Free,True,366
+201,Whitefish Free,True,366
+202,Whiting Free,True,366
+203,Xylitol Free,True,366
+204,Acesulfame K Ingredients,False,1
+205,All Calcium,False,5
+206,All Phosphate Additives,False,5
+207,Antioxidant Group Ingredients,False,25
+208,Ayurvedic Ingredients,False,12
+209,Carrageenan Ingredients,False,10
+210,Color Free,False,2
+211,Contains 4 Or More Ingredients,False,58
+212,Contains Acesulfame K,False,1
+213,Contains Acidity Regulator,False,17
+214,Contains Added Sugars,False,1
+215,Contains Anti-Caking Agent,False,5
+216,Contains Artificial Color,False,6
+217,Contains Artificial Preservative Ingredient,False,2
+218,Contains Artificial Sweetener,False,1
+219,Contains Carrageenan,False,10
+220,Contains Emulsifiers,False,11
+221,Contains Firming Agents,False,5
+222,Contains Flour Treating Agents,False,17
+223,Contains Food Acids,False,17
+224,Contains Gelling Agents,False,10
+225,Contains Glazing Agents,False,10
+226,Contains Leavening Agents,False,5
+227,Contains Mineral Salts,False,5
+228,Contains Natural Exfoliants,False,10
+229,Contains Natural Flavor,False,8
+230,Contains Natural Flavor,False,8
+231,Contains Non-Caloric Sweetener,False,1
+232,Contains Probiotic Group,False,5
+233,Contains Raising Agents,False,17
+234,Contains Sequestrants,False,5
+235,Contains Sodium Ingredients,False,1
+236,Contains Stabilizers,False,11
+237,Contains Sucralose,False,1
+238,Contains Thickeners,False,11
+239,Contains Vegetable Gums,False,10
+240,DHA Ingredients,False,1
+241,Fish Free,False,24
+242,Free From Prop 65 Food Ingredients,False,14
+243,Guar Gum HIG Ingredients,False,1
+244,High Phosphorus Ingredients,False,5
+245,Low Fat Milk Ingredients,False,2
+246,May Contain Animal Ingredients,False,13
+247,May Contain Cereals,False,21
+248,May Contain Corn,False,21
+249,May Contain Grain,False,21
+250,May Contain Sesame,False,8
+251,Natural Color Free,False,2
+252,Natural Preservative Free,False,2
+253,NLEA 2018 Dietary Fiber,False,1
+254,Not Acceptable Ingredients for Food,False,11
+255,Oil Ingredients,False,1
+256,Omega 3 - Supplemental,False,1
+257,Omega 3 - Supplemental Ingredients,False,1
+258,Omega 3 Group Ingredients,False,1
+259,Omega Ingredients,False,1
+260,Organic Ingredients,False,64
+261,Pet Food Unacceptable Ingredients,False,10
+262,Preservative Free,False,2
+263,Probiotic Group Ingredients,False,5
+264,Single Ing Low or No Fat Dairy,False,12
+265,Single Ing Low or No Fat Dairy 2018,False,12
+266,Sucralose Ingredients,False,1
+267,Sugar Substitute Ingredients,False,1
+268,Vitamin C,False,14
+269,Vitamin E Ingredients,False,2
+270,WIC Federal Added Oil HIG,False,1

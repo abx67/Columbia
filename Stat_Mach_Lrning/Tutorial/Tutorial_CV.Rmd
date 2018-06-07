@@ -1,0 +1,212 @@
+---
+title: 'Tutorial 6: Cross-Validation and Bootstrap'
+output:
+  html_document: default
+  html_notebook: default
+  pdf_document: default
+date: "Feb 22, 2018"
+---
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+In this tutorial, we will explore Cross-Validation and the Bootstrap.
+
+One major task of machine learning is to evaluate the expected performance of a learning algorithm. In general, we choose a loss function $L$ (e.g. $L_2$ loss, 0-1 loss, binomial deviance), when the outcome $Y$ and predictors $X$ come from an unknown distribution $p(Y, X)$,  we want to estimate the expected loss for any prediction $\hat y =\hat{f}(\mathbf{x})$,
+$$\mbox{test error of }\hat{f}=\mathbb{E} [L(Y, \hat{f}(X)].$$  
+It is crucial especially when there are tuning parameters in the model-- we want to  select the optimal model that leads to the lowest test error.
+
+One method we can use is to split the data into training set and an independent test set, and use the average loss on the test set as an unbiased estimator of test error. But what if we have an extra model-selection procedure? Clearly, we cannot use the same data set for both model-selection and model-assessment!
+
+
+### Model selection
+
+In order to evaluate the performance of different models and choose the optimal one, 
+we randomly split data into three sets: a training set, a validation set and a test set.
+
+For example, let's consider a regression problem where we have $n=50$ observations and  $d=30$ predictors, while most of them are not predictive. To adapt to the sparsity nature of the model, we use the lasso regression with a tuning parameter $\lambda$. We want to choose the optimal $\lambda$, and estimate the test error.
+
+To this end, we carry out K-fold cross-validation. We first set aside the test set that contains 30% of the data. Then split the remaining data into K blocks. Use each block in turn as the validation set and perform cross-validation and average the results over all K combinations. 
+
+We will use the `R` package `glmnet`.
+```{r,message=F, warning=F}
+library(glmnet)
+```
+
+The data is generated from the following model
+$$ Y = \sum_{j=1}^d \beta_j X_j Z_j + \epsilon, \quad \epsilon \sim \mathcal{N}(0, 1),$$
+where $Z_j$'s are Bernoulli random variables with parameter 0.1 and $\beta_j$'s are generated from the uniform distribution on $[-3, 3]$. We use the following code generate 50 observation.
+```{r}
+set.seed(123)
+d=30
+n=50
+x=matrix(rnorm(d*n,  1,1), n,d)
+beta=rbinom(d,size=1,prob=0.1)*runif(d,-3, 3)
+eps=rnorm(n,0,1)
+y=x%*%beta+eps
+```
+
+We fist set aside a test set, which contains 30% data points.
+```{r}
+train = sample(1:n, n*0.7)
+test= c(1:n)[-train]
+ytest = y[test]
+
+xtrain=x[train,]
+ytrain=y[train]
+```
+
+This function is to calculate the average loss of a model on a data set
+```{r}
+cv_error=function(fitted_model,newy,newx){
+  pred <- predict(fitted_model, newx = newx)
+  error=colMeans((pred-newy)^2)
+  return(error)
+}
+```
+
+The following function carries out $K$-fold cross-validation for the lasso
+```{r}
+lasso_cv=function(k, lambda){
+  nlambda = length(lambda)
+  validation_error_mat=matrix(NA,k,nlambda)
+  for( j in 1:k){
+    validation_index=c((j-1)*(length(train)%/%k)+1:(length(train)%/%k)) ## the training data has already been shuffled.
+    train_index=c(1:length(train))[-validation_index]  
+    lasso.mod = glmnet(xtrain[train_index,], ytrain[train_index], alpha = 1, lambda=lambda)
+    validation_error_mat[j,]=cv_error(fitted_model=lasso.mod,newy=ytrain[validation_index],newx= if
+                                      (length(validation_index)==1){ t(xtrain[validation_index,]) } else
+                                      {xtrain[validation_index,]} )  
+  }
+  return(validation_error_mat)
+}
+```
+
+The following function is for the visualision of cross-validation result.
+```{r}
+lasso_cv_graph=function(legend_1,k,lambda, tit){
+  k_fold_cv=lasso_cv(k, lambda)
+  validation_error=apply(k_fold_cv, 2,mean)
+  validation_error_sd=apply(k_fold_cv, 2,sd)/sqrt(k)
+  lasso.mod <- glmnet(x[train,], y[train], alpha = 1, lambda = lambda)
+  test_error=cv_error(lasso.mod,newy=ytest,newx= x[test,])
+  best_lambda=which.min(validation_error)
+  print("The optimal lambda that minimizes CV error is" )
+  print(lambda[best_lambda])
+  print("The 'rule of thumb' lambda is" )
+  print(max(lambda[ validation_error<=(validation_error[best_lambda]+ validation_error_sd[best_lambda])]))
+  plot(log(lambda),validation_error ,ylim=range(validation_error-validation_error_sd,
+                                                validation_error+validation_error_sd,
+                                                test_error),pch=20,cex=0.5,col='blue',ylab="MSE",main =tit)
+  lines(log(lambda),validation_error,col='blue' )
+  lines(log(lambda),test_error)  
+  for( i in 1:nlambda){
+    lines(x=rep(log(lambda)[i],2),
+          y=c(validation_error[i]-validation_error_sd[i],
+              validation_error[i]+validation_error_sd[i]),lwd=0.3,col='blue')
+    }
+  legend("topleft", col=c("blue", 1), lwd=2, legend=c(legend_1, "test error"))
+  points( log(lambda)[best_lambda],validation_error[best_lambda],col=2 )
+}
+```
+
+For example, we perform 10-fold CV.
+```{r}
+nlambda=30
+lambda=exp(seq(0.5, -6, length = nlambda))
+lasso_cv_graph("ten-fold CV", 10, lambda, tit=paste("ten-fold CV, d=",d))
+``` 
+### choose the optimal tuning parameter.
+Here we also pick up the tuning parameter that minimizes the CV error. Accounting for the uncertainty in CV-estimation, we apply the  \emph{one-standard-error rule}:    Choose the simplest model whose CV error is no more than one standard error above the model with the lowest CV error.
+
+
+### leave-one-out (LOO) CV. 
+When $K=n$, each validation set is of size 1, this is also termed as leave-one-out (LOO) CV. 
+```{r}
+lasso_cv_graph("LOO-CV", length(train),lambda,tit=paste("LOO-CV, d=",d))
+```
+
+##How to choose K?
+There is no general rule to choose $K$, as it depends on the problem. In $K$-fold CV with a relatively small $K$, we train the model on less data than what is available. This introduces bias into the estimates of test error. In LOO-CV, the training samples highly resemble each other. This increases the variance of the test error estimate.
+
+In the previous example, LOO and 10-fold CV have similar result. But if we increases the dimension to make the learning curve steeper，then the bias of 10-fold CV estimation error becomes significant.
+
+```{r}
+set.seed(123)
+d=200
+n=50
+x=matrix(rnorm(d*n,  1,1), n,d)
+beta=rbinom(d,size=1,prob=0.1)*runif(d,-3, 3)
+eps=rnorm(n,0,1)
+y=x%*%beta+eps
+train = sample(1:n, n*0.7)
+test= c(1:n)[-train]
+ytest = y[test]
+nlambda=30
+lambda=exp(seq(1, -8, length = nlambda))
+xtrain=x[train,]
+ytrain=y[train]
+lasso_cv_graph("10-fold CV", 10, lambda, tit=paste("10-fold CV, d=",d))
+lasso_cv_graph("LOO-CV", length(train), lambda, tit=paste("LOO-CV, d=",d))
+```
+
+# The Bootstrap
+Rough idea: Each time we re-sample a bootstrap sample uniformly from the observation (with replacement), estimate the parameter of interest according to this bootstrap sample. Repeat this procedure $B$ times and obtain the  distribution of that estimate. The function \code{boot} in R can do this.
+
+Suppose we are interested in the distribution, or at least the variance of the p-value in a linear regression. We use the “nuclear” data set (included in R-package "boot"). The data relates to the construction of 32 light water reactor (LWR) plants constructed in the U.S.A in the late 1960's and early 1970's. It contains 11 variables: <code>cost</code> ( in millions of dollars adjusted to 1976 base), <code>date</code> (the date on which the construction permit was issued in years),  <code>t1</code> (the time between application for and issue of the construction permit), <code>t2</code> (the time between issue of operating license and construction permit), <code>cap</code> (the net capacity of the power plant (MWe)), <code>bw</code> (the cumulative number of power plants constructed by each architect-engineer)  and five binary variables  <code>pr</code> (the prior existence of a LWR plant at the same site),  <code>ne</code> (the plant was constructed in the north-east region ), <code>ct</code> (the use of a cooling tower in the plant), <code>bw</code> ( the nuclear steam supply system was
+manufactured by Babcock-Wilcox.),   <code>pt</code>  ( plants with partial turnkey
+guarantees).  Are those variables predictive of the outcome (cost)? We can run a simple linear regression:
+
+```{r}
+library(boot)
+summary(lm(cost~.,data = nuclear)  )
+```
+
+But the p-value itself is noisy, particularly we have only a few observations. What is the distribution of those p-values?
+
+We then run the bootstrap on the p-value estimates:
+
+```{r}
+set.seed(123)
+variable_name=names(nuclear)[-1]
+p_v_estimate = function(data, indices){
+  d = data[indices, ]
+  l = lm(cost~., data = d) 
+  p_v =c( summary(l)$coefficients[-1,4] )
+  p_v_arg=rep(NA, length(variable_name))
+  for(i in 1:length(variable_name))
+    if( sum(names( p_v)==variable_name[i])  >=1)
+      p_v_arg[i]=p_v[which(names( p_v)==variable_name[i]) ]
+  return(p_v_arg) 
+}
+results = boot(data = data.frame( as.matrix(nuclear)), statistic = p_v_estimate, R = 1000)
+par(mfrow=c(2,5))
+ for(i in 1:10)
+ {
+   hist(results$t[,i],  main=paste("p_value of", names(nuclear)[i+1] ),xlim=c(0,1) ,prob=T, breaks=20, xlab = names(nuclear)[i+1])
+   #abline(v=0.05,col=2)
+ }
+```
+ 
+We can also obtain the bootsrap estimate of the variance of regression coefficients:
+```{r}
+set.seed(123)
+coef_estimate = function(data, indices){
+  d = data[indices, ]
+  l = lm(cost~., data = d) 
+  p_v =c( summary(l)$coefficients[-1,1] )
+  p_v_arg=rep(NA, length(variable_name))
+  for(i in 1:length(variable_name))
+    if( sum(names( p_v)==variable_name[i])  >=1)
+      p_v_arg[i]=p_v[which(names( p_v)==variable_name[i]) ]
+  return(p_v_arg) 
+}
+print( boot(data = data.frame( as.matrix(nuclear)), statistic = coef_estimate, R = 1000))
+```
+ 
+ 
+## Discussion:
+1) The corss-validation can also contain tunning parameter, for example, the number of folds K. How can we use corss-validation to choose K?
+ 
+2) The bootstap estimate also contains uncertainity. How can we quantify that uncertainity? Can we bootstrap the bootstraped-standard-error?
+  

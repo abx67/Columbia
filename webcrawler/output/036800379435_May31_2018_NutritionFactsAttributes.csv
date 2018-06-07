@@ -1,0 +1,45 @@
+,Name,Score,Qty
+0,100 Calories or Less,True,353
+1,100 Calories or Less 2018,True,350
+2,AHA - Heart Healthy,True,212
+3,AHA - Heart Healthy - Standard,True,212
+4,AHA - Heart Healthy - Standard 2018,True,207
+5,Carbohydrate Exchange = <1,True,198
+6,Cholesterol Free <2 mg,True,525
+7,Excellent Source Antioxidant Vitamin A,True,24
+8,Excellent Vitamin A > 20% DV,True,24
+9,Fat Free <0.5 g,True,540
+10,Good Plus Vitamin A,True,36
+11,Good Plus Vitamin A 2018,True,36
+12,Good Plus Vitamin C,True,202
+13,Good Plus Vitamin C 2018,True,202
+14,Good Source Antioxidant Vitamin C,True,42
+15,Good Vitamin C 10% - 19% DV,True,42
+16,Heart Healthy,True,216
+17,Heart Healthy - 2018,True,216
+18,Saturated Fat Free <0.5 g,True,505
+19,Trans Fat Free < 0.5 g,True,538
+20,Very Low Sodium 5 mg - 35 mg,True,395
+21,Carbohydrate Exchange = 1 - 2,False,359
+22,Excellent Calcium > 20% DV,False,1
+23,Excellent Fiber > 5 g,False,2
+24,Excellent Source Antioxidant Vitamin C,False,164
+25,Excellent Vitamin C > 20% DV,False,161
+26,Good Calcium 10% - 19% DV,False,1
+27,Good Fiber 2.5 g - 5 g,False,3
+28,Good Plus Calcium,False,2
+29,Good Plus Calcium 2018,False,2
+30,Good Plus Fiber,False,8
+31,Good Plus Fiber 2018,False,8
+32,Good Plus Protein 2018,False,8
+33,Good Source Antioxidant Vitamin A,False,12
+34,Good Vitamin A 10% - 19% DV,False,14
+35,Low Calorie 5-40 Cal,False,43
+36,Low Fat 0.5 g - 3 g,False,1
+37,Low Sodium 35-140 mg,False,8
+38,NLEA 2018 Added Sugar >0g,False,36
+39,NLEA 2018 Good Fiber 2.8 g - 5.6 g,False,5
+40,NLEA 2018 Good Plus Fiber,False,8
+41,NLEA 2018 Good Plus Fiber 2018,False,8
+42,NLEA 2018 Sugar Free <0.5 g,False,25
+43,Sodium Free <5 mg,False,157

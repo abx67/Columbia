@@ -1,0 +1,405 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## import data
+
+
+```{r}
+library(reshape2)
+library(ggplot2)
+```
+
+
+```{r}
+crime <- read.table('APPENC02(1).txt')
+colnames(crime) <- c("id","county","state","area","population",
+                     "perc.young","perc.old","physicians",
+                     "hospital.beds","n.crimes","perc.hs",
+                     "perc.bs","perc.poor","unemployment",
+                     "per.income","tot.income","region")
+crime['pop.density'] = crime$population/crime$area
+crime['physician.per.1000'] = crime$physicians/(crime$population/1000)
+crime['beds.per.1000'] = crime$hospital.beds/(crime$population/1000)
+crime['crime.rate.per.1000'] = crime$n.crimes/(crime$population/1000)
+head(crime)
+dim(crime)
+```
+
+
+```{r}
+lm.crime.full <- lm(crime.rate.per.1000 ~ area + perc.young + perc.old +
+                    hospital.beds + perc.bs + perc.poor + unemployment +
+                    per.income + I(region) + pop.density + physician.per.1000 + 
+                    beds.per.1000, data = crime)
+summary(lm.crime.full)
+step(lm.crime.full,direction = "backward")$anova
+```
+
+
+
+```{r}
+lm.crime.fit1 <- lm(crime.rate.per.1000 ~ perc.young + hospital.beds + perc.poor + per.income +
+                    I(region) + pop.density + beds.per.1000, data = crime)
+summary(lm.crime.fit1)
+```
+
+
+
+```{r}
+step(lm.crime.fit1,direction = "backward")$anova
+```
+
+
+
+# Poisson regression 
+
+
+```{r}
+df <- crime
+```
+
+
+```{r}
+# correlation map
+UNI <- 2823
+set.seed(2823)
+index <- sample(c(1:440))
+train_df <- df[index[1:300],]
+numeric_features <- c('area','population','perc.young','perc.old',
+                      'physicians','hospital.beds','n.crimes','perc.hs',
+                      'perc.bs','perc.poor','unemployment','per.income',
+                      'tot.income','pop.density','physician.per.1000',
+                      'beds.per.1000','crime.rate.per.1000')
+cormat <- round(cor(train_df[numeric_features]),2)
+
+melted_cormat <- melt(cormat)
+
+options(repr.plot.width=12, repr.plot.height=5)
+ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
+  geom_tile(color = "white")+
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
+                       midpoint = 0, limit = c(-1,1), space = "Lab",
+                       name="Pearson\nCorrelation") +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1,
+                                   size = 12, hjust = 1))+
+  coord_fixed()
+```
+
+
+### train a fisrt poisson model
+
+
+```{r}
+#poission 
+
+m2 <- glm( n.crimes/(population/1000)~ perc.young + perc.poor + per.income +
+          factor(region) + log(pop.density) + physician.per.1000 + beds.per.1000 +
+          perc.bs + unemployment, family=quasipoisson, data=df, weights=(population/1000))
+summary(m2)
+```
+
+
+
+
+### detect outlier
+
+
+```{r}
+#h=0.25
+outliers <- which(hatvalues(m2)>0.25)
+a1<-hatvalues(m2)
+a2<-residuals(m2)
+a3<-data.frame(hat.values=a1,res=a2)
+
+options(repr.plot.width=5, repr.plot.height=4)
+ggplot(data=a3,aes(hat.values,res)) +
+  geom_point(alpha=0.8)+
+  geom_text(data=a3[outliers,],aes(hat.values-0.005,res, label=df$county[outliers]),size=3,hjust=1,alpha=0.8) +
+  xlab("hatvalues") + ylab("residuals")
+```
+
+
+
+
+### delete outlier and retrain model
+
+
+```{r}
+df2 = df[-outliers,]
+
+#poission 
+
+m3 <- glm( n.crimes/(population/1000)~  perc.poor + per.income +
+          factor(region) + log(pop.density) + physician.per.1000 + beds.per.1000 ,
+          family=quasipoisson, data=df, weights=(population/1000))
+summary(m3)
+m3$coefficients
+exp(m3$coefficients)
+```
+
+
+### retrain model
+delete `per.income` and `physician.per.1000`
+
+
+```{r}
+#poission 
+
+m4 <- glm( n.crimes/(population/1000)~ perc.poor +
+          factor(region) + log(pop.density) + beds.per.1000,
+          family=quasipoisson, data=df2, weights=(population/1000))
+summary(m4)
+```
+
+
+```{r}
+#h=0.25
+outliers <- which(hatvalues(m4)>0.25)
+a1<-hatvalues(m4)
+a2<-residuals(m4)
+a3<-data.frame(hat.values=a1,res=a2)
+
+options(repr.plot.width=5, repr.plot.height=4)
+ggplot(data=a3,aes(hat.values,res)) +
+  geom_point(alpha=0.8)+
+  geom_text(data=a3[outliers,],aes(hat.values,res, label=df$county[outliers]),size=3,hjust=1,alpha=0.8)
+```
+
+
+## EDA
+```{r}
+plot(crime$crime.rate.per.1000)
+
+# logi.data <- crime
+# logi.data$crime.rate.level <- logi.data$crime.rate.per.1000
+# logi.data$crime.rate.level[which(crime$crime.rate.per.1000 <= 30)] <- 1
+# logi.data$crime.rate.level[which(crime$crime.rate.per.1000 > 30 & 
+#                                    crime$crime.rate.per.1000 <= 60)] <- 2
+# logi.data$crime.rate.level[which(crime$crime.rate.per.1000 > 60 & 
+#                                    crime$crime.rate.per.1000 <= 90)] <- 3
+# logi.data$crime.rate.level[which(crime$crime.rate.per.1000 > 90 & 
+#                                    crime$crime.rate.per.1000 <= 120)] <- 4
+# logi.data$crime.rate.level[which(crime$crime.rate.per.1000 > 120)] <- 5
+
+logi.data <- crime
+logi.data$crime.rate.level <- logi.data$crime.rate.per.1000
+logi.data$crime.rate.level[which(crime$crime.rate.per.1000 <= 60)] <- 1
+logi.data$crime.rate.level[which(crime$crime.rate.per.1000 > 60 & 
+                                   crime$crime.rate.per.1000 <= 120)] <- 2
+logi.data$crime.rate.level[which(crime$crime.rate.per.1000 > 120)] <- 3
+```
+
+```{r}
+
+library(MASS)
+polr.fit1 <- polr(factor(crime.rate.level) ~ perc.young + hospital.beds + perc.poor + per.income +
+                    I(region) + pop.density + beds.per.1000, data =logi.data)
+summary(polr.fit1)
+1-pchisq(deviance(polr.fit1),df.residual(polr.fit1))
+polr.fit2 <- polr(factor(crime.rate.level) ~ perc.young + hospital.beds + perc.poor +
+                     pop.density + beds.per.1000, data =logi.data)
+summary(polr.fit2)
+1-pchisq(deviance(polr.fit2),df.residual(polr.fit2))
+drop1(polr.fit2,test = "Chi")
+
+```
+
+
+```{r}
+library(VGAM)
+logit.fit1 <- vglm(crime.rate.level ~ perc.young + hospital.beds + perc.poor + per.income +
+                    I(region) + pop.density + beds.per.1000, data =logi.data,
+             family=cumulative(parallel=TRUE))
+summary(logit.fit1)
+
+# logit.fit2 <- vglm(crime.rate.level ~ perc.young + hospital.beds + perc.poor + per.income +
+                    # I(region) + pop.density + beds.per.1000, data =logi.data, family=cumulative)
+# summary(fit2)
+# pchisq(deviance(fit1)-deviance(fit), df=df.residual(fit1)-df.residual(fit),
+# lower.tail=FALSE)
+
+
+# step(logit.fit2,direction = "backward")$anova
+```
+
+Our main goal is to find the cause of high crime rate. Since crime rate is a quantitative variable, we simply divide this variable into 5 groups, which are `very low`(<30), `low`(30-60), `medium`(60-90), `high`(90-120) and `very high`(>120).
+
+```{r}
+table(logi.data$crime.rate.level)
+# labels <- c("<30", "30-60", "60-90", "90-120",">120")
+labels <- c("<60\u2030", "60\u2030-120\u2030", ">120\u2030")
+x = table(logi.data$crime.rate.level)
+piepercent <- round(100*x/sum(x), 1)
+pie(x,labels=paste(piepercent,"%"),main = "num of crime per 1000 population",col =rainbow(length(x)))
+legend("topright", labels, cex = 0.8,
+   fill = rainbow(length(x)))
+
+ind.region1 <- which(logi.data$region == 1)
+ind.region2 <- which(logi.data$region == 2)
+ind.region3 <- which(logi.data$region == 3)
+ind.region4 <- which(logi.data$region == 4)
+
+x = table(logi.data$crime.rate.level[ind.region1])
+piepercent <- round(100*x/sum(x), 1)
+pie(x,labels=paste(piepercent,"%"),main = "Crime rate in NE",col =c(7,5,2))
+legend("topright", labels, cex = 0.8,
+   fill = c(7,5,2))
+
+x = table(logi.data$crime.rate.level[ind.region2])
+piepercent <- round(100*x/sum(x), 1)
+pie(x,labels=paste(piepercent,"%"),main = "Crime rate in NC",col =c(7,5,2))
+legend("topright", labels, cex = 0.8,
+   fill = c(7,5,2))
+
+x = table(logi.data$crime.rate.level[ind.region3])
+piepercent <- round(100*x/sum(x), 1)
+pie(x,labels=paste(piepercent,"%"),main = "Crime rate in S",col =c(7,5,2))
+legend("topright", labels, cex = 0.8,
+   fill = c(7,5,2))
+
+x = table(logi.data$crime.rate.level[ind.region4])
+piepercent <- round(100*x/sum(x), 1)
+pie(x,labels=paste(piepercent,"%"),main = "Crime rate in W",col = c(7,5))
+legend("topright", labels[1:2], cex = 0.8,
+   fill = c(7,5))
+
+
+```
+Then we fit a Cumulative logit model to find the factor that influence the crime rate
+```{r}
+names(logi.data)
+library(VGAM)
+logit.fit1 <- vglm(crime.rate.level ~ perc.young + perc.old + perc.poor +
+                      perc.hs  + per.income + physician.per.1000 + beds.per.1000 +
+                    I(region) + pop.density , data =logi.data,
+             family=cumulative(parallel=TRUE))
+summary(logit.fit1)
+```
+
+
+```{r}
+names(logi.data)
+library(MASS)
+polr.fit1 <- polr(factor(crime.rate.level) ~ perc.young + perc.old + perc.poor +
+                      perc.hs + perc.bs + per.income + physician.per.1000 + beds.per.1000 +
+                    I(region) + pop.density , data =logi.data)
+summary(polr.fit1)
+```
+AIC = 864.7338 `perc.old` `perc.hs` `perc.bs` and `physician.per.1000`
+
+After fit the logistic model, I found the most of the predictor variables are significant. But the `perc.old` `perc.hs` `perc.bs` and `physician.per.1000` are not so important. So I decide to drop those 4 variables. In order to provide a solid evidence for dropping variables. I used AIC criterion. For the current full model, the AIC is 864.7338. Then I used backstep method to select variables.
+
+
+```{r}
+polr.fit2 <- polr(factor(crime.rate.level) ~ perc.young  + perc.poor +
+                      per.income  + beds.per.1000 +
+                    I(region) + pop.density , data =logi.data)
+summary(polr.fit2)
+
+logit.fit2 <- vglm(crime.rate.level ~ perc.young  + perc.poor +
+                      per.income  + beds.per.1000 +
+                    I(region) + pop.density , data =logi.data,
+             family=cumulative)
+summary(logit.fit2)
+logit.fit2@coefficients
+exp(logit.fit2@coefficients)
+```
+
+When we drop `perc.old` `perc.hs` `perc.bs` and `physician.per.1000`, the AIC now has been reduced to 859.7049, which is the least among all models. Therefore we can drop those four variables and get our final model.
+
+Till now we have selected the most important variables `perc.young` `perc.poor` `per.income` `beds.per.1000` `pop.density` and `region`. The model now is 
+$$
+\log\left( \frac{P(Y\leq j)}{1-P(Y\leq j)}\right) =  \beta_j - 0.1045*perc.young \\
+- 0.1909*perc.poor -1.063e-04* per.income\\
+- 0.3215*beds.per - 0.9111*I(region) \\
+-2.343e-04*pop.density\\
+$$
+
+```{r}
+# stepAIC(logit.fit2,direction="backward",trace=FALSE)
+# install.packages("usdm")
+library(usdm)
+
+vif.df = data.frame(perc.young = logi.data$perc.young, perc.old = logi.data$perc.old,
+                    perc.poor = logi.data$perc.poor, perc.hs = logi.data$perc.hs,
+                    perc.bs = logi.data$perc.bs, per.income = logi.data$per.income,
+                    physician.per.1000 = logi.data$physician.per.1000,
+                    beds.per.1000 = logi.data$beds.per.1000,
+                    pop.density = logi.data$pop.density,
+                    unemployment = logi.data$unemployment,
+                    area = logi.data$area)
+
+vif(vif.df)
+# ggplot() + hist(vif(vif.df)$VIF)
+pairs(vif.df)
+
+vif.num <- as.vector(vif(vif.df)$VIF)
+vif.labels <- c('percent young','percent old','percent poor','percent hs','percent bs','percent income',
+                'physician per 1000','beds per 1000','population density', 'unemployment', 'area')
+names(vif.num) <- vif.labels
+
+ggplot() + 
+  geom_point(aes(x=vif.labels,y=vif.num) ) +
+  theme(axis.text.x = element_blank()) +
+  geom_text(aes(x = 'percent young',y=2.3, label='percent young'),size=3.5) + 
+  geom_text(aes(x = 'percent old',y=2.3, label='percent old'),size=3.5) +
+  geom_text(aes(x = 'percent poor',y=3.9, label='percent poor'),size=3.5) +
+  geom_text(aes(x = 'percent hs',y=3.7, label='percent hs'),size=3.5) +
+  geom_text(aes(x = 'percent bs',y=6.3, label='percent bs'),size=3.5,col='red') +
+  geom_text(aes(x = 'percent income',y=4.3, label='percent income'),size=3.5) +
+  geom_text(aes(x = 'physician per 1000',y=3.5, label='physician per 1000'),size=3.5) +
+  geom_text(aes(x = 'beds per 1000',y=2.3, label='beds per 1000'),size=3.5) +
+  geom_text(aes(x = 'population density',y=1.5, label='population density'),size=3.5) +
+  geom_text(aes(x = 'unemployment',y=2.3, label='unemployment'),size=3.5) +
+  geom_text(aes(x = 'area',y=1.5, label='area'),size=3.5) +
+  geom_abline(intercept = 5, slope = 0,col='red') +
+  xlab('variables') + ylab('VIF') +
+  geom_point(aes(x = 'percent bs',y=max(vif.num), label='percent bs'),size=2,col='red')
+  
+
+```
+```{r}
+ggplot() + 
+  geom_histogram( aes(crime$perc.young),
+                 col="red", 
+                 fill="green", 
+                 alpha = .2) + 
+  labs(title="percent of young") +
+  labs(x="percent", y="Count") +
+  geom_text(aes(x = crime$perc.young[6], y=7, label='Kings'),size=5) 
+
+
+ggplot() + 
+  geom_histogram( aes(crime$perc.poor),
+                 col="red", 
+                 fill="green", 
+                 alpha = .2) + 
+  # labs(title="percent of poor") +
+  labs(x="percent of poor", y="Count") +
+  geom_text(aes(x = crime$perc.young[6], y=7, label='Kings'),size=6) 
+
+ggplot() + 
+  geom_histogram( aes(crime$beds.per.1000),
+                 col="red", 
+                 fill="green", 
+                 alpha = .2) + 
+  labs(title="hospital beds per 1000 people") +
+  labs(x="percent", y="Count") +
+  geom_text(aes(x = crime$beds.per.1000[6], y=7, label='Kings'),size=5) 
+
+ggplot() + 
+  geom_histogram( aes(crime$pop.density),
+                 col="red", 
+                 fill="green", 
+                 alpha = .2) + 
+  # labs(title="population density") +
+  labs(x="population density", y="Count") +
+  geom_text(aes(x = crime$pop.density[6], y=20, label='Kings'),size=6) 
+```
+
+
+

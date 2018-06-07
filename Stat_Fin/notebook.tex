@@ -1,0 +1,650 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw5\_fy2232}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+     \#
+
+STATISTICAL METHODS IN FINANCE
+
+\#
+
+HW5
+
+Fan Yang
+
+UNI: fy2232
+
+02/28/2018
+
+    \hypertarget{problem-1}{%
+\section{Problem 1}\label{problem-1}}
+
+    \textbf{\emph{Show that the following inequalities are always true for
+any copula function \(C\): \[C^−(u, v) \leq C(u, v) \leq C^+(u, v).\]}}
+\textbf{\emph{Recall that \(C^−(u, v) = \max(u + v − 1, 0)\) and
+\(C^+(u, v) = \min(u, v)\).}}
+
+    \hypertarget{i-cu-v-leq-cu-v}{%
+\subsubsection{\texorpdfstring{(i)
+\(C^−(u, v) \leq C(u, v)\)}{(i) C\^{}−(u, v) \textbackslash{}leq C(u, v)}}\label{i-cu-v-leq-cu-v}}
+
+    By 2-increasing, for all \(u_1\leq u_2,v_1\leq v_2\),
+\[C(u_2,v_2)-C(u_1,v_2)-C(u_2,v_1)+C(u_1,v_1)\geq 0\] Let \(u_2=v_2=1\)
+and \(u_1= u, ~ v_1=v\), then \[C(1,1)-C(u,1)-C(1,v)+C(u,v)\geq 0\\
+1-u-v+C(u,v)\geq 0\\
+C(u,v)\geq u+v-1\] While \$C(u,v)\geq 0 \$, therefore
+\(\max(u + v − 1, 0) \leq C(u, v)\) that's to say,
+\(C^−(u, v) \leq C(u, v)\).
+
+    \hypertarget{ii-cu-v-leq-cu-v}{%
+\subsubsection{\texorpdfstring{(ii)
+\(C(u, v) \leq C^+(u, v)\)}{(ii) C(u, v) \textbackslash{}leq C\^{}+(u, v)}}\label{ii-cu-v-leq-cu-v}}
+
+    By 2-increasing, for all \(u_1\leq u_2,v_1\leq v_2\),
+\[C(u_2,v_2)-C(u_1,v_2)-C(u_2,v_1)+C(u_1,v_1)\geq 0\] Let \(u_2=1\) and
+\(u_1=u\) and \(v_1= 0, ~ v_2=v\), then
+\[C(1,v)-C(u,v)-C(1,0)+C(u,0)\geq 0\\
+C(1,v)-C(u,v)\geq 0\\
+v-C(u,v)\geq 0\\
+C(u,v)\leq v\] Let \(u_2=u\) and \(u_1=0\) and \(v_1= v, ~ v_2=1\), then
+\[C(u,1)-C(0,1)-C(u,v)+C(0,v)\geq 0\\
+C(u,1)-C(u,v)\geq 0\\
+u-C(u,v)\geq 0\\
+C(u,v)\leq u\] From all above, we have \(C(u, v) \leq\min(u, v)\) that's
+to say, \(C(u, v)\leq C^+(u, v)\).
+
+    \hypertarget{problem-2}{%
+\section{Problem 2}\label{problem-2}}
+
+    \textbf{\emph{Kendall's tau rank correlation between \(X\) and \(Y\) is
+\(0.55\). Both \(X\) and \(Y\) are strictly positive random variables.
+What is Kendall's tau between \(X\) and \(1/Y\) ? What is the Kendall's
+tau between \(1/X\) and \(1/Y\) ?}}
+
+    \textbackslash{}begin\{split\}
+\rho\emph{\tau(X,Y)\&=E{[}\text{sign}\{(X-X\^{}\emph{)(Y-Y\^{}})\}{]}\textbackslash{}
+\&=\int\int\textsubscript{\text{sign}\{(x-x\^{}\emph{)(y-y\^{}})\}}p}\{X,Y\}(x,y)\textsubscript{dx}dy
+\textbackslash{}end\{split\}
+
+    \hypertarget{x-and-1y}{%
+\subsubsection{\texorpdfstring{\(X\) and
+\(1/Y\)}{X and 1/Y}}\label{x-and-1y}}
+
+    Notice that X and Y are strictly positive.
+\textbackslash{}begin\{split\}
+\rho\_\tau(X,1/Y)\&=E{[}\text{sign}\{(X-X\^{}\emph{)(1/Y-1/Y\^{}})\}{]}\textbackslash{}
+\&=\int\int\textasciitilde{}\text{sign}\{(x-x\^{}*)(\frac{1}{y}-\frac{1}{y^*})\}\textsubscript{p\_\{X,Y\}(x,y)}dx\textasciitilde{}dy
+\textbackslash{}end\{split\} Note that for any positive \(y\) and
+\(y^*\), \(\text{sign}\{(x-x^*)(\frac{1}{y}-\frac{1}{y^*})\}\) and
+\(\text{sign}\{(x-x^*)(y-y^*)\}\) always have opposite signs. which
+means
+\(\text{sign}\{(x-x^*)(\frac{1}{y}-\frac{1}{y^*})\} = -~\text{sign}\{(x-x^*)(y-y^*)\}\).
+So, \textbackslash{}begin\{split\}
+\rho\_\tau(X,1/Y)\&=E{[}\text{sign}\{(X-X\^{}\emph{)(1/Y-1/Y\^{}})\}{]}\textbackslash{}
+\&=\int\int\textasciitilde{}\text{sign}\{(x-x\^{}*)(\frac{1}{y}-\frac{1}{y^*})\}\textsubscript{p\_\{X,Y\}(x,y)}dx\textsubscript{dy\textbackslash{}
+\&=\int\int}-\textsubscript{\text{sign}\{(x-x\^{}\emph{)(y-y\^{}})\}}p\_\{X,Y\}(x,y)\textsubscript{dx}dy\textbackslash{}
+\&=-\rho\_\tau(X,Y)\textbackslash{} \&=-0.55
+\textbackslash{}end\{split\}
+
+    \hypertarget{x-and-1y}{%
+\subsubsection{\texorpdfstring{\(1/X\) and
+\(1/Y\)}{1/X and 1/Y}}\label{x-and-1y}}
+
+    \textbackslash{}begin\{split\}
+\rho\emph{\tau(1/X,1/Y)\&=E{[}\text{sign}\{(1/X-1/X\^{}\emph{)(1/Y-1/Y\^{}})\}{]}\textbackslash{}
+\&=\int\int\textsubscript{\text{sign}\{(\frac{1}{x}-\frac{1}{x^*})(\frac{1}{y}-\frac{1}{y^*})\}}p}\{X,Y\}(x,y)\textsubscript{dx}dy
+\textbackslash{}end\{split\} Note that for any positive \$ x\$, \(x^*\),
+\(y\) and \(y^*\), \(\text{sign}\{\frac{1}{y}-\frac{1}{y^*}\}\) and
+\(\text{sign}\{y-y^*\}\) always have opposite signs. And
+\(\text{sign}\{\frac{1}{x}-\frac{1}{x^*}\}\) and
+\(\text{sign}\{x-x^*\}\) always have opposite signs. Which indicates
+that
+\(\text{sign}\{(\frac{1}{x}-\frac{1}{x^*})(\frac{1}{y}-\frac{1}{y^*})\} = ~\text{sign}\{(x-x^*)(y-y^*)\}\).
+So, \textbackslash{}begin\{split\}
+\rho\emph{\tau(X,1/Y)\&=E{[}\text{sign}\{(X-X\^{}\emph{)(1/Y-1/Y\^{}})\}{]}\textbackslash{}
+\&=\int\int\textsubscript{\text{sign}\{(\frac{1}{x}-\frac{1}{x^*})(\frac{1}{y}-\frac{1}{y^*})\}}p}\{X,Y\}(x,y)\textsubscript{dx}dy\textbackslash{}
+\&=\int\int\textsubscript{\text{sign}\{(x-x\^{}\emph{)(y-y\^{}})\}}p\_\{X,Y\}(x,y)\textsubscript{dx}dy\textbackslash{}
+\&=\rho\_\tau(X,Y)\textbackslash{} \&=0.55 \textbackslash{}end\{split\}
+
+    \hypertarget{problem-3}{%
+\section{Problem 3}\label{problem-3}}
+
+    \textbf{\emph{Suppose that \(X\) is Uniform(0,1) and \(Y = X^2\). Then
+the Spearman rank correlation and the Kendall's tau between \(X\) and
+\(Y\) will both equal 1, but the Pearson correlation between \(X\) and
+\(Y\) will be less than 1. Explain why this is the case.}}
+
+    \textbackslash{}begin\{split\}
+F\_Y(y)\&=P(Y\leq y)=P(X\^{}2\leq y)\textbackslash{}
+\&=P(X\leq \sqrt{y})\textbackslash{} \&=\sqrt{y}\textbackslash{} f\_Y(y)
+\&= \frac{d F_Y(y)}{dy} = \frac{1}{2\sqrt{y}}. \textasciitilde{}
+\textasciitilde{}y\in [0,1]
+\textbackslash{}end\{split\}
+
+    \hypertarget{spearman-rank-correlation}{%
+\subsubsection{Spearman rank
+correlation}\label{spearman-rank-correlation}}
+
+    \textbackslash{}begin\{split\}
+\rho\_S(X,Y)\&=\text{Corr}\{F\_X(X),F\_Y(Y)\}\textbackslash{}
+\&=\frac{\text{Cov}\{F_X(X),F_Y(Y)\}}{\sqrt{\text{Var}(F_X(X))\text{Var}(F_Y(Y))}}\textbackslash{}
+\&=\frac{\text{Cov}\{X,\sqrt{Y}\}}{\sqrt{\text{Var}(X)\text{Var}(\sqrt{Y})}}\textbackslash{}
+\&=\frac{\text{Cov}\{X,\sqrt{X^2}\}}{\sqrt{\text{Var}(X)\text{Var}(\sqrt{X^2})}}\textbackslash{}
+\&=\frac{\text{Cov}\{X,X\}}{\sqrt{\text{Var}(X)\text{Var}(X)}}\textbackslash{}
+\&=\frac{\text{Var}(X)}{\text{Var}(X)}\textbackslash{}
+\&=1\textbackslash{} \textbackslash{}end\{split\}
+
+    \hypertarget{kendalls-tau}{%
+\subsubsection{Kendall's tau}\label{kendalls-tau}}
+
+    Since \(Y=X^2\), for any \(x_i>x_j>0\), we have \(x_i^2>x_j^2\), which
+is \(y_i>y_j\). In short, \(x>x^*\) indicates \(y>y^*\). Therefore,
+\(\text{sign}\{(x-x^*)(y-y^*)\}\) is always 1.
+\textbackslash{}begin\{split\}
+\rho\emph{\tau(X,Y)\&=E{[}\text{sign}\{(X-X\^{}\emph{)(Y-Y\^{}})\}{]}\textbackslash{}
+\&=\int\int\textsubscript{\text{sign}\{(x-x\^{}\emph{)(y-y\^{}})\}}p}\{X,Y\}(x,y)\textsubscript{dx}dy\textbackslash{}
+\&=\int\int\textsubscript{p\_\{X,Y\}(x,y)}dx\textasciitilde{}dy\textbackslash{}
+\&=1\textbackslash{} \textbackslash{}end\{split\}
+
+    \hypertarget{pearson-correlation}{%
+\subsubsection{Pearson correlation}\label{pearson-correlation}}
+
+    \(X\sim Uniform(0,1)\), so \(E(X)=0.5\)
+\(E(Y) = \int_0^1yf_Y(y)dy=\int_0^1y\frac{1}{2\sqrt{y}}dy=\frac{1}{3}\)
+
+\begin{split}
+\rho(X,Y)&=\text{Corr}(X,Y)\\
+&=\frac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X)\text{Var}(Y)}}\\
+\text{Cov}(X,Y)&=E[(X-E(X))(Y-E(Y))]\\
+&=E[(X-\frac{1}{2})(X^2-\frac{1}{3})]\\
+&=E[X^3-\frac{1}{2}X^2-\frac{1}{3}X+\frac{1}{6}]\\
+&=E(X^3)-\frac{1}{2}E(X^2)-\frac{1}{3}E(X)+\frac{1}{6}\\
+\end{split}
+
+\(E(X^3) = \int_0^1x^3dx=\frac{1}{4}\)
+\(E(X^2) = \int_0^1x^2dx=\frac{1}{3}\) \(Var(X) = \frac{1}{12}\)
+\(E(Y^2) = \int_0^1y^2\frac{1}{2\sqrt{y}}dy=\frac{1}{5}\)
+\(Var(Y) = E(Y^2)-E^2(Y)=\frac{1}{5}-(\frac{1}{3})^2=\frac{4}{45}\) So,
+
+\begin{split}
+\rho(X,Y)&=
+\frac{E(X^3)-\frac{1}{2}E(X^2)-\frac{1}{3}E(X)+\frac{1}{6}}{\sqrt{\text{Var}(X)\text{Var}(Y)}}\\
+&=\frac{\frac{1}{4}-\frac{1}{2}\times\frac{1}{3}-\frac{1}{3}\times\frac{1}{2}+\frac{1}{6}}{\sqrt{\frac{1}{12}\times\frac{4}{45}}}\\
+&=\frac{\frac{1}{12}}{\sqrt{\frac{1}{135}}}\\
+&=0.9682<1\\
+\end{split}
+
+    \hypertarget{problem-4}{%
+\section{Problem 4}\label{problem-4}}
+
+    *** (Optional) Recall that the bivariate Gumbel copula takes the form
+\[C_{\alpha}(u,v) = \exp\{−[(−\log u)^\alpha +(−\log v)^\alpha]^{\frac{1}{\alpha}} \},
+\] where \(\alpha \in [1,\infty)\). Show that, as
+\(\alpha \rightarrow \infty\),
+\(C_\alpha(u,v) \rightarrow C^+(u,v) = \min(u,v)\).***
+
+    Denote \(a = −\log u \in (0,\infty)\) and \(b = −\log v \in (0,\infty)\)
+\textbf{Without loss of generality}, let's suppose \(u\leq v\), then
+\(a\geq b >0\) Let's consider
+\(−[(−\log u)^\alpha +(−\log v)^\alpha]^{\frac{1}{\alpha}}\) which is
+\(−(a^\alpha +b^\alpha)^{\frac{1}{\alpha}}\) first. Since \(a\geq b\),
+we have \textbackslash{}begin\{split\}
+−(a\textsuperscript{\alpha +a}\alpha)\^{}\{\frac{1}{\alpha}\}
+\&\leq −(a\textsuperscript{\alpha +b}\alpha)\^{}\{\frac{1}{\alpha}\}
+\&\textless{}
+−(a\textsuperscript{\alpha )}\{\frac{1}{\alpha}\}\textbackslash{}
+−(2a\textsuperscript{\alpha)}\{\frac{1}{\alpha}\}
+\&\leq −(a\textsuperscript{\alpha +b}\alpha)\^{}\{\frac{1}{\alpha}\}
+\&\textless{}
+−(a\textsuperscript{\alpha )}\{\frac{1}{\alpha}\}\textbackslash{}
+\lim\emph{\{\alpha\rightarrow\infty\}−(2a\textsuperscript{\alpha)}\{\frac{1}{\alpha}\}
+\&\leq \lim}\{\alpha\rightarrow\infty\}−(a\textsuperscript{\alpha +b}\alpha)\^{}\{\frac{1}{\alpha}\}
+\&\textless{}
+\lim\emph{\{\alpha\rightarrow\infty\}−(a\textsuperscript{\alpha )}\{\frac{1}{\alpha}\}\textbackslash{}
+-a
+\&\leq \lim}\{\alpha\rightarrow\infty\}−(a\textsuperscript{\alpha +b}\alpha)\^{}\{\frac{1}{\alpha}\}
+\&\textless{} -a\textbackslash{} \textbackslash{}end\{split\} Therefore,
+\(\lim\limits_{\alpha\rightarrow\infty}−(a^\alpha +b^\alpha)^{\frac{1}{\alpha}} = -a\)
+which is
+\(\lim\limits_{\alpha\rightarrow\infty}−[(−\log u)^\alpha +(−\log v)^\alpha]^{\frac{1}{\alpha}} = \log u\)
+So,
+\(\lim\limits_{\alpha\rightarrow\infty}\exp\{−[(−\log u)^\alpha +(−\log v)^\alpha]^{\frac{1}{\alpha}} \} = \exp (\log u)=u\)
+Under our assumption \(u\leq v\), so,
+\(\lim\limits_{\alpha\rightarrow\infty}C_\alpha(u,v) = \min(u,v) = C^+(u,v)\)
+
+    \hypertarget{problem-5}{%
+\section{Problem 5}\label{problem-5}}
+
+    \textbf{\emph{We have two \(B\)-rated bonds, with one-year default
+probability at 3.46\%. Suppose that the interest rate is 4\%, and their
+default times satisfy the Gaussian copula with \(\rho = 0.5\), calculate
+the following expected present values, i.e.~fair prices.}}
+\textgreater{}\textbf{\emph{(a)}} What is the fair price of a
+first-to-default swap which pays \$1,000,000 if at least one of them
+defaults by the end of the first year? \textbf{\emph{(b)}} How about a
+second-to-default swap which pays \$1,000,000 if both default in the
+first year?
+
+    \hypertarget{a}{%
+\subsection{(a)}\label{a}}
+
+\textbackslash{}begin\{split\} FTD \&=
+e\^{}\{-rT\}{[}F\_1(T)+F\_2(T)-C(F\_1(T),F\_2(T)){]}\textbackslash{} FTD
+\&=1000000\times e\^{}\{-0.04\times1\}\times[0.0346+0.0346-C(0.0346,0.0346)]\textbackslash{}
+\textbackslash{}end\{split\}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{library}\PY{p}{(}mvtnorm\PY{p}{)}
+        pmvnorm\PY{p}{(}lower \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{k+kc}{Inf}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{k+kc}{Inf}\PY{p}{)}\PY{p}{,} upper \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}qnorm\PY{p}{(}\PY{l+m}{0.0346}\PY{p}{)}\PY{p}{,}qnorm\PY{p}{(}\PY{l+m}{0.0346}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                sigma \PY{o}{=} \PY{k+kt}{matrix}\PY{p}{(} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0.5}\PY{p}{,}\PY{l+m}{0.5}\PY{p}{,}\PY{l+m}{1}\PY{p}{)}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    0.00727678978541412
+
+    
+    Gaussian copula with \(\rho = 0.5\)
+
+\begin{split}
+FTD &=1000000\times e^{-0.04\times1}\times[0.0346+0.0346-C(0.0346,0.0346)]\\
+&=1000000\times e^{-0.04\times1}\times[0.0346+0.0346-0.00727679]\\
+&=59495.166\\
+\end{split}
+
+    \hypertarget{b}{%
+\subsection{(b)}\label{b}}
+
+\textbackslash{}begin\{split\} LTD \&=
+e\^{}\{-rT\}C(F\_1(T),F\_2(T))\textbackslash{} LTD
+\&=1000000\times e\^{}\{-0.04\times1\}\times C(0.0346,0.0346)\textbackslash{}
+\textbackslash{}end\{split\}
+
+    Gaussian copula with \(\rho = 0.5\)
+
+\begin{split}
+LTD &=1000000\times e^{-0.04\times1}\times[0.0346+0.0346-C(0.0346,0.0346)]\\
+&=1000000\times e^{-0.04\times1}\times0.00727679\\
+&=6991.46298\\
+\end{split}
+
+    \hypertarget{problem-6}{%
+\section{Problem 6}\label{problem-6}}
+
+    \textbf{\emph{Suppose that we have two bonds A and B. Denote by \(T_A\)
+and \(T_B\) their respective default times (in year). Suppose that
+\(T_A\) follows exponential distribution with hazard
+\(\lambda_A = 0.01\) (i.e. \(P (T_A \geq t) = e^{−\lambda_A t}\)) and
+\(T_B\) follows exponential with hazard \(\lambda_B = 0.02\). Suppose
+that jointly they satisfy the Gumbel copula with \(\alpha = 2\). Find
+the probabilities that (i) both will default by the end of the first
+year; (ii) at least one will default by the end of the first year.}}
+
+    \hypertarget{i}{%
+\subsection{(i)}\label{i}}
+
+\[g^{-1}_\alpha(u)=\exp(-u^{1/\alpha})=\exp(-\sqrt{u})\\
+\tag{6.1}\] \[
+P(\tau_A\leq T,\tau_B\leq T)
+=C(F_A(T),F_B(T))\\
+\tag{6.2}\] \textbackslash{}begin\{split\}
+F\_A(T)\&=P(T\_A\leq T)\textbackslash{} \&=
+1-P(T\_A\geq T)\textbackslash{}
+\&=1-e\textsuperscript{\{-\lambda\emph{AT\}\textbackslash{}
+\&=1-e\^{}\{-0.01\}\textbackslash{}
+F\_B(T)\&=P(T\_B\leq T)\textbackslash{} \&=
+1-P(T\_B\geq T)\textbackslash{}
+\&=1-e\textsuperscript{\{-\lambda\emph{BT\}\textbackslash{}
+\&=1-e\textsuperscript{\{-0.02\}\textbackslash{}\textbackslash{}
+P(\tau\emph{A\leq 1,\tau\emph{B\leq 1)\&=C\_g(F\_A(1),F\_B(1))\textbackslash{}
+\&=g\textsuperscript{\{-1\}\emph{\alpha(g}\alpha(F\_A(1))+g\_\alpha(F\_A(1)))\textbackslash{}
+\&=g}\{-1\}}\alpha(g}\alpha(1-e}\{-0.01\})+g}\alpha(1-e}\{-0.02\}))\textbackslash{}\textbackslash{}
+g}\alpha(1-e}\{-0.01\})\&=(-\log \{1-e\textsuperscript{\{-0.01\}\})}2
+\textbackslash{} \&=(\log \{1-e\textsuperscript{\{-0.01\}\})}2
+\textbackslash{} \&=21.25363\textbackslash{}
+g\_\alpha(1-e\textsuperscript{\{-0.02\})\&=(-\log \{1-e}\{-0.02\}\})\^{}2
+\textbackslash{} \&=(\log \{1-e\textsuperscript{\{-0.02\}\})}2
+\textbackslash{} \&=15.38213\textbackslash{}\textbackslash{}
+P(\tau\emph{A\leq 1,\tau\emph{B\leq 1)\&=g\^{}\{-1\}}\alpha(21.25363+15.38213)\textbackslash{}
+\&=g\^{}\{-1\}}\alpha(36.63576)\textbackslash{}
+\&=\exp(-\sqrt{36.63576})\textbackslash{} \&=0.00235\textbackslash{}
+\textbackslash{}end\{split\}
+
+    \hypertarget{ii}{%
+\subsection{(ii)}\label{ii}}
+
+\textbackslash{}begin\{split\} P(\tau\_A\leq T \text{ or }
+\tau\_B\leq T)\&=P(\tau\_A\leq T)+P(\tau\_B\leq T)-
+P(\tau\_A\leq T,\tau\_B\leq T)\textbackslash{}
+\&=P(\tau\_A\leq T)+P(\tau\_B\leq T)-C(F\_A(T),F\_B(T))\textbackslash{}
+\&=1-e\textsuperscript{\{-0.01\}+1-e}\{-0.02\}-0.00235\textbackslash{}
+\&=0.0274\textbackslash{} \textbackslash{}end\{split\}
+
+    \hypertarget{problem-7}{%
+\section{Problem 7}\label{problem-7}}
+
+    \textbf{\emph{Continue from the preceding problem. Suppose that a policy
+pays 1 million dollars if both A and B default by the end of the first
+year. If the interest rate is 0, what would be fair value of this
+policy? What if \(\alpha = 1\) instead of \(2\)?}}
+
+    \hypertarget{if-alpha2}{%
+\subsubsection{\texorpdfstring{if
+\(\alpha=2\)}{if \textbackslash{}alpha=2}}\label{if-alpha2}}
+
+\textbackslash{}begin\{split\} FTD \&=
+e\^{}\{-rT\}C(F\_1(T),F\_2(T))\textbackslash{} FTD
+\&=1000000\times e\^{}\{-0\times1\}\times0.0023513903\textbackslash{}
+\&=2351.3903\textbackslash{} \textbackslash{}end\{split\}
+
+    \hypertarget{if-alpha1}{%
+\subsubsection{\texorpdfstring{if
+\(\alpha=1\)}{if \textbackslash{}alpha=1}}\label{if-alpha1}}
+
+\[g^{-1}_\alpha(u)=\exp(-u^{1/\alpha})=\exp(-u)\\
+\tag{6.1}\] \[
+P(\tau_A\leq T,\tau_B\leq T)
+=C(F_A(T),F_B(T))\\
+\tag{6.2}\] \textbackslash{}begin\{split\} F\_A(T)
+\&=1-e\textsuperscript{\{-0.01\}\textbackslash{} F\_B(T)
+\&=1-e}\{-0.02\}\textbackslash{}\textbackslash{}
+P(\tau\emph{A\leq 1,\tau\emph{B\leq 1)\&=C\_g(F\_A(1),F\_B(1))\textbackslash{}
+\&=g\textsuperscript{\{-1\}\emph{\alpha(g}\alpha(F\_A(1))+g\_\alpha(F\_A(1)))\textbackslash{}
+\&=g}\{-1\}}\alpha(g}\alpha(1-e\textsuperscript{\{-0.01\})+g\_\alpha(1-e}\{-0.02\}))\textbackslash{}\textbackslash{}
+g\_\alpha(1-e\textsuperscript{\{-0.01\})\&=-\log \{1-e}\{-0.01\}\}
+\textbackslash{} \&=4.610166\textbackslash{}
+g\_\alpha(1-e\textsuperscript{\{-0.02\})\&=-\log \{1-e}\{-0.02\}\}
+\textbackslash{} \&=3.922006\textbackslash{}\textbackslash{}
+P(\tau\emph{A\leq 1,\tau\emph{B\leq 1)\&=g\^{}\{-1\}}\alpha(4.610166+3.922006)\textbackslash{}
+\&=g\^{}\{-1\}}\alpha(8.532172)\textbackslash{}
+\&=\exp(-8.532172)\textbackslash{} \&=0.00019702649\textbackslash{}
+\textbackslash{}end\{split\}
+
+    Then we can compute the fair value. \textbackslash{}begin\{split\} FTD
+\&= e\^{}\{-rT\}C(F\_1(T),F\_2(T))\textbackslash{} FTD
+\&=1000000\times e\^{}\{-0\times1\}\times0.00019702649\textbackslash{}
+\&=197.0264\textbackslash{} \textbackslash{}end\{split\}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

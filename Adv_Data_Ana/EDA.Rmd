@@ -1,0 +1,211 @@
+---
+  output:
+  pdf_document: Final Project
+html_document: default
+---
+  
+## import data
+  
+  
+  ```{r}
+library(reshape2)
+library(ggplot2)
+library(VGAM)
+```
+
+
+```{r}
+crime <- read.table('APPENC02(1).txt')
+colnames(crime) <- c("id","county","state","area","population",
+                     "perc.young","perc.old","physicians",
+                     "hospital.beds","n.crimes","perc.hs",
+                     "perc.bs","perc.poor","unemployment",
+                     "per.income","tot.income","region")
+crime['pop.density'] = crime$population/crime$area
+crime['physician.per.1000'] = crime$physicians/(crime$population/1000)
+crime['beds.per.1000'] = crime$hospital.beds/(crime$population/1000)
+crime['crime.rate.per.1000'] = crime$n.crimes/(crime$population/1000)
+head(crime)
+dim(crime)
+```
+
+
+```{r}
+lm.crime.full <- lm(crime.rate.per.1000 ~ area + perc.young + perc.old +
+                      hospital.beds + perc.bs + perc.poor + unemployment +
+                      per.income + I(region) + pop.density + physician.per.1000 + 
+                      beds.per.1000, data = crime)
+summary(lm.crime.full)
+```
+
+
+
+```{r}
+lm.crime.fit1 <- lm(crime.rate.per.1000 ~ perc.young + hospital.beds + perc.poor + per.income +
+                      I(region) + pop.density + beds.per.1000, data = crime)
+summary(lm.crime.fit1)
+```
+
+
+
+```{r}
+step(lm.crime.fit1,direction = "backward")$anova
+```
+
+
+
+# Poisson regression 
+
+
+```{r}
+df <- crime
+```
+
+
+```{r}
+# correlation map
+UNI <- 2823
+set.seed(2823)
+index <- sample(c(1:440))
+train_df <- df[index[1:300],]
+numeric_features <- c('area','population','perc.young','perc.old',
+                      'physicians','hospital.beds','n.crimes','perc.hs',
+                      'perc.bs','perc.poor','unemployment','per.income',
+                      'tot.income','pop.density','physician.per.1000',
+                      'beds.per.1000','crime.rate.per.1000')
+cormat <- round(cor(train_df[numeric_features]),2)
+
+melted_cormat <- melt(cormat)
+
+options(repr.plot.width=12, repr.plot.height=5)
+ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
+  geom_tile(color = "white")+
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white",
+                       midpoint = 0, limit = c(-1,1), space = "Lab",
+                       name="Pearson\nCorrelation") +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1,
+                                   size = 12, hjust = 1))+
+  coord_fixed()
+```
+
+
+### train a fisrt poisson model
+
+
+```{r}
+#poission 
+
+m2 <- glm( n.crimes/(population/1000)~ perc.young + perc.poor + per.income +
+             factor(region) + log(pop.density) + physician.per.1000 + beds.per.1000 +
+             perc.bs + unemployment, family=quasipoisson, data=df, weights=(population/1000))
+summary(m2)
+```
+
+
+
+
+### detect outlier
+
+
+```{r}
+#h=0.25
+outliers <- which(hatvalues(m2)>0.25)
+a1<-hatvalues(m2)
+a2<-residuals(m2)
+a3<-data.frame(hat.values=a1,res=a2)
+
+options(repr.plot.width=5, repr.plot.height=4)
+ggplot(data=a3,aes(hat.values,res)) +
+  geom_point(alpha=0.8)+
+  geom_text(data=a3[outliers,],aes(hat.values,res, label=df$county[outliers]),size=3,hjust=1,alpha=0.8)
+```
+
+
+
+
+### delete outlier and retrain model
+
+
+```{r}
+df2 = df[-outliers,]
+
+#poission 
+
+m3 <- glm( n.crimes/(population/1000)~ perc.poor + per.income +
+             factor(region) + log(pop.density) + physician.per.1000 + beds.per.1000,
+           family=quasipoisson, data=df2, weights=(population/1000))
+summary(m3)
+```
+
+
+### retrain model
+delete `per.income` and `physician.per.1000`
+
+
+```{r}
+#poission 
+
+m4 <- glm( n.crimes/(population/1000)~ perc.poor +
+             factor(region) + log(pop.density) + beds.per.1000,
+           family=quasipoisson, data=df2, weights=(population/1000))
+summary(m4)
+```
+
+
+```{r}
+#h=0.25
+outliers <- which(hatvalues(m4)>0.25)
+a1<-hatvalues(m4)
+a2<-residuals(m4)
+a3<-data.frame(hat.values=a1,res=a2)
+
+options(repr.plot.width=5, repr.plot.height=4)
+ggplot(data=a3,aes(hat.values,res)) +
+  geom_point(alpha=0.8)+
+  geom_text(data=a3[outliers,],aes(hat.values,res, label=df$county[outliers]),size=3,hjust=1,alpha=0.8)
+```
+
+
+
+
+# advanced model
+
+
+```{r}
+library(xgboost)
+class(crime)
+class.list = lapply(crime,class)
+
+pairs(crime[,-c(1,2,3,17)])
+colnames(crime)
+
+library(dplyr)
+which(colnames(crime)=='county')
+which(colnames(crime)=='state')
+
+crime2 <- crime %>% c('county')
+
+which(class.list == 'factor')
+
+which(class.list == 'integer')
+
+length(which(class.list == 'numeric'))
+length(class.list)
+
+# crime_mat = xgb.DMatrix(data = crime[,-21], label = crime[,21])
+# xgb.cv(params = list('reg:linear'), data = data.matrix(crime[,-21]), label = crime[,21],nfold=5)
+```
+
+
+
+
+
+## EDA
+```{r}
+plot(crime$crime.rate.per.1000)
+
+crime[which(crime$crime.rate.per.1000>200),]
+
+
+```
